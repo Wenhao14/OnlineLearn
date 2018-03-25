@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>学习空间——西科大教师思政学习平台</title>
+		<link rel="stylesheet" href="../../css/user_space/common.css" />
+		<link rel="stylesheet" href="../../css/user_space/userSpace.css" />
+		<script type="text/javascript" src="../../js/ref/jquery-3.2.1.min.js" ></script>
+		<script type="text/javascript" src="../../js/userSpace.js" ></script>
+	</head>
+	<body>
+		<div id="head">
+			<div id="msg">
+				<span>西科大教师思政学习平台</span>
+			</div>
+			<div id="loginout">
+				<img title="退出" width="100%" height="100%" src="../../img/loginout.png"/>
+			</div>
+		</div>
+		<div id="main">
+			<div class="navs">
+				<div id="head_img">
+					<img  />
+				</div>
+				<div id="navList">
+					<div onclick="nav_action(0)" id="nav1" class="nav">
+						<span>我的课堂</span>
+					</div>
+					<div onclick="nav_action(1)" id="nav2" class="nav">
+						<span>论坛互动</span>
+					</div>
+					<div onclick="nav_action(2)" id="nav3" class="nav">
+						<span>我的测评</span>
+					</div>
+					<div onclick="nav_action(3) "id="nav4" class="nav">
+						<span>账户管理</span>
+					</div>
+			     </div>
+		    </div>
+			<div id="right">
+				<div class="navMsg">
+					<span id="navMsg"></span>
+				</div>
+				<div id="myClass">
+					
+				</div>
+				<div id="myTest">
+					
+				</div>
+				<div id="myAccount">
+					
+				</div>
+			</div>
+		</div>
+		<div id="bottom">
+			
+		</div>
+		<script>
+			$("#bottom").load("userSpace_foot.html");
+		</script>
+	</body>
+</html>

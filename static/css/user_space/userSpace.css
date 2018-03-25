@@ -1,0 +1,27 @@
+body{
+	margin: auto 0;
+}
+.nav{
+	padding: 20px;
+	height: 20px;
+	line-height: 20px;
+	overflow: hidden;
+	text-align: center;
+	font-weight:normal;
+	border-radius: 100px;
+	margin-top: 2px;
+	cursor:pointer;
+	color: white;
+	font-size: 18px;
+}
+.navMsg{
+	height:70px ;
+	line-height: 100px;
+	overflow: hidden;
+	border-color:#7B9E31 ;
+	border-bottom-style:solid ;
+}
+.navMsg span{
+	font-size: 25px;
+	padding-left: 2%;
+}

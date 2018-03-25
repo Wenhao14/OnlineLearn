@@ -1,0 +1,52 @@
+#head{
+	width: 100%;
+	height: 50px;
+	background-color: #4C4C4C;
+	line-height:50px;
+	overflow:hidden;	
+}
+#foot{
+	width: 100%;
+	height: 80px;
+	background-color: #999999;
+	line-height:80px;
+	overflow:hidden;	
+	color: white;
+	text-align: center;
+}
+#msg{
+	float: left;
+	color: white;
+	font-size: 18px;
+	margin-left: 5%;
+	font-family: "楷体";
+}
+#loginout{
+	float: right;
+	width:40px ;
+	height:40px;
+	margin-right: 5%;
+	padding-top:5px ;
+}
+.navs{
+    background-color: #F9F9F9 ;
+    width: 16%;
+    min-height: 650px;
+    float: left;
+    margin-left: 5%;
+}
+#right{
+	width: 70%;
+	float: right;
+	margin-right: 7%;
+	min-height: 650px;
+}
+#head_img{
+	background-image: url(../../img/head_img_bg.jpg);
+	background-size: 100% 100%;
+    background-repeat:no-repeat; 背景图片不重复*/
+  	width: 15vw;
+    height: 15vw;
+    margin-bottom: 10px;
+}
+
