@@ -52,7 +52,7 @@
             $.ajax(
                 {
                     type: "post",
-                    url: "/api/user/batchAdd",
+                    url: "/user/api/batchAdd",
                     dataType:"json",
                     data:{
                         usersJson:JSON.stringify( XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]))

@@ -1,13 +1,15 @@
 package com.oll.cache;
 
 import com.oll.model.User;
-import com.oll.util.AppConfig;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.oll.util.TokenFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -15,63 +17,84 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 public class ShareLogin {
-     @Autowired
-     private RedisTemplate redisTemplate;
-     @Autowired
-     private StringRedisTemplate stringRedisTemplate;
-     @Autowired
+     @Resource
+     private RedisTemplate redisTemplate ;
+     @Resource
      private TokenFactory tokenFactory;
-
+     @Value("${app.config.sessionOutTime}")
+     private Long sessionOutTime;
+     @Resource
+     private HttpServletRequest request;
+     @Resource
+     private HttpServletResponse response;
      /**
-      * 记录登录状态
+      * 设置session
       * @param user
       * @return
       */
-     public String login(User user){
-          boolean exists = stringRedisTemplate.hasKey(user.getUsername());
-          if(exists){
-               forceLoginOut(user.getUsername(),stringRedisTemplate.opsForValue().get(user.getUsername()));
+     public String setSession(User user){
+          Long uId = user.getUid();
+          String token = (String) redisTemplate.opsForValue().get(uId);
+          if(token != null){
+               /*
+                   强制退出之前的登录
+                */
+               redisTemplate.delete(uId);
+               redisTemplate.delete(token);
           }
-          String token = tokenFactory.createToken();
-          ValueOperations<String,User> valueOperations = redisTemplate.opsForValue();
-          valueOperations.set(token,user, AppConfig.LOGIN_OUTTIME, TimeUnit.MINUTES);
-          stringRedisTemplate.opsForValue().set(user.getUsername(),token,AppConfig.LOGIN_OUTTIME,TimeUnit.MINUTES);
+          token = tokenFactory.createToken();
+          redisTemplate.opsForValue().set(uId,token,sessionOutTime,TimeUnit.MINUTES);
+          redisTemplate.opsForValue().set(token,user,sessionOutTime,TimeUnit.MINUTES);
+         /**
+          * 存入session信息
+          */
+         setTokenToSession(token);
+         /**
+          * 将token写入cooking
+          */
+          Cookie cookie = new Cookie("token",token);
+          cookie.setMaxAge(24*60*60*1000);
+          cookie.setPath("/*");
+          response.addCookie(cookie);
           return token;
      }
-
      /**
       * 刷新登录状态
-      * @param token
       * @return
       */
-     public User loginKeep(String token){
-         boolean exists = redisTemplate.hasKey(token);
-         if(!exists){//用户登录过期或token伪造
-             return null;
-         }
-         redisTemplate.expire(token,AppConfig.LOGIN_OUTTIME,TimeUnit.MINUTES);
-         User user = (User) redisTemplate.opsForValue().get(token);
-         stringRedisTemplate.expire(user.getUsername(),AppConfig.LOGIN_OUTTIME,TimeUnit.MINUTES);
-         return user;
+     public void flushState(){
+          String token = getTokenBySession();
+          redisTemplate.expire(token,sessionOutTime,TimeUnit.MINUTES);
+          User user = (User) redisTemplate.opsForValue().get(token);
+          redisTemplate.expire(user.getUid(),sessionOutTime,TimeUnit.MINUTES);
      }
-
+     /**
+     * 获取用户Account
+     */
+     public User getUser(){
+          String token = getTokenBySession();
+          if(token == null){
+               return null;
+          }else {
+               User user = (User) redisTemplate.opsForValue().get(token);
+               return user;
+          }
+     }
      /**
       * 退出
-      * @param token
       */
-     public void loginOut(String token){
+     public void loginOut(){
+          String token = getTokenBySession();
           User user = (User) redisTemplate.opsForValue().get(token);
-          stringRedisTemplate.delete(user.getUsername());
+          redisTemplate.delete(user.getUid());
           redisTemplate.delete(token);
+     }
+     public String getTokenBySession(){
+          String token = (String) request.getSession().getAttribute("token");
+          return token;
+     }
+     public void setTokenToSession(String token){
+          request.getSession().setAttribute("token",token);
      }
 
-     /**
-      * 强制退出
-      * @param token
-      * @param userName
-      */
-     public void forceLoginOut(String token,String userName){
-          stringRedisTemplate.delete(userName);
-          redisTemplate.delete(token);
-     }
 }

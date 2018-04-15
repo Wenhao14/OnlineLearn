@@ -2,18 +2,41 @@ package com.oll.controller;
 
 import com.oll.services.UserService;
 import com.oll.util.BaseRtM;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+
 /**
  * 用户操作api
  */
 @RestController
 @RequestMapping(value = "/user/api")
 public class UserController {
-    @Autowired
+    @Resource
     private UserService userService;
+    @RequestMapping(value = "/userLogin", method = RequestMethod.GET)
+    public Object userLogin(@RequestParam String userName,@RequestParam String passWord){
+        BaseRtM baseRtM = new BaseRtM();
+        try {
+          Boolean result = userService.userLogin(userName,passWord);
+          if(result == true){
+              baseRtM.setRtMCode("T");
+              baseRtM.setRtMsg("登录成功");
+          }else {
+              baseRtM.setRtMCode("F");
+              baseRtM.setRtMsg("用户名或密码不正确");
+          }
+        }catch (Exception e){
+            baseRtM.setRtMCode("F");
+            baseRtM.setRtMsg(e.getMessage());
+        }finally {
+            return baseRtM;
+        }
+    }
+
 
     /*
        批量注册用户
@@ -41,8 +64,9 @@ public class UserController {
     /**
      * 验证密码
      */
+    @RequestMapping(value = "test")
     public Object checkPassWord(){
-        return null;
+        return "ok";
     }
 
     /**

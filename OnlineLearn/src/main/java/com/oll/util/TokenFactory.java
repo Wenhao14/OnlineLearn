@@ -1,4 +1,4 @@
-package com.oll.cache;
+package com.oll.util;
 
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import java.util.UUID;
 @Service
 public class TokenFactory {
     public String createToken(){
-        String uuid = UUID.randomUUID().toString().replaceAll("-","");
+        String uuid = UUID.randomUUID().toString();
         return uuid;
     }
 }

@@ -2,26 +2,27 @@ package com.oll.util;
 
 /**
  * Created by NewDarker on 2018/1/10.
+ * 返回结果封装
  */
 public class BaseRtM {
-    private Integer rtMCode;
-    private String rtMContext;
+    private String rtMCode;
+    private String rtMsg;
     private Object rtMData;
 
-    public Integer getRtMCode() {
+    public String getRtMCode() {
         return rtMCode;
     }
 
-    public void setRtMCode(Integer rtMCode) {
+    public void setRtMCode(String rtMCode) {
         this.rtMCode = rtMCode;
     }
 
-    public String getRtMContext() {
-        return rtMContext;
+    public String getRtMsg() {
+        return rtMsg;
     }
 
-    public void setRtMContext(String rtMContext) {
-        this.rtMContext = rtMContext;
+    public void setRtMsg(String rtMsg) {
+        this.rtMsg = rtMsg;
     }
 
     public Object getRtMData() {

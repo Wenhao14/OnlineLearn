@@ -1,4 +1,4 @@
-package com.oll.cache;
+package com.oll.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
