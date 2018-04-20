@@ -36,8 +36,6 @@ public class UserController {
             return baseRtM;
         }
     }
-
-
     /*
        批量注册用户
      */

@@ -34,16 +34,16 @@ public class ShareLogin {
       */
      public String setSession(User user){
           Long uId = user.getUid();
-          String token = (String) redisTemplate.opsForValue().get(uId);
+          String token = (String) redisTemplate.opsForValue().get(getUserLoginKey(uId));
           if(token != null){
                /*
                    强制退出之前的登录
                 */
-               redisTemplate.delete(uId);
+               redisTemplate.delete(getUserLoginKey(uId));
                redisTemplate.delete(token);
           }
           token = tokenFactory.createToken();
-          redisTemplate.opsForValue().set(uId,token,sessionOutTime,TimeUnit.MINUTES);
+          redisTemplate.opsForValue().set(getUserLoginKey(uId),token,sessionOutTime,TimeUnit.MINUTES);
           redisTemplate.opsForValue().set(token,user,sessionOutTime,TimeUnit.MINUTES);
          /**
           * 存入session信息
@@ -66,7 +66,7 @@ public class ShareLogin {
           String token = getTokenBySession();
           redisTemplate.expire(token,sessionOutTime,TimeUnit.MINUTES);
           User user = (User) redisTemplate.opsForValue().get(token);
-          redisTemplate.expire(user.getUid(),sessionOutTime,TimeUnit.MINUTES);
+          redisTemplate.expire(getUserLoginKey(user.getUid()),sessionOutTime,TimeUnit.MINUTES);
      }
      /**
      * 获取用户Account
@@ -86,7 +86,7 @@ public class ShareLogin {
      public void loginOut(){
           String token = getTokenBySession();
           User user = (User) redisTemplate.opsForValue().get(token);
-          redisTemplate.delete(user.getUid());
+          redisTemplate.delete(getUserLoginKey(user.getUid()));
           redisTemplate.delete(token);
      }
      public String getTokenBySession(){
@@ -96,5 +96,7 @@ public class ShareLogin {
      public void setTokenToSession(String token){
           request.getSession().setAttribute("token",token);
      }
-
+     public String getUserLoginKey(Object uid){
+          return "ISLOGIN"+uid;
+     }
 }
