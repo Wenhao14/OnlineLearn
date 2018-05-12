@@ -1,85 +1,229 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="http://oss.sheetjs.com/js-xlsx/xlsx.full.min.js"></script>
-</head>
-
-<body>
-<input type="file"onchange="importExcel(this)" />
-<div id="demo"></div>
-<script>
-    /*
-     FileReader共有4种读取方法：
-     1.readAsArrayBuffer(file)：将文件读取为ArrayBuffer。
-     2.readAsBinaryString(file)：将文件读取为二进制字符串
-     3.readAsDataURL(file)：将文件读取为Data URL
-     4.readAsText(file, [encoding])：将文件读取为文本，encoding缺省值为'UTF-8'
-     */
-    var wb;//读取完成的数据
-    var rABS = false; //是否将文件读取为二进制字符串
-
-    function importExcel(obj) {//导入
-        if(!obj.files) {
-            return;
-        }
-        const IMPORTFILE_MAXSIZE = 1*1024;//这里可以自定义控制导入文件大小
-        var suffix = obj.files[0].name.split(".")[1]
-        if(suffix != 'xls' && suffix !='xlsx'){
-            alert('导入的文件格式不正确!')
-            return
-        }
-        if(obj.files[0].size/1024 > IMPORTFILE_MAXSIZE){
-            alert('导入的表格文件不能大于1M')
-            return
-        }
-        var f = obj.files[0];
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            var data = e.target.result;
-            if(rABS) {
-                wb = XLSX.read(btoa(fixdata(data)), {//手动转化
-                    type: 'base64'
-                });
-            } else {
-                wb = XLSX.read(data, {
-                    type: 'binary'
-                });
-            }
-            $.ajax(
-                {
-                    type: "post",
-                    url: "/user/api/batchAdd",
-                    dataType:"json",
-                    data:{
-                        usersJson:JSON.stringify( XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]))
-                    },
-                    success:function(data) {
-                        alert(data);
-                    }
-                }
-            )
-        };
-        if(rABS) {
-            reader.readAsArrayBuffer(f);
-        } else {
-            reader.readAsBinaryString(f);
-        }
-    }
-
-    function fixdata(data) { //文件流转BinaryString
-        var o = "",
-            l = 0,
-            w = 10240;
-        for(; l < data.byteLength / w; ++l) o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l * w + w)));
-        o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)));
-        return o;
-    }
-
-</script>
-</body>
-
+	<head>
+		<meta charset="utf-8" />
+		<title>西科大教师思政学习平台</title>
+		<link rel="stylesheet" href="css/user_index/index_main.css" />
+		<link rel="stylesheet" href="css/user_index/head.css" />
+		<link rel="stylesheet" href="css/user_index/courseBox.css" />
+		<link rel="stylesheet" href="css/user_index/foot.css" />
+		<script type="text/javascript" src="js/ref/jquery-3.2.1.min.js"></script>
+	    <script type="text/javascript" src="js/nav.js"></script>
+	</head>
+	<body onload="init(1)" >
+		<div class="top">
+		    <div class="logo">
+		    	<img id="lo1" src="img/theme.png" />
+		    </div>
+			<div id="nav">
+				<table align="center" border="1" bordercolor="#CCCCCC" frame="below"  class = "nav">
+					<tr height="25px">
+						<td id="nav1" onclick="navUrl(1)" height="35px"> 
+							<span>主页</span>
+						</td>
+						<td  onclick="navUrl(2)" id="nav2">
+							<span>新闻公告</span>
+						</td>
+						<td onclick="navUrl(3)" id="nav3">
+							<span>论坛互动</span>
+						</td>
+						<td onclick="navUrl(4)" id="nav4">
+							<span>推荐课程</span>
+						</td>
+						<td onclick="navUrl(5)" id="nav5">
+							<span>热门课程</span>
+						</td>
+						<td  onclick="navUrl(6)" id="nav6">
+							<span>本校资源库</span>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div id="main">
+			<div id ="left">
+				<div class="uls">
+					<div class="title">
+			   	   	    <b>|</b><span>用户登录</span> 
+			   	   	    <button id="userLogin" onclick="javascrtpt:window.location.href='page/common/login.html'">登录</button>
+					</div>
+					<div class="hasLogin">
+		   		    	<div class="hl_top">
+		   		    		<div class="headImg">
+		   		    			<img src="img/login-img.jpg"/>
+		   		    		</div>
+		   		    		<div class="userMsg">
+		   		    			<span>欢  迎         </span><span id="userName">王文昊</span>
+		   		    		    <br />
+		   		    			<span>进  入         </span><button onclick="javascrtpt:window.location.href='page/front/userSpace.html'" class="learnArea">学习空间</button>
+		   		    		</div>
+		   		    	</div>
+		   		    	<div>
+		   		    		<div onclick="" class="upPwd">修改密码</div>
+		   		    		<div onclick="" class="loginOut">退出登录</div>
+		   		    	</div>
+		   		    </div>
+			   		<div class="find">
+			   			<input type="text" placeholder="课程名称" id="key"/><img src="img/find.png"/>
+			   		</div>
+				</div>
+				<div class="nn">
+					<div class="title">
+			   	  		<b>|</b><span>热点新闻</span><span class="enter" onclick="javascript:window.location.href='page/front/news_notice.html'">更多<img src="img/enter.gif"/></span>
+			   		</div>
+			   		<div>
+			   			<div class="li">
+			   				·  <a href="">中华人民伟大复兴而奋斗</a><span>2018-3-4</span>
+			   			</div>
+			   			<div class="li">
+			   				·  <a href="">为中华之崛起而读书</a><span>2018-3-4</span>
+			   			</div>
+			   			<div class="li">
+			   				·  <a href="">中华人民伟大复兴而奋斗</a><span>2018-3-4</span>
+			   			</div>
+			   			<div class="li">
+			   				·  <a href="">为中华之崛起而读书</a><span>2018-3-4</span>
+			   			</div>
+			   			<div class="li">
+			   				·  <a href="">中华人民伟大复兴而奋斗</a><span>2018-3-4</span>
+			   			</div>
+			   			<div class="li">
+			   				·  <a href="">为中华之崛起而读书</a><span>2018-3-4</span>
+			   			</div>
+			   		</div>
+				</div>
+				<div class="out">
+					<div class="title">
+			       	    <b>|</b><span>服务链接</span>
+			   		</div>
+			   		<div class="outTable">
+			   			<table>
+			   				<tr>
+			   					<td>
+			   						<div class="outUrl">
+			   							<a href="">清华大学</a>
+			   						</div>
+			   					</td>
+			   					<td>
+			   						<div class="outUrl">
+			   							<a href="">北京大学</a>
+			   						</div>
+			   					</td>
+			   				</tr>
+			   				<tr>
+			   					<td>
+			   						<div class="outUrl">
+			   							<a href="">哈佛大学</a>
+			   						</div>
+			   					</td>
+			   					<td>
+			   						<div class="outUrl">
+			   							<a href="">人民大学</a>
+			   						</div>
+			   					</td>
+			   				</tr>
+			   				<tr>
+			   					<td>
+			   						<div class="outUrl">
+			   							<a href="">哈佛大学</a>
+			   						</div>
+			   					</td>
+			   					<td>
+			   						<div class="outUrl">
+			   							<a href="">人民大学</a>
+			   						</div>
+			   					</td>
+			   				</tr>
+			   			</table>
+			   		</div>
+				</div>
+			</div>
+			<div id="function1">
+				<div class="title">
+					<b>|</b><span>推荐课程</span><span class="enter" onclick="javascript:window.location.href='page/front/re_course.html'" >进入<img src="img/enter.gif"/></span>
+				</div>
+				<div id="pushCourse">
+					<table class="courseTable">
+						<tr>
+							<td>
+								<div class="course">
+									<img onclick="" src="img/findPwd_bg.gif" />
+									<a href="">课程名</a>
+									<br/>
+									<span>主讲人</span>
+								</div>
+							</td>
+							<td>
+								<div class="course">
+									<img src="img/findPwd_bg.gif" />
+									<a href="">课程名</a>
+									<br/>
+									<span>主讲人</span>
+								</div>
+							</td>
+							<td>
+								<div class="course">
+									<img src="img/findPwd_bg.gif" />
+									<a href="">课程名</a>
+									<br/>
+									<span>主讲人</span>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div id="function2">
+				<div class="title">
+					<b>|</b><span>热门课程</span><span class="enter" onclick="javascript:window.location.href='page/front/hot_course.html'">进入<img src="img/enter.gif"/></span>
+				</div>
+				<div id="hotCourse">
+					<table class="courseTable">
+						<tr>
+							<td>
+								<div class="course">
+									<img src="img/findPwd_bg.gif" />
+									<a href="">课程名</a>
+									<br/>
+									<span>主讲人</span>
+								</div>
+							</td>
+							<td>
+								<div class="course">
+									<img src="img/findPwd_bg.gif" />
+									<a href="">课程名</a>
+									<br/>
+									<span>主讲人</span>
+								</div>
+							</td>
+							<td>
+								<div class="course">
+									<img src="img/findPwd_bg.gif" />
+									<a href="">课程名</a>
+									<br/>
+									<span>主讲人</span>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div id="function3">
+				<div class="title">
+					<b>|</b><span>操作手册</span>
+				</div>
+				<div class="content">
+					<div class="filedown">
+						<a href="C://Users//NewDarker//Desktop//xxxxx.doc">平台操作手册学生版.doc</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="foot">
+			
+		</div>
+		<script>
+			$("#foot").load("/page/front/foot.html");
+		</script>
+	</body>
 </html>

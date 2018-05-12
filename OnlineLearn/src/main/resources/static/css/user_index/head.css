@@ -1,0 +1,60 @@
+body{
+	margin: auto 0;
+	background-color: #EBEBEB;
+}
+.top{
+	background-color:#F1F1F1 ;
+	background-image: url(../../img/logo.png);
+	background-size: 75% 100%;
+	background-repeat:no-repeat; /*背景图片不重复*/
+    background-position:center top; /*水平居中，垂直顶对齐*/ 
+}
+.logo{
+   padding-top: 2.5%;
+   padding-left: 13%;
+   padding-bottom: 6%;
+   width: 50%;
+   float: left;
+}
+.nav{
+	width: 75%;
+	text-align: center; 
+    font-size:18px ;
+    border-collapse:collapse;
+    background-color: #EBEBEB;
+}
+#nav td{
+	cursor:pointer;
+}
+#login{
+	width: 14%;
+	height: 40px;
+	float: right;
+	margin-right: 13.5%;
+	background-color: #008ACF;
+}
+#commit{
+	height: 100%;
+	width: 100%;
+	color: white;
+	font-size: 18px;
+	line-height: 40px;
+	overflow: hidden;
+}
+#com_img{
+	width: 20%;
+	float: left;
+	margin-left: 15%;
+	margin-top: 1%;
+}
+#com_msg{
+	width: 65%;
+	float: right;
+}
+#hasLogin{
+	width: 14%;
+	height: 40px;
+	float: right;
+	margin-right: 13.5%;
+	background-color: #929292;
+}

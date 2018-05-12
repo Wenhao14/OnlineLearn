@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>小试牛刀——西科大教师思政学习平台</title>
+		<link rel="stylesheet" href="../../css/user_space/testPaper.css" />
+		<link rel="stylesheet" href="../../css/ref/tpstyles.css" />
+		<script type="text/javascript" src="../../js/ref/jquery-3.2.1.min.js" ></script>
+		<script type="text/javascript" src="../../js/ref/jquiz.js" ></script>
+	</head>
+	<body>
+		<div class="head">
+			<div class="msg">
+				<span>西科大教师思政学习平台</span>
+			</div>
+			<div class="loginout">
+				<img title="退出" width="100%" height="100%" src="../../img/loginout.png"/>
+			</div>
+		</div>
+		<div class="test">
+			<div id="tp">
+   			</div>
+		</div>
+		<div class="foot">
+			<span>Copyright © 西安科技大学. All Rights Reserved.</span>
+	    </div>
+	<script type="text/javascript">
+   		var init={'questions':[{'question':'jQuery是什么？','answers':['JavaScript库','CSS库','PHP框架','以上都不是'],'correctAnswer':1},{'question':'找出不同类的一项?','answers':['写字台','沙发','电视','桌布'],'correctAnswer':3},{'question':'国土面积最大的国家是：','answers':['美国','中国','俄罗斯','加拿大'],'correctAnswer':3},{'question':'月亮距离地球多远？','answers':['18万公里','38万公里','100万公里','180万公里'],'correctAnswer':2}]};
+   		$(function(){
+			$('#tp').jquizzy({
+		        questions: init.questions
+		    });
+		});
+   </script>
+	</body>
+</html>

@@ -49,7 +49,8 @@ public class YzmUtil {
     }
 
     /**
-     * 生成随机图片
+     * 生成验证码
+     * @throws IOException
      */
     public void getRandcode() throws IOException {
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_BGR);
@@ -72,6 +73,11 @@ public class YzmUtil {
         ImageIO.write(image, "JPEG", response.getOutputStream());
     }
 
+    /**
+     * 验证验证码
+     * @param yzm
+     * @return
+     */
     public Boolean checkYzm(String yzm){
         String trueYzm = (String) request.getSession().getAttribute("yzm");
         if(trueYzm != null){

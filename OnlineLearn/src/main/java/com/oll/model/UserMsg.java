@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "usermsg")
-public class Usermsg implements Serializable{
+public class UserMsg implements Serializable{
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long uid;

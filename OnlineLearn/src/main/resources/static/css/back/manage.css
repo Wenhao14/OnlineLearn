@@ -1,0 +1,120 @@
+body{
+	margin: 0 auto;
+}
+#head{
+	width: 100%;
+	height: 50px;
+	background-color: #4C4C4C;
+	line-height:50px;
+	overflow:hidden;	
+}
+#msg{
+	float: left;
+	color: white;
+	font-size: 18px;
+	margin-left: 5%;
+	font-family: "楷体";
+}
+#loginout{
+	float: right;
+	width:40px ;
+	min-height:40px;
+	margin-right: 5%;
+	padding-top:5px ;
+}
+.navs{
+    background-color: #F9F9F9 ;
+    width: 16%;
+    min-height: 600px;
+    float: left;
+    margin-left: 5%;
+}
+#right{
+	width: 70%;
+	float: right;
+	margin-right: 7%;
+	min-height: 600px;
+}
+.nav{
+	padding: 15px;
+	min-height: 20px;
+	line-height: 20px;
+	overflow: hidden;
+	text-align: center;
+	font-weight:normal;
+	border-radius: 100px;
+	margin-top: 2px;
+	cursor:pointer;
+	color: white;
+	font-size: 18px;
+}
+.navMsg{
+	height:70px ;
+	line-height: 100px;
+	overflow: hidden;
+	border-color:#7B9E31 ;
+	border-bottom-style:solid ;
+}
+.navMsg span{
+	font-size: 25px;
+	padding-left: 2%;
+}
+.us_nav td{
+	white-space: nowrap; 
+	padding-right: 20px;
+}
+.us_nav span{
+	font-size: 18px;
+    cursor: pointer;
+}
+#us_navCli span{
+	font-size: 15px;
+    cursor: pointer;
+}
+.mainBlock{
+	width: 100%;
+	margin-top: 15px;
+	min-height: 500px;
+}
+.box{
+	padding-left: 30%;
+	padding-top: 15%;
+}
+.tv_tab{
+	width: 100%;
+	font-family: verdana,arial,sans-serif;
+    border-width: 1px;
+    border-color: #999999;
+    border-collapse: collapse;
+}
+.tv_tab th {
+    background-color:#c3dde0;
+    border-width: 1px;
+    font-size: 16px;
+    font-style: normal;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+}
+.tv_tab tr {
+    background-color:#d4e3e5;
+}
+.tv_tab td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+}
+.button{
+	background-color: #3CAA00;
+	color: white;
+	border-radius:5%;
+	border: none;
+	height: 30px;
+	width: 80px;
+}
+.delImg{
+	width: 40px;
+	height: 20px;
+	margin-left: 50px;
+}

@@ -1,0 +1,24 @@
+.courseTable{
+	width: 100%;
+    border-collapse:separate; 
+    border-spacing:10px;
+    table-layout:fixed;
+}
+.course{
+	height: 200px;
+	margin: auto;
+}
+.course img{
+	width: 100%;
+	height: 150px;
+	cursor:pointer;
+}
+.course a{
+	text-decoration: none;
+	font-size: 16px;
+	color: #292B2C;
+}
+.course span{
+	font-size: 14px;
+	color: #4C4C4C;
+}

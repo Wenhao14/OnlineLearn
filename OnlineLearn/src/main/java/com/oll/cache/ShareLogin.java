@@ -89,11 +89,11 @@ public class ShareLogin {
           redisTemplate.delete(getUserLoginKey(user.getUid()));
           redisTemplate.delete(token);
      }
-     public String getTokenBySession(){
+     private String getTokenBySession(){
           String token = (String) request.getSession().getAttribute("token");
           return token;
      }
-     public void setTokenToSession(String token){
+     private void setTokenToSession(String token){
           request.getSession().setAttribute("token",token);
      }
      public String getUserLoginKey(Object uid){

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>学习空间——西科大教师思政学习平台</title>
+		<link rel="stylesheet" href="../../css/user_space/common.css" />
+		<link rel="stylesheet" href="../../css/user_space/userSpace.css" />
+		<link rel="stylesheet" href="../../css/user_index/foot.css" />
+		<link rel="stylesheet" href="../../css/user_index/courseBox.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ref/font-awesome.4.6.0.css">
+		<link rel="stylesheet" href="../../css/ref/amazeui.min.css">
+		<link rel="stylesheet" href="../../css/ref/amazeui.cropper.css">
+		<link rel="stylesheet" href="../../css/ref/custom_up_img.css">
+		<script type="text/javascript" src="../../js/ref/jquery-3.2.1.min.js" ></script>
+		<script type="text/javascript" src="../../js/userSpace.js" ></script>
+		<script type="text/javascript" src="../../js/ref/amazeui.min.js" ></script>
+		<script type="text/javascript" src="../../js/ref/cropper.min.js" ></script>
+		<script type="text/javascript" src="../../js/ref/custom_up_img.js" ></script>
+	</head>
+	<body>
+		<div id="head">
+			<div id="msg">
+				<span>西科大教师思政学习平台</span>
+			</div>
+			<div id="loginout">
+				<img title="退出" width="100%" height="100%" src="../../img/loginout.png"/>
+			</div>
+		</div>
+		<div id="main">
+			<div class="navs">
+				<div id="head_img">
+					<img id="up-img-touch" src="../../img/login-img.jpg " alt="点击图片上传" data-am-popover="{content: '点击上传', trigger: 'hover focus'}" />
+					<br />
+					<span id="uName">王文昊</span>
+				</div>
+				<div id="navList">
+					<div onclick="nav_action(0)" id="nav1" class="nav">
+						<span>我的课堂</span>
+					</div>
+					<div onclick="nav_action(1)" id="nav2" class="nav">
+						<span>论坛互动</span>
+					</div>
+					<div onclick="nav_action(2)" id="nav3" class="nav">
+						<span>我的测评</span>
+					</div>
+					<div onclick="nav_action(3) "id="nav4" class="nav">
+						<span>账户管理</span>
+					</div>
+			     </div>
+		    </div>
+			<div id="right">
+				<div class="navMsg">
+					<table id="us_nav">
+					</table>
+				</div>
+				<div id="myClass">
+				    <div id="c1v">
+				    	<table class="courseTable">
+        					<tr>
+        						<td>
+        							<div class="course">
+										<img onclick="" src="../../img/login-img.jpg" />
+										<a href="">课程名</a>
+										<br/>
+										<span>主讲人</span>
+									</div>
+        						</td>
+        						<td>
+        							<div class="course">
+										<img onclick="" src="../../img/login-img.jpg" />
+										<a href="">课程名</a>
+										<br/>
+										<span>主讲人</span>
+									</div>
+        						</td>
+        						<td>
+        							<div class="course">
+										<a class="addkc" href="local_resource_base.html" title="添加课程"><span></span></a>
+									</div>
+        						</td>
+        					</tr>
+        				</table>
+				    </div>
+				    <div id="c2v">
+				    	<table class="courseTable">
+        					<tr>
+        						<td>
+        							<div class="course">
+										<img onclick="" src="../../img/findPwd_bg.gif" />
+										<a href="">课程名</a>
+										<br/>
+										<span>主讲人</span>
+									</div>
+        						</td>
+        						<td>
+        							<div class="course">
+										<img onclick="" src="../../img/findPwd_bg.gif" />
+										<a href="">课程名</a>
+										<br/>
+										<span>主讲人</span>
+									</div>
+        						</td>
+        						<td>
+        							<div class="course">
+										<img onclick="" src="../../img/findPwd_bg.gif" />
+										<a href="">课程名</a>
+										<br/>
+										<span>主讲人</span>
+									</div>
+        						</td>
+        					</tr>
+        				</table>
+				    </div>
+				</div>
+				<div id="myTest">
+					<div id="t1v">
+						<table id="t1v_tab" class="tv_tab">
+							<tr class="tthead">
+								<th>科目</th>
+								<th>过期时间</th>
+								<th>作答</th>
+							</tr>
+							<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+							    <td>Item 1Awish爱的发if逆霸霸爱家斯蒂芬静安寺新款潮女</td><td>2018/5/1 00:00:00</td><td><a href="testPaper.html"><img class="tpdo" src="../../img/tpdo.png"/></a></td>
+							</tr>
+							<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+							    <td>Item 2A</td><td>Item 2B</td><td>Item 2C</td>
+							</tr>
+						</table>
+					</div>
+					<div id="t2v">
+						<table id="t2v_tab" class="tv_tab">
+							<tr class="tthead">
+								<th>科目</th>
+								<th>完成时间</th>
+								<th>成绩</th>
+							</tr>
+							<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+							    <td>Item 1A</td><td>Item 1B</td><td>Item 1C</td>
+							</tr>
+							<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+							    <td>Item 2A</td><td>Item 2B</td><td>Item 2C</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div id="myAccount">
+					<div id="m1v">
+						<div class="msgV">
+							<span class="msgVt">邮箱 : </span><span class="msgVc">1261640510@qq.com</span><a href="" id="upMail">修改</a>
+						</div>
+						<div class="msgV">
+							<span class="msgVt">手机 : </span><span class="msgVc">13201578359</span><a href="" id="upPhone">修改</a>
+						</div>
+						<div class="msgV">
+							<span class="msgVt">部门 : </span><span class="msgVc">计算机科学与技术学院软件工程系</span>
+						</div>
+						<div class="msgV">
+							<span class="msgVt">积分 : </span><span class="msgVc">1235</span>
+						</div>
+						<div class="msgV">
+							<span class="msgVt">排名 : </span><span class="msgVc">12/3500</span>
+						</div>
+						<div class="msgV">
+							<span class="msgVt">账号 : </span><span class="msgVc">1408010214</span>
+						</div>
+					</div>
+					<div id="m2v">
+						<table>
+							<tr>
+								<td>
+									旧密码:<br />
+									<input type="password"/>
+									<span class="warn"></span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									新密码:<br />
+									<input type="password" placeholder="密码为8位以上数字母组合"/>
+									<span class="warn"></span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									重复密码:<br />
+									<input type="password"/>
+									<span class="warn"></span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="yzm">
+										验证码: <img src="../../img/findPwd_bg.gif"/>
+									</div>
+									<input type="text" />
+									<span class="warn"></span>
+								</td>
+							</tr>
+							<tr>
+								<td><button class="button">确认修改</button></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="foot">	
+		</div>
+		<!--头像上传BEGIN-->
+		<div><a style="text-align: center; display: block;"  id="pic"></a></div>
+		<!--图片上传框-->
+		<div class="am-modal am-modal-no-btn up-frame-bj " tabindex="-1" id="doc-modal-1">
+		  <div class="am-modal-dialog up-frame-parent up-frame-radius">
+			<div class="am-modal-hd up-frame-header">
+			   <label>修改头像</label>
+			  <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+			</div>
+			<div class="am-modal-bd  up-frame-body">
+			  <div class="am-g am-fl">
+				<div class="am-form-group am-form-file">
+				  <div class="am-fl">
+					<button type="button" class="am-btn am-btn-default am-btn-sm">
+					  <i class="am-icon-cloud-upload"></i> 选择要上传的文件</button>
+				  </div>
+				  <input type="file" id="inputImage">
+				</div>
+			  </div>
+			  <div class="am-g am-fl" >
+				<div class="up-pre-before up-frame-radius">
+					<img alt="" src="" id="image" >
+				</div>
+				<div class="up-pre-after up-frame-radius">
+				</div>
+			  </div>
+			  <div class="am-g am-fl">
+				<div class="up-control-btns">
+					<span class="am-icon-rotate-left"  onclick="rotateimgleft()"></span>
+					<span class="am-icon-rotate-right" onclick="rotateimgright()"></span>
+					<span class="am-icon-check" id="up-btn-ok" url="admin/user/upload.action"></span>
+				</div>
+			  </div>
+			  
+			</div>
+		  </div>
+		</div>
+		
+		<!--加载框-->
+		<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
+		  <div class="am-modal-dialog">
+			<div class="am-modal-hd">正在上传...</div>
+			<div class="am-modal-bd">
+			  <span class="am-icon-spinner am-icon-spin"></span>
+			</div>
+		  </div>
+		</div>
+		
+		<!--警告框-->
+		<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+		  <div class="am-modal-dialog">
+			<div class="am-modal-hd">信息</div>
+			<div class="am-modal-bd"  id="alert_content">
+					  成功了
+			</div>
+			<div class="am-modal-footer">
+			  <span class="am-modal-btn">确定</span>
+			</div>
+		  </div>
+		</div>
+		<!--头像上传END-->
+		<script>
+			$("#foot").load("foot.html");
+		</script>
+	</body>
+</html>

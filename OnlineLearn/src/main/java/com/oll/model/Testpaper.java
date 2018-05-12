@@ -2,6 +2,7 @@ package com.oll.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "testpaper")
@@ -18,7 +19,7 @@ public class Testpaper implements Serializable {
   @Column(name = "tpdescribe")
   private String tpdescribe;
   @Column(name = "tppassdate")
-  private java.sql.Timestamp tppassdate;
+  private Date tppassdate;
   @Column(name = "toisdel")
   private String tpisdel;
   @Column(name = "tpcontent")
@@ -64,11 +65,11 @@ public class Testpaper implements Serializable {
     this.tpdescribe = tpdescribe;
   }
 
-  public java.sql.Timestamp getTppassdate() {
+  public Date getTppassdate() {
     return tppassdate;
   }
 
-  public void setTppassdate(java.sql.Timestamp tppassdate) {
+  public void setTppassdate(Date tppassdate) {
     this.tppassdate = tppassdate;
   }
 

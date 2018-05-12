@@ -1,0 +1,137 @@
+#nn_main{
+	margin: auto;
+	width: 75%;
+	min-height: 500px;
+	margin-top: 30px;
+	overflow: auto;
+	margin-bottom: 20px;
+}
+#nn_main a{
+	text-decoration:none; 
+}
+#left{
+	width: 22%;
+	background-color: #F6F6F6;
+	float: left;
+	min-height: 500px;
+	line-height: 55px;
+}
+#right{
+	width: 78%;
+	float: right;
+	min-height: 500px;
+	background-color: white;
+	box-shadow:0px 1px 1px #929292 ;
+}
+#content{
+	width: 95%;
+	margin: auto;
+}
+#msgnav{
+	height: 55px;
+	width: 100%;
+	background-color: white ;
+	font-size: 25px;
+	padding-left: 20%;
+}
+#notice,#news{
+	margin-top: 1px;
+	height: 55px;
+	font-size: 18px;
+	padding-left: 20%;
+	border-radius: 100px;
+	cursor:pointer;
+	color: white;
+}
+.nn{
+	margin: auto;
+	width: 90%;
+	min-height: 500px;
+}
+.title{
+	height:50px ;
+	font-size: 16px;
+	line-height: 50px;
+	border-color:#EBEBEB ;
+	border-bottom-style:dotted;
+}
+.title a{
+    color: #4C4C4C;
+}
+.title span{
+	float: right;
+	color: #99A2C2;
+	font-size: 14px;
+}
+.font1{
+	font-size: 20px;
+	color:#292B2C ;
+}
+.font2{
+	font-size:14px ;
+	color:#666666 ;
+}
+.msg_head{
+	height:55px ;
+	border-color:#EBEBEB ;
+	border-bottom-style:solid ;
+}
+.msg_head span{
+	line-height: 55px;
+}
+.find{
+	width: 40%;
+	border: 1px solid #ADADAD;
+	margin: auto;
+	margin-top: 20px;
+	height: 25px;
+	float: right;
+}
+.find input{
+	width: 80%;
+	margin-left:2%;
+	border: none;
+	outline:none
+}
+.find img{
+	float: right;
+	margin-top: 1.5%;
+	margin-right: 2%;
+}
+.msg_body p{
+	text-indent: 2em;
+}
+.msg_head a{
+	color: red;
+	font-size: 18px;
+	line-height: 55px;
+	float: right;
+}
+.option{
+	margin-top: 1px;
+	height: 55px;
+	font-size: 18px;
+	padding-left: 20%;
+	background-color: #636C72;
+	border-radius: 100px;
+	background-color: #008ACF;
+}
+.option a{
+	color: white;
+}
+.paging{
+	padding-top: 20px;
+	padding-bottom: 20px;
+	float: right;
+}
+.nn_paging{
+	padding-top: 15px;
+	padding-bottom: 15px;
+	float: right;
+}.left{
+	width: 22%;
+	background-color: #F6F6F6;
+	float: left;
+	min-height: 565px;
+	line-height: 55px;
+}

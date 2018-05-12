@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>本地资源库—西科大教师思政学习平台</title>
+		<link rel="stylesheet" href="../../css/user_index/head.css" />
+		<link rel="stylesheet" href="../../css/user_index/navCommon.css" />
+		<link rel="stylesheet" href="../../css/user_index/courseBox.css" />
+		<link rel="stylesheet" href="../../css/ref/jquery.pagination.css" />
+		<link rel="stylesheet" href="../../css/user_index/foot.css" />
+		<script type="text/javascript" src="../../js/ref/jquery-3.2.1.min.js"></script>
+	    <script type="text/javascript" src="../../js/nav.js"></script>
+	    <script type="text/javascript" src="../../js/lRBase.js" ></script>
+	    <script type="text/javascript" src="../../js/ref/jquery.pagination.min.js" ></script>
+	</head>
+	<body onload="init(6)">
+		<div class="top">
+		    <div class="logo">
+		    	<img id="lo1" src="../../img/theme.png" />
+		    </div>
+		    <div id="login">
+		    	<a id="commit" href="../common/login.html">
+		    		<div id="com_img">
+		    		     <img id="lo2" src="../../img/lo2.png" />
+		    		</div>
+		    		<div id="com_msg">
+		    			<span>用户登录</span>
+		    		</div>
+		    	</a>
+		    </div>
+			<div id="nav">
+				<table align="center" border="1" bordercolor="#CCCCCC" frame="below"  class = "nav">
+					<tr height="25px">
+						<td id="nav1" onclick="navUrl(1)" height="35px"> 
+							<span>主页</span>
+						</td>
+						<td  onclick="navUrl(2)" id="nav2">
+							<span>新闻公告</span>
+						</td>
+						<td onclick="navUrl(3)" id="nav3">
+							<span>论坛互动</span>
+						</td>
+						<td onclick="navUrl(4)" id="nav4">
+							<span>推荐课程</span>
+						</td>
+						<td onclick="navUrl(5)" id="nav5">
+							<span>热门课程</span>
+						</td>
+						<td  onclick="navUrl(6)" id="nav6">
+							<span>本校资源库</span>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div id="nn_main">
+        	<div id="lrb_nav" class="left">
+        		<div id="msgnav"><span>本校资源库</span></div>
+        		<div id="m-1" class="option"><a href="javascript:module(-1)">全部</a></div>
+        	</div>
+        	<div id="right">
+        		<div id="content">
+        			<div class="msg_head">
+        				<span class="font1" id="option"></span>
+        				<div class="find">
+			   				<input type="text" placeholder="课程名称" id="key"/>
+			   				<img src="../../img/find.png"/>
+			   			</div>
+        			</div>
+        			<div class="msg_body">
+        				 <table class="courseTable">
+        					<tr>
+        						<td>
+        							<div class="course">
+										<img onclick="" src="../../img/findPwd_bg.gif" />
+										<a href="">课程名</a>
+										<br/>
+										<span>主讲人</span>
+									</div>
+        						</td>
+        						<td>
+        							<div class="course">
+										<img onclick="" src="../../img/findPwd_bg.gif" />
+										<a href="">课程名</a>
+										<br/>
+										<span>主讲人</span>
+									</div>
+        						</td>
+        						<td>
+        							<div class="course">
+										<img onclick="" src="../../img/findPwd_bg.gif" />
+										<a href="">课程名</a>
+										<br/>
+										<span>主讲人</span>
+									</div>
+        						</td>
+        					</tr>
+        					<tr>
+        						<td>
+        							<div class="course">
+										<img onclick="" src="../../img/findPwd_bg.gif" />
+										<a href="">课程名</a>
+										<br/>
+										<span>主讲人</span>
+									</div>
+        						</td>
+        						<td>
+        							<div class="course">
+										<img onclick="" src="../../img/findPwd_bg.gif" />
+										<a href="">课程名</a>
+										<br/>
+										<span>主讲人</span>
+									</div>
+        						</td>
+        						<td>
+        							<div class="course">
+										<img onclick="" src="../../img/findPwd_bg.gif" />
+										<a href="">课程名</a>
+										<br/>
+										<span>主讲人</span>
+									</div>
+        						</td>
+        					</tr>
+        				</table>
+        				<div class="paging">
+        					<div id="pageView">
+        						
+        					</div>
+        				</div>
+        			</div>
+        		</div>
+        	</div>
+        </div>
+		<div id="foot">
+			
+		</div>
+		<script>
+			$("#foot").load("foot.html");
+		</script>
+	</body>
+</html>

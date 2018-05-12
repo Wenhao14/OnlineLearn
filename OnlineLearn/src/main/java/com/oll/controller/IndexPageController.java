@@ -14,9 +14,15 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping(value = "/index/api")
-public class IndexController {
+public class IndexPageController {
     @Resource
     private YzmUtil yzmUtil;
+
+    /**
+     * 验证验证码
+     * @param yzm
+     * @return
+     */
     @RequestMapping(value = "/yzmCheck")
     public Object yzmCheck(@RequestParam String yzm){
         BaseRtM baseRtM = new BaseRtM();
@@ -26,7 +32,7 @@ public class IndexController {
                 baseRtM.setRtMsg("验证通过");
             }else {
                 baseRtM.setRtMCode("F");
-                baseRtM.setRtMsg("验证码错误");
+                baseRtM.setRtMsg("验证码错误!");
             }
         }catch (Exception e){
             baseRtM.setRtMCode("F");
@@ -35,6 +41,11 @@ public class IndexController {
             return baseRtM;
         }
     }
+
+    /**
+     * 生成验证码
+     * @return
+     */
     @RequestMapping(value = "/getYzm")
     public Object getYzm(){
         try {
