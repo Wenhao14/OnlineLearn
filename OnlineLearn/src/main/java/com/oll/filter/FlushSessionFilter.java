@@ -10,7 +10,7 @@ import java.io.IOException;
  * Created by Administrator on 2018/3/26.
  * 登录过滤器
  */
-public class PermissionFilter implements Filter {
+public class FlushSessionFilter implements Filter {
     private static ShareLogin shareLogin;
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -18,10 +18,8 @@ public class PermissionFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         Object o = shareLogin.getUser();
-        if(o == null){
-            System.out.println("token不存在");
-        }else{
-           shareLogin.flushState();
+        if(o != null){
+            shareLogin.flushState();
         }
         filterChain.doFilter(servletRequest,servletResponse);
     }

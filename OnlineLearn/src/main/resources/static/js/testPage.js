@@ -8,28 +8,24 @@ function loadXmlFileToJson()
         var x2js = new X2JS();
         var jsonObj = x2js.xml_str2json( xmlStr );
         var jsonStr = JSON.stringify(jsonObj.testPage);
-        // $.ajax(
-        //     {
-        //         type: "post",
-        //         url: "/user/api/userLogin",
-        //         dataType:"json",
-        //         data:{
-        //             "userName":userName,
-        //             "passWord":pwd
-        //         },
-        //         success : function(data) {
-        //             if(data.rtMCode=="T"){
-        //                 window.location.href="/index.html";
-        //             }else{
-        //                 alert(data.rtMsg);
-        //                 yzmUp();
-        //             }
-        //         },
-        //         error : function () {
-        //             alert("µÇÂ¼Ê§°Ü£¡");
-        //             yzmUp();
-        //         }
-        //     }
-        // );
+        $.ajax(
+            {
+                type: "post",
+                url: "/resource/api/addTp",
+                dataType:"json",
+                data:{
+                    "title":"",
+                    "descibe":"",
+                    "passDate":"",
+                    "content":jsonStr
+                },
+                success : function(data) {
+                   alert(data.rtMsg);
+                },
+                error : function () {
+                    alert("²Ù×÷³ö´í!");
+                }
+            }
+        );
     }
 }

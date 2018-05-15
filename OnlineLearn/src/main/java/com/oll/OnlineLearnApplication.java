@@ -1,7 +1,7 @@
 package com.oll;
 
 
-import com.oll.filter.PermissionFilter;
+import com.oll.filter.FlushSessionFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
@@ -23,8 +23,8 @@ public class OnlineLearnApplication {
 	 * @return
 	 */
 	@Bean
-	public FilterRegistrationBean loginFilter(){
-		FilterRegistrationBean registration = new FilterRegistrationBean(new PermissionFilter());
+	public FilterRegistrationBean flushSessionFilter(){
+		FilterRegistrationBean registration = new FilterRegistrationBean(new FlushSessionFilter());
 		registration.addUrlPatterns("/*");
 		return registration;
 	}

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * 用户操作api
@@ -118,7 +119,7 @@ public class UserController {
      * @param newPwd
      * @return
      */
-    @RequestMapping(value = "alterPwd")
+    @RequestMapping(value = "/alterPwd")
     public Object alterPwd(@RequestParam String newPwd){
         BaseRtM baseRtM = new BaseRtM();
         try {
@@ -195,7 +196,7 @@ public class UserController {
      * @param type
      * @return
      */
-    @RequestMapping(value = "alterUMsg")
+    @RequestMapping(value = "/alterUMsg")
     public Object alterUserMsg(@RequestParam String msg,@RequestParam String type){
         return userService.updataUMsg(msg,type);
     }
@@ -232,13 +233,15 @@ public class UserController {
      * 是否已登录
      * @return
      */
-    @RequestMapping(value = "isLogin")
+    @RequestMapping(value = "/isLogin")
     public Object isLogin(){
         BaseRtM baseRtM = new BaseRtM();
         try {
             Boolean result = userService.isLogin();
             if(result){
                 baseRtM.setRtMCode("T");
+                Map msg = userService.getLoginUMsg();
+                baseRtM.setRtMData(msg);
             }else {
                 baseRtM.setRtMCode("F");
             }
@@ -248,37 +251,6 @@ public class UserController {
             return baseRtM;
         }
     }
-    /**
-     * 逻辑删除用户
-     */
-    public Object logicDel(@RequestParam String userName){
-        return null;
-    }
-    /**
-     * 恢复删除
-     */
-    public Object renewDel(@RequestParam String userName){
-        return null;
-    }
-    /**
-     * 物理删除用户
-     */
-    public Object realDel(){
-       return null;
-    }
-    /**
-     * 批量获取用户信息
-     */
-    public Object batchGetMsg(@RequestParam String pageSize){
-        return null;
-    }
-    /**
-     * 单个获取用户信息
-     *
-     * */
-    public Object singleGetMsg(@RequestParam String userName){
-        return null;
-    }
 
     /**
      * 找回密码
@@ -286,7 +258,7 @@ public class UserController {
      * @param email
      * @return
      */
-    @RequestMapping(value = "findPwd")
+    @RequestMapping(value = "/findPwd")
     public Object findPwd(@RequestParam String userName,@RequestParam String email){
         BaseRtM baseRtM = new BaseRtM();
         try {
@@ -304,5 +276,31 @@ public class UserController {
         }finally {
             return baseRtM;
         }
+    }
+
+    /**
+     * 退出登录
+     * @return
+     */
+    @RequestMapping("/loginOut")
+    public Object loginOut(){
+        BaseRtM baseRtM = new BaseRtM();
+        try {
+            userService.loginOut();
+            baseRtM.setRtMCode("T");
+        }catch (Exception e){
+            baseRtM.setRtMCode("F");
+        }finally {
+            return baseRtM;
+        }
+    }
+
+    /**
+     * 获取用户信息
+     * @return
+     */
+    @RequestMapping(value = "/getMyMsg")
+    public Object getMyMsg(){
+       return userService.getMyMsg();
     }
 }

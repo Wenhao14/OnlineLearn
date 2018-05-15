@@ -1,5 +1,6 @@
 package com.oll.controller;
 
+import com.oll.services.IndexPageService;
 import com.oll.util.BaseRtM;
 import com.oll.util.YzmUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,8 @@ import java.io.IOException;
 public class IndexPageController {
     @Resource
     private YzmUtil yzmUtil;
+    @Resource
+    private IndexPageService indexPageService;
 
     /**
      * 验证验证码
@@ -54,5 +57,27 @@ public class IndexPageController {
             return "F";
         }
         return null;
+    }
+
+    /**
+     * 按页读取新闻
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping(value = "/getNews")
+    public Object getNewsByPage(@RequestParam Integer pageNum,@RequestParam Integer pageSize){
+        return indexPageService.getNewsByPage(pageNum,pageSize);
+    }
+
+    /**
+     * 按页读取公告
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping(value = "/getNotices")
+    public Object getNoticesByPage(@RequestParam Integer pageNum,@RequestParam Integer pageSize){
+        return indexPageService.getNoticeByPage(pageNum, pageSize);
     }
 }

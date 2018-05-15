@@ -14,7 +14,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -108,7 +110,7 @@ public class UserService {
         user.setPassword(md5Encrypt.toEncryptString(userName));
         user.setGrade(relGrade);
         user.setIsdel("0");
-        user.setHeadimg("xxxx");
+        user.setHeadimg("/img/undefultUI.jpg");
         try {
             Object result = userDao.save(user);
             if(result instanceof User){
@@ -214,13 +216,17 @@ public class UserService {
      */
     @Scheduled(cron = "0 0 2 * * ?")
     public void userRank(){
+        System.out.println("排名运行");
         List<UserMsg> usermsgs = userMsgDao.findAllUserMsg();
         int len = usermsgs.size();
+        String rank;
         for (int i = 0;i < len;i++){
             UserMsg usermsg = usermsgs.get(i);
             try {
-                userMsgDao.upUBank(usermsg.getUid(),String.valueOf(i+1));
+                rank = String.valueOf(i+1)+"/"+len;
+                userMsgDao.upUBank(usermsg.getUid(),rank);
             }catch (Exception e){
+                e.printStackTrace();
                 continue;
             }
         }
@@ -291,6 +297,7 @@ public class UserService {
         for(int i = 0;i < 6;i++){
             rePwd = rePwd.append(String.valueOf(randomPwdPool.charAt(random.nextInt(len))));
         }
+        System.out.println(rePwd);
         return md5Encrypt.toEncryptString(rePwd.toString());
     }
 
@@ -326,4 +333,70 @@ public class UserService {
         }
     }
 
+    /**
+     * 获取首页登录后展示信息
+     * @return
+     */
+    public Map getLoginUMsg(){
+        User user = shareLogin.getUser();
+        Map<String,String> msg = new HashMap<>();
+        msg.put("hi",user.getHeadimg());
+        UserMsg userMsg = userMsgDao.findOne(user.getUid());
+        if(userMsg == null){
+            msg.put("um","F");
+        }else {
+            msg.put("um",userMsg.getUname());
+        }
+        return msg;
+    }
+
+    /**
+     * 退出登录
+     */
+    public void loginOut(){
+        shareLogin.loginOut();
+    }
+
+    /**
+     * 获取用户信息
+     * @return
+     */
+    public BaseRtM getMyMsg(){
+        BaseRtM baseRtM = new BaseRtM();
+        try {
+            User user = shareLogin.getUser();
+            UserMsg userMsg = userMsgDao.getOne(user.getUid());
+            Map<String,Object> msg = new HashMap<>();
+            switch (user.getGrade()){
+                case "s":{
+                    user.setGrade("超级管理员");
+                    break;
+                }
+                case "a":{
+                    user.setGrade("超级管理员");
+                    break;
+                }
+                case "b":{
+                    user.setGrade("管理员");
+                    break;
+                }
+                case "c":{
+                    user.setGrade("管理员");
+                    break;
+                }
+                default:{
+                    user.setGrade("学员");
+                }
+            }
+            msg.put("user",user);
+            msg.put("userMsg",userMsg);
+            baseRtM.setRtMCode("T");
+            baseRtM.setRtMData(msg);
+        }catch (Exception e){
+            baseRtM.setRtMCode("F");
+            baseRtM.setRtMsg("内部错误!");
+        }finally {
+            return baseRtM;
+        }
+    }
 }

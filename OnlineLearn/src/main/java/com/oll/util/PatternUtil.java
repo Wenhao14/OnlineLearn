@@ -11,7 +11,6 @@ import java.util.Date;
 @Service
 public class PatternUtil {
     private static ThreadLocal<SimpleDateFormat> dateFormatPool = new ThreadLocal<>();
-
     public String formatDate(Date date){
         SimpleDateFormat dateFormat = dateFormatPool.get();
         if(null == dateFormat){

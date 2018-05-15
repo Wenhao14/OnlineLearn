@@ -15,53 +15,50 @@
     <table id="9" parent="2" name="answer"/>
     <table id="10" parent="2" name="classhour"/>
     <table id="11" parent="2" name="course"/>
-    <table id="12" parent="2" name="itembank"/>
-    <table id="13" parent="2" name="module"/>
-    <table id="14" parent="2" name="news"/>
-    <table id="15" parent="2" name="notice"/>
-    <table id="16" parent="2" name="option"/>
-    <table id="17" parent="2" name="selcourse"/>
-    <table id="18" parent="2" name="testpaper"/>
-    <table id="19" parent="2" name="user"/>
-    <table id="20" parent="2" name="usermsg"/>
-    <column id="21" parent="9" name="aId">
+    <table id="12" parent="2" name="module"/>
+    <table id="13" parent="2" name="news"/>
+    <table id="14" parent="2" name="notice"/>
+    <table id="15" parent="2" name="testpaper"/>
+    <table id="16" parent="2" name="user"/>
+    <table id="17" parent="2" name="usermsg"/>
+    <column id="18" parent="9" name="aId">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="22" parent="9" name="uId">
+    <column id="19" parent="9" name="uId">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="23" parent="9" name="tpID">
+    <column id="20" parent="9" name="tpID">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="24" parent="9" name="aGrade">
+    <column id="21" parent="9" name="aGrade">
       <Position>4</Position>
       <DataType>varchar(3)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="25" parent="9" name="aDate">
+    <column id="22" parent="9" name="aDate">
       <Position>5</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="26" parent="9" name="tpID">
+    <index id="23" parent="9" name="tpID">
       <ColNames>tpID</ColNames>
     </index>
-    <index id="27" parent="9" name="uId">
+    <index id="24" parent="9" name="uId">
       <ColNames>uId</ColNames>
     </index>
-    <key id="28" parent="9" name="PRIMARY">
+    <key id="25" parent="9" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>aId</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="29" parent="9" name="answer_ibfk_1">
+    <foreign-key id="26" parent="9" name="answer_ibfk_1">
       <ColNames>uId</ColNames>
       <RefSchemaName>onlinestudy</RefSchemaName>
       <RefTableName>user</RefTableName>
@@ -69,42 +66,42 @@
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="30" parent="9" name="answer_ibfk_2">
+    <foreign-key id="27" parent="9" name="answer_ibfk_2">
       <ColNames>tpID</ColNames>
       <RefSchemaName>onlinestudy</RefSchemaName>
       <RefTableName>testpaper</RefTableName>
       <RefColNames>tpId</RefColNames>
     </foreign-key>
-    <column id="31" parent="10" name="chId">
+    <column id="28" parent="10" name="chId">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="32" parent="10" name="cId">
+    <column id="29" parent="10" name="cId">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="33" parent="10" name="cName">
+    <column id="30" parent="10" name="cName">
       <Position>3</Position>
       <DataType>varchar(200)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="34" parent="10" name="chUrl">
+    <column id="31" parent="10" name="chUrl">
       <Position>4</Position>
       <DataType>varchar(400)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="35" parent="10" name="cId">
+    <index id="32" parent="10" name="cId">
       <ColNames>cId</ColNames>
     </index>
-    <key id="36" parent="10" name="PRIMARY">
+    <key id="33" parent="10" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>chId</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="37" parent="10" name="classhour_ibfk_1">
+    <foreign-key id="34" parent="10" name="classhour_ibfk_1">
       <ColNames>cId</ColNames>
       <RefSchemaName>onlinestudy</RefSchemaName>
       <RefTableName>course</RefTableName>
@@ -112,510 +109,373 @@
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="38" parent="11" name="cId">
+    <column id="35" parent="11" name="cId">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="39" parent="11" name="cName">
+    <column id="36" parent="11" name="cName">
       <Position>2</Position>
       <DataType>varchar(200)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="40" parent="11" name="cKeySpeaker">
+    <column id="37" parent="11" name="cKeySpeaker">
       <Position>3</Position>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <column id="41" parent="11" name="mId">
+    <column id="38" parent="11" name="mId">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="42" parent="11" name="cIsPush">
+    <column id="39" parent="11" name="cIsPush">
       <Position>5</Position>
       <DataType>varchar(1)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <column id="43" parent="11" name="cSelTime">
+    <column id="40" parent="11" name="cSelTime">
       <Position>6</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <column id="44" parent="11" name="cImg">
+    <column id="41" parent="11" name="cImg">
       <Position>7</Position>
       <DataType>varchar(400)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="45" parent="11" name="cContent">
+    <column id="42" parent="11" name="cContent">
       <Position>8</Position>
       <DataType>longtext|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="46" parent="11" name="cIsDel">
+    <column id="43" parent="11" name="cIsDel">
       <Position>9</Position>
       <DataType>varchar(1)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <column id="47" parent="11" name="cUpUser">
+    <column id="44" parent="11" name="cUpUser">
       <Position>10</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="48" parent="11" name="cUpDate">
+    <column id="45" parent="11" name="cUpDate">
       <Position>11</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="49" parent="11" name="cUpUser">
+    <index id="46" parent="11" name="cUpUser">
       <ColNames>cUpUser</ColNames>
     </index>
-    <index id="50" parent="11" name="mId">
+    <index id="47" parent="11" name="mId">
       <ColNames>mId</ColNames>
     </index>
-    <key id="51" parent="11" name="PRIMARY">
+    <key id="48" parent="11" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>cId</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="52" parent="11" name="course_ibfk_2">
+    <foreign-key id="49" parent="11" name="course_ibfk_2">
       <ColNames>mId</ColNames>
       <RefSchemaName>onlinestudy</RefSchemaName>
       <RefTableName>module</RefTableName>
       <RefColNames>mId</RefColNames>
       <OnUpdate>cascade</OnUpdate>
     </foreign-key>
-    <foreign-key id="53" parent="11" name="course_ibfk_1">
+    <foreign-key id="50" parent="11" name="course_ibfk_1">
       <ColNames>cUpUser</ColNames>
       <RefSchemaName>onlinestudy</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>uId</RefColNames>
       <OnUpdate>cascade</OnUpdate>
     </foreign-key>
-    <column id="54" parent="12" name="iId">
+    <column id="51" parent="12" name="mId">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="55" parent="12" name="tpId">
-      <Position>2</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="56" parent="12" name="iContent">
-      <Position>3</Position>
-      <DataType>varchar(200)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="57" parent="12" name="iKey">
-      <Position>4</Position>
-      <DataType>varchar(1)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <index id="58" parent="12" name="tpId">
-      <ColNames>tpId</ColNames>
-    </index>
-    <key id="59" parent="12" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>iId
-tpId
-iContent
-iKey</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="60" parent="12" name="itembank_ibfk_1">
-      <ColNames>tpId</ColNames>
-      <RefSchemaName>onlinestudy</RefSchemaName>
-      <RefTableName>testpaper</RefTableName>
-      <RefColNames>tpId</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <column id="61" parent="13" name="mId">
-      <Position>1</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-    </column>
-    <column id="62" parent="13" name="mName">
+    <column id="52" parent="12" name="mName">
       <Position>2</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="63" parent="13" name="mDescribe">
+    <column id="53" parent="12" name="mDescribe">
       <Position>3</Position>
       <DataType>varchar(200)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="64" parent="13" name="mUpUser">
+    <column id="54" parent="12" name="mUpUser">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="65" parent="13" name="mUpDate">
+    <column id="55" parent="12" name="mUpDate">
       <Position>5</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="66" parent="13" name="mUpUser">
+    <index id="56" parent="12" name="mUpUser">
       <ColNames>mUpUser</ColNames>
     </index>
-    <key id="67" parent="13" name="PRIMARY">
+    <key id="57" parent="12" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>mId</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="68" parent="13" name="module_ibfk_1">
+    <foreign-key id="58" parent="12" name="module_ibfk_1">
       <ColNames>mUpUser</ColNames>
       <RefSchemaName>onlinestudy</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>uId</RefColNames>
       <OnUpdate>cascade</OnUpdate>
     </foreign-key>
-    <column id="69" parent="14" name="nId">
+    <column id="59" parent="13" name="nId">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="70" parent="14" name="nTitle">
+    <column id="60" parent="13" name="nTitle">
       <Position>2</Position>
       <DataType>varchar(200)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="71" parent="14" name="nUrl">
+    <column id="61" parent="13" name="nUrl">
       <Position>3</Position>
       <DataType>varchar(400)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="72" parent="14" name="nUpUser">
+    <column id="62" parent="13" name="nUpUser">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="73" parent="14" name="nUpDate">
+    <column id="63" parent="13" name="nUpDate">
       <Position>5</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="74" parent="14" name="news_ibfk_1">
+    <index id="64" parent="13" name="news_ibfk_1">
       <ColNames>nUpUser</ColNames>
     </index>
-    <key id="75" parent="14" name="PRIMARY">
+    <key id="65" parent="13" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>nId</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="76" parent="14" name="news_ibfk_1">
+    <foreign-key id="66" parent="13" name="news_ibfk_1">
       <ColNames>nUpUser</ColNames>
       <RefSchemaName>onlinestudy</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>uId</RefColNames>
       <OnUpdate>cascade</OnUpdate>
     </foreign-key>
-    <column id="77" parent="15" name="ntId">
+    <column id="67" parent="14" name="ntId">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="78" parent="15" name="ntTitle">
+    <column id="68" parent="14" name="ntTitle">
       <Position>2</Position>
       <DataType>varchar(200)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="79" parent="15" name="ntContent">
+    <column id="69" parent="14" name="ntContent">
       <Position>3</Position>
       <DataType>longtext|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="80" parent="15" name="ntUpUser">
+    <column id="70" parent="14" name="ntUpUser">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="81" parent="15" name="ntUpDate">
+    <column id="71" parent="14" name="ntUpDate">
       <Position>5</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="82" parent="15" name="notice_ibfk_1">
+    <index id="72" parent="14" name="notice_ibfk_1">
       <ColNames>ntUpUser</ColNames>
     </index>
-    <key id="83" parent="15" name="PRIMARY">
+    <key id="73" parent="14" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ntId</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="84" parent="15" name="notice_ibfk_1">
+    <foreign-key id="74" parent="14" name="notice_ibfk_1">
       <ColNames>ntUpUser</ColNames>
       <RefSchemaName>onlinestudy</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>uId</RefColNames>
       <OnUpdate>cascade</OnUpdate>
     </foreign-key>
-    <column id="85" parent="16" name="oId">
+    <column id="75" parent="15" name="tpId">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="86" parent="16" name="iId">
-      <Position>2</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="87" parent="16" name="oContent">
-      <Position>3</Position>
-      <DataType>varchar(200)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <index id="88" parent="16" name="iId">
-      <ColNames>iId</ColNames>
-    </index>
-    <key id="89" parent="16" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>oId</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="90" parent="16" name="option_ibfk_1">
-      <ColNames>iId</ColNames>
-      <RefSchemaName>onlinestudy</RefSchemaName>
-      <RefTableName>itembank</RefTableName>
-      <RefColNames>iId</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <column id="91" parent="17" name="scId">
-      <Position>1</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-    </column>
-    <column id="92" parent="17" name="uId">
-      <Position>2</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="93" parent="17" name="cId">
-      <Position>3</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="94" parent="17" name="chNum">
-      <Position>4</Position>
-      <DataType>varchar(4)|0</DataType>
-      <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
-    </column>
-    <column id="95" parent="17" name="studyHour">
-      <Position>5</Position>
-      <DataType>varchar(20)|0</DataType>
-      <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
-    </column>
-    <column id="96" parent="17" name="studyPlan">
-      <Position>6</Position>
-      <DataType>varchar(10)|0</DataType>
-      <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
-    </column>
-    <column id="97" parent="17" name="lateSTime">
-      <Position>7</Position>
-      <DataType>varchar(50)|0</DataType>
-    </column>
-    <index id="98" parent="17" name="cId">
-      <ColNames>cId</ColNames>
-    </index>
-    <index id="99" parent="17" name="uId">
-      <ColNames>uId</ColNames>
-    </index>
-    <key id="100" parent="17" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>scId</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="101" parent="17" name="selcourse_ibfk_1">
-      <ColNames>uId</ColNames>
-      <RefSchemaName>onlinestudy</RefSchemaName>
-      <RefTableName>user</RefTableName>
-      <RefColNames>uId</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <foreign-key id="102" parent="17" name="selcourse_ibfk_2">
-      <ColNames>cId</ColNames>
-      <RefSchemaName>onlinestudy</RefSchemaName>
-      <RefTableName>course</RefTableName>
-      <RefColNames>cId</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <column id="103" parent="18" name="tpId">
-      <Position>1</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-    </column>
-    <column id="104" parent="18" name="tpName">
+    <column id="76" parent="15" name="tpName">
       <Position>2</Position>
       <DataType>varchar(200)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="105" parent="18" name="tpUpUser">
+    <column id="77" parent="15" name="tpUpUser">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="106" parent="18" name="tpUpDate">
+    <column id="78" parent="15" name="tpUpDate">
       <Position>4</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="107" parent="18" name="tpDescribe">
+    <column id="79" parent="15" name="tpDescribe">
       <Position>5</Position>
       <DataType>text|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="108" parent="18" name="tpPassDate">
+    <column id="80" parent="15" name="tpPassDate">
       <Position>6</Position>
       <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="109" parent="18" name="tpIsDel">
+    <column id="81" parent="15" name="tpIsDel">
       <Position>7</Position>
       <DataType>varchar(1)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <column id="110" parent="18" name="tpContent">
+    <column id="82" parent="15" name="tpContent">
       <Position>8</Position>
       <DataType>text|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="111" parent="18" name="testpaper_ibfk_1">
+    <index id="83" parent="15" name="testpaper_ibfk_1">
       <ColNames>tpUpUser</ColNames>
     </index>
-    <key id="112" parent="18" name="PRIMARY">
+    <key id="84" parent="15" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>tpId</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="113" parent="18" name="testpaper_ibfk_1">
+    <foreign-key id="85" parent="15" name="testpaper_ibfk_1">
       <ColNames>tpUpUser</ColNames>
       <RefSchemaName>onlinestudy</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>uId</RefColNames>
       <OnUpdate>cascade</OnUpdate>
     </foreign-key>
-    <column id="114" parent="19" name="uId">
+    <column id="86" parent="16" name="uId">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="115" parent="19" name="passWord">
+    <column id="87" parent="16" name="passWord">
       <Position>3</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="116" parent="19" name="grade">
+    <column id="88" parent="16" name="grade">
       <Position>4</Position>
       <DataType>varchar(1)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;b&apos;</DefaultExpression>
     </column>
-    <column id="117" parent="19" name="isDel">
+    <column id="89" parent="16" name="isDel">
       <Position>5</Position>
       <DataType>varchar(1)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <column id="118" parent="19" name="headImg">
+    <column id="90" parent="16" name="headImg">
       <Position>6</Position>
-      <DataType>varchar(400)|0</DataType>
+      <DataType>varchar(200)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;http://t.cn/RnCg3ij&apos;</DefaultExpression>
     </column>
-    <column id="119" parent="19" name="userName">
+    <column id="91" parent="16" name="userName">
       <Position>2</Position>
       <DataType>varchar(10)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="120" parent="19" name="userName">
+    <index id="92" parent="16" name="userName">
       <ColNames>userName</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="121" parent="19" name="PRIMARY">
+    <key id="93" parent="16" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>uId</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="122" parent="19" name="userName">
+    <key id="94" parent="16" name="userName">
       <ColNames>userName</ColNames>
       <UnderlyingIndexName>userName</UnderlyingIndexName>
     </key>
-    <column id="123" parent="20" name="uId">
+    <column id="95" parent="17" name="uId">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="124" parent="20" name="uName">
+    <column id="96" parent="17" name="uName">
       <Position>2</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="125" parent="20" name="uPhone">
+    <column id="97" parent="17" name="uPhone">
       <Position>3</Position>
       <DataType>varchar(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="126" parent="20" name="uMail">
+    <column id="98" parent="17" name="uMail">
       <Position>4</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="127" parent="20" name="uSection">
+    <column id="99" parent="17" name="uSection">
       <Position>5</Position>
       <DataType>varchar(200)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="128" parent="20" name="uGoal">
+    <column id="100" parent="17" name="uGoal">
       <Position>6</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <column id="129" parent="20" name="uRank">
+    <column id="101" parent="17" name="uRank">
       <Position>7</Position>
       <DataType>varchar(10)|0</DataType>
     </column>
-    <index id="130" parent="20" name="uMail">
+    <index id="102" parent="17" name="uMail">
       <ColNames>uMail</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="131" parent="20" name="uPhone">
+    <index id="103" parent="17" name="uPhone">
       <ColNames>uPhone</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="132" parent="20" name="PRIMARY">
+    <key id="104" parent="17" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>uId</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="133" parent="20" name="uPhone">
+    <key id="105" parent="17" name="uPhone">
       <ColNames>uPhone</ColNames>
       <UnderlyingIndexName>uPhone</UnderlyingIndexName>
     </key>
-    <key id="134" parent="20" name="uMail">
+    <key id="106" parent="17" name="uMail">
       <ColNames>uMail</ColNames>
       <UnderlyingIndexName>uMail</UnderlyingIndexName>
     </key>
-    <foreign-key id="135" parent="20" name="uID">
+    <foreign-key id="107" parent="17" name="uID">
       <ColNames>uId</ColNames>
       <RefSchemaName>onlinestudy</RefSchemaName>
       <RefTableName>user</RefTableName>

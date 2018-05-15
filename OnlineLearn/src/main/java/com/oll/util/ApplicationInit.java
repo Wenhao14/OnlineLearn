@@ -1,7 +1,7 @@
 package com.oll.util;
 
 import com.oll.cache.ShareLogin;
-import com.oll.filter.PermissionFilter;
+import com.oll.filter.FlushSessionFilter;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +16,6 @@ public class ApplicationInit implements CommandLineRunner {
     private ShareLogin shareLogin;
     @Override
     public void run(String... strings) throws Exception {
-        PermissionFilter.setShareLogin(shareLogin);
+        FlushSessionFilter.setShareLogin(shareLogin);
     }
 }

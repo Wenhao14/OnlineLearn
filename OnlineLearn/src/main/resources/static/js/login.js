@@ -13,6 +13,7 @@ function login() {
                 type: "post",
                 url: "/index/api/yzmCheck",
                 dataType:"json",
+                async: false,
                 data:{
                     "yzm":yzm
                 },
@@ -23,6 +24,7 @@ function login() {
                                 type: "post",
                                 url: "/user/api/userLogin",
                                 dataType:"json",
+                                async: false,
                                 data:{
                                     "userName":userName,
                                     "passWord":pwd

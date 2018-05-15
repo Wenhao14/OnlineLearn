@@ -29,9 +29,9 @@
 		<div id="main">
 			<div class="navs">
 				<div id="head_img">
-					<img id="up-img-touch" src="../../img/login-img.jpg " alt="点击图片上传" data-am-popover="{content: '点击上传', trigger: 'hover focus'}" />
+					<img id="up-img-touch" src="" alt="点击图片上传" data-am-popover="{content: '点击上传', trigger: 'hover focus'}" />
 					<br />
-					<span id="uName">王文昊</span>
+					<span id="uName"></span>
 				</div>
 				<div id="navList">
 					<div onclick="nav_action(0)" id="nav1" class="nav">
@@ -147,22 +147,25 @@
 				<div id="myAccount">
 					<div id="m1v">
 						<div class="msgV">
-							<span class="msgVt">邮箱 : </span><span class="msgVc">1261640510@qq.com</span><a href="" id="upMail">修改</a>
+							<span class="msgVt">邮箱 : </span><span id="m" class="msgVc"></span><a href="" class="msgFont" >修改</a>
 						</div>
 						<div class="msgV">
-							<span class="msgVt">手机 : </span><span class="msgVc">13201578359</span><a href="" id="upPhone">修改</a>
+							<span class="msgVt">手机 : </span><span id="p" class="msgVc"></span><a href="" class="msgFont">修改</a>
 						</div>
 						<div class="msgV">
-							<span class="msgVt">部门 : </span><span class="msgVc">计算机科学与技术学院软件工程系</span>
+							<span class="msgVt">部门 : </span><span id="d" class="msgVc"></span>
 						</div>
 						<div class="msgV">
-							<span class="msgVt">积分 : </span><span class="msgVc">1235</span>
+							<span class="msgVt">积分 : </span><span id="g" class="msgVc"></span>
 						</div>
 						<div class="msgV">
-							<span class="msgVt">排名 : </span><span class="msgVc">12/3500</span>
+							<span class="msgVt">排名 : </span><span id="r" class="msgVc"></span>
 						</div>
 						<div class="msgV">
-							<span class="msgVt">账号 : </span><span class="msgVc">1408010214</span>
+							<span class="msgVt">账号 : </span><span id="u" class="msgVc"></span>
+						</div>
+						<div class="msgV">
+							<span class="msgVt">级别 : </span><span id="c" class="msgVc"></span>
 						</div>
 					</div>
 					<div id="m2v">
@@ -170,35 +173,35 @@
 							<tr>
 								<td>
 									旧密码:<br />
-									<input type="password"/>
-									<span class="warn"></span>
+									<input id="oldPwd" type="password"/>
+									<span id="oldPwdWarn" class="warn"></span>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									新密码:<br />
-									<input type="password" placeholder="密码为8位以上数字母组合"/>
-									<span class="warn"></span>
+									<input id="newPwd" type="password" placeholder="密码为6位以上数字母组合"/>
+									<span id="newPwdWarn" class="warn"></span>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									重复密码:<br />
-									<input type="password"/>
-									<span class="warn"></span>
+									<input id="reNewPwd" type="password"/>
+									<span id="reNewPwdWarn" class="warn"></span>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<div class="yzm">
-										验证码: <img src="../../img/findPwd_bg.gif"/>
+										验证码: <img id="yzmImg" src=""/>
 									</div>
-									<input type="text" />
-									<span class="warn"></span>
+									<input id="yzm" type="text" />
+									<span id="yzmWarn" class="warn"></span>
 								</td>
 							</tr>
 							<tr>
-								<td><button class="button">确认修改</button></td>
+								<td><button class="button" onclick="clearnWarn(),alterPwd()">确认修改</button></td>
 							</tr>
 						</table>
 					</div>
