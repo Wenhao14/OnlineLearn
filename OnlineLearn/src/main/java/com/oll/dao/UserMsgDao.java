@@ -2,8 +2,10 @@ package com.oll.dao;
 
 import com.oll.model.UserMsg;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,15 +21,15 @@ public interface UserMsgDao extends JpaRepository<UserMsg,Long> {
     //@Cacheable(key = "#p0")
     @Query("select um from UserMsg um order by um.ugoal DESC ")
     List<UserMsg> findAllUserMsg();
-    /**
-     * 更新排名
-     * @param uid
-     * @param rank
-     * @return
-     */
-    //@CachePut(key = "#p0")
-    @Query("update UserMsg um set um.urank = ?2 where um.uid = ?1 ")
-    Integer upUBank(Long uid,String rank);
+//    /**
+//     * 更新排名
+//     * @param uid
+//     * @param rank
+//     * @return
+//     */
+//    //@CachePut(key = "#p0")
+//    @Query("update UserMsg um set um.urank = ?2 where um.uid = ?1 ")
+//    Integer upUBank(Long uid,String rank);
 
     /**
      * 完善信息
@@ -50,6 +52,8 @@ public interface UserMsgDao extends JpaRepository<UserMsg,Long> {
      * @param email
      * @return
      */
+    @Modifying
+    @Transactional
     @Query("update UserMsg um set um.umail = ?2 where um.uid = ?1")
     Integer updateUMail(Long uid,String email);
 
@@ -59,6 +63,8 @@ public interface UserMsgDao extends JpaRepository<UserMsg,Long> {
      * @param phone
      * @return
      */
+    @Modifying
+    @Transactional
     @Query("update UserMsg um set um.uphone = ?2 where um.uid = ?1")
     Integer updateUPhone(Long uid,String phone);
 

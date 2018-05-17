@@ -36,6 +36,7 @@ public interface UserDao extends JpaRepository<User,Long>  {
       */
      //@CachePut(key = "#p0")
      @Modifying
+     @Transactional
      @Query("update User u set u.grade = ?2 where u.username = ?1")
      Integer updateGrade(String userName,String grade);
      /**
@@ -46,9 +47,8 @@ public interface UserDao extends JpaRepository<User,Long>  {
       */
     // @CachePut(key = "#p0")
      @Modifying
+     @Transactional
      @Query("update User u set u.headimg = ?2 where u.uid = ?1")
-     Integer updateHeadImg(String uid,String imgUrl);
-
-
+     Integer updateHeadImg(Long uid,String imgUrl);
 
 }

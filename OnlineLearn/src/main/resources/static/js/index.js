@@ -82,7 +82,7 @@ function getNews() {
                     var newsList = data.rtMData;
                     for(var i = 0;i < newsList.length;i++){
                         news = newsList[i];
-                        newsHtml = "<div class=\"li\"><b style='color: black'>·     </b><a target=\"view_window\" href=\""+ news.nurl+"\">"+news.ntitle+"</a><span>"+news.nupdate+"</span> </div>";
+                        newsHtml = "<div class=\"li\"><b style='color: #636C72;float: left'>·</b><a title=\'"+news.ntitle+"\' target=\"view_window\" href=\""+ news.nurl+"\">"+news.ntitle+"</a><span>"+news.nupdate+"</span> </div>";
                         $("#newsList").append(newsHtml);
                     }
                 }

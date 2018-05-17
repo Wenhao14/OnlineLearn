@@ -150,3 +150,12 @@ body{
     -ms-transition: background-position 0.5s;
     transition: background-position 0.5s;
 }
+.alterMsg{
+	display: none;
+	margin-right: 20px;
+}
+.aFont{
+	display: none;
+	margin-right: 20px;
+	font-size: 14px;
+}

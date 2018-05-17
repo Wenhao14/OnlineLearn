@@ -14,10 +14,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by NewDarker on 2018/1/3.
@@ -57,12 +54,12 @@ public class UserService {
      * 批量用户注册
      * @param json
      */
-    public Integer patchAddUser(String json){
-        Integer successNum = 0;
+    public void patchAddUser(String json){
         JSONArray userList =  JSON.parseArray(json);
         int len = userList.size();
         String username;
         JSONObject jsonObject;
+        List<User> users = new ArrayList<>(len);
         for(int i = 0;i < len;i++){
             User user = new User();
             jsonObject = (JSONObject) userList.get(i);
@@ -71,17 +68,10 @@ public class UserService {
             user.setPassword(md5Encrypt.toEncryptString(username));
             user.setGrade("b");
             user.setIsdel("0");
-            user.setHeadimg("xxxx");
-            try {
-               Object result = userDao.save(user);
-               if(result instanceof User){
-                   successNum++;
-               }
-            }catch (Exception e){
-                continue;
-            }
+            user.setHeadimg("/img/undefultUI.jpg");
+            users.add(user);
         }
-        return successNum;
+        userDao.save(users);
     }
     /**
      * 单个增加用户
@@ -144,16 +134,20 @@ public class UserService {
 
     /**
      * 更新头像
-     * @param uid
      * @param imgUrl
      * @return
      */
-    public Boolean updataUserHeadImg(String uid,String imgUrl){
-        Integer result = userDao.updateHeadImg(uid,imgUrl);
-        if(result == 1){
-            return true;
+    public Boolean updataUserHeadImg(String imgUrl){
+        Long uid = shareLogin.getUser().getUid();
+        if(uid != null){
+            Integer result = userDao.updateHeadImg(uid,imgUrl);
+            if(result == 1){
+                return true;
+            }else {
+                return false;
+            }
         }else {
-            return false;
+            throw new RuntimeException("内部错误,登录过期!");
         }
     }
     /**
@@ -165,7 +159,7 @@ public class UserService {
         try {
             Long uid = shareLogin.getUser().getUid();
             if(uid != null){
-                if(type.equals("e")){
+                if(type.equals("m")){
                     result = userMsgDao.updateUMail(uid,msg);
                 }else if(type.equals("p")){
                     result = userMsgDao.updateUPhone(uid,msg);
@@ -222,14 +216,10 @@ public class UserService {
         String rank;
         for (int i = 0;i < len;i++){
             UserMsg usermsg = usermsgs.get(i);
-            try {
-                rank = String.valueOf(i+1)+"/"+len;
-                userMsgDao.upUBank(usermsg.getUid(),rank);
-            }catch (Exception e){
-                e.printStackTrace();
-                continue;
-            }
+            rank = String.valueOf(i+1)+"/"+len;
+            usermsg.setUrank(rank);
         }
+        userMsgDao.save(usermsgs);
     }
     /**
      * 重置密码
@@ -334,7 +324,7 @@ public class UserService {
     }
 
     /**
-     * 获取首页登录后展示信息
+     * 获取首页登录后展示用户信息
      * @return
      */
     public Map getLoginUMsg(){

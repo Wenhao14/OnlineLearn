@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by NewDarker on 2018/3/25.
  */
 @RestController
-@RequestMapping(value = "/upLoad/api")
+@RequestMapping(value = "/upDown/api")
 public class UpLoadController {
+
 }
+

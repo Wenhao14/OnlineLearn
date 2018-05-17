@@ -20,7 +20,7 @@ public class Testpaper implements Serializable {
   private String tpdescribe;
   @Column(name = "tppassdate")
   private Date tppassdate;
-  @Column(name = "toisdel")
+  @Column(name = "tpisdel")
   private String tpisdel;
   @Column(name = "tpcontent")
   private String tpcontent;

@@ -96,9 +96,9 @@ function paging(){
  */
 function isLoginAction(flag) {
     if(flag == "T"){
-       $("#com_msg").hide();
+       $("#login").hide();
     }else {
-       $("#com_msg").show();
+       $("#login").show();
     }
 }
 /**

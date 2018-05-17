@@ -1,19 +1,21 @@
 package com.oll.services;
 
 import com.oll.cache.ShareLogin;
+import com.oll.dao.AnswerDao;
 import com.oll.dao.NewsDao;
 import com.oll.dao.NoticeDao;
 import com.oll.dao.TestPaperDao;
-import com.oll.model.News;
-import com.oll.model.Notice;
-import com.oll.model.Testpaper;
-import com.oll.model.User;
+import com.oll.model.*;
 import com.oll.util.BaseRtM;
 import com.oll.util.PatternUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
+import java.util.*;
 
 /**
  * Created by NewDarker on 2018/5/11.
@@ -30,7 +32,8 @@ public class ResourceService {
     private ShareLogin shareLogin;
     @Resource
     private PatternUtil patternUtil;
-
+    @Resource
+    private AnswerDao answerDao;
     /**
      * 发布试题
      * @param tpName
@@ -143,4 +146,122 @@ public class ResourceService {
             return baseRtM;
         }
     }
+
+    /**
+     * 获取未作答试题
+     * @return
+     */
+    public BaseRtM getUnTps(Integer pageNum,Integer pageSize){
+        BaseRtM baseRtM = new BaseRtM();
+        try {
+            Sort sort = new Sort(Sort.Direction.DESC,"tpupdate");
+            Pageable pageable = new PageRequest(pageNum,pageSize,sort);
+            Long uid = shareLogin.getUser().getUid();
+            List<Long> tpids = answerDao.getTpids(uid);
+            if(tpids == null || tpids.size() < 1){
+                tpids.add(0l);
+            }
+            Page<Testpaper> unTps = testPaperDao.getUnTPs(tpids,new Date(),pageable);
+            List<Testpaper> tpList = unTps.getContent();
+            int len = tpList.size();
+            for(int i = 0;i < len;i++){
+                tpList.get(i).setTpcontent("");
+            }
+            baseRtM.setRtMCode("T");
+            baseRtM.setRtMData(tpList);
+        }catch (Exception e){
+            baseRtM.setRtMCode("F");
+            baseRtM.setRtMsg("内部错误!");
+        }finally {
+            return baseRtM;
+        }
+    }
+
+    /**
+     * 获取试卷内容
+     * @param tpId
+     */
+    public BaseRtM getTpContent(Long tpId){
+        BaseRtM baseRtM = new BaseRtM();
+        try {
+            Testpaper testpaper = testPaperDao.findOne(tpId);
+            if(testpaper != null){
+                baseRtM.setRtMCode("T");
+                baseRtM.setRtMData(testpaper.getTpcontent());
+            }else {
+                baseRtM.setRtMCode("F");
+                baseRtM.setRtMsg("没有该试卷!");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            baseRtM.setRtMCode("F");
+            baseRtM.setRtMsg("内部错误!");
+        }finally {
+            return baseRtM;
+        }
+    }
+    public BaseRtM addAnswer(Long tpId,String score){
+        BaseRtM baseRtM = new BaseRtM();
+        try {
+            Answer answer = new Answer();
+            Long uid = shareLogin.getUser().getUid();
+            answer.setTpid(tpId);
+            answer.setAgrade(score);
+            answer.setUid(uid);
+            answer.setAdate(patternUtil.formatDateTime(new Date()));
+            Object result = answerDao.save(answer);
+            if(result instanceof Answer){
+                baseRtM.setRtMCode("T");
+                baseRtM.setRtMsg("答题结果保存成功!");
+            }else {
+                baseRtM.setRtMCode("F");
+                baseRtM.setRtMsg("对不起，答题结果保存失败!");
+            }
+        }catch (Exception e){
+            baseRtM.setRtMCode("F");
+            baseRtM.setRtMsg("内部错误!");
+        }finally {
+            return baseRtM;
+        }
+    }
+    /**
+     * 获取已作答试卷
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+//    public BaseRtM getEnTps(Integer pageNum,Integer pageSize){
+//        BaseRtM baseRtM = new BaseRtM();
+//        try {
+//            Long uid = shareLogin.getUser().getUid();
+//            List<Answer> answers = answerDao.getAnswerByPageNum(uid,);
+//            List<Long> tpids = getTpids(answers);
+//            int len = tpids.size();
+//            if(tpids == null || len < 1){
+//                baseRtM.setRtMCode("T");
+//                baseRtM.setRtMsg("暂无数据!");
+//            }else {
+//                Sort sort = new Sort(Sort.Direction.DESC,"tpupdate");
+//                Pageable pageable = new PageRequest(pageNum,pageSize,sort);
+//                List<Testpaper> testpapers = testPaperDao.getEnTps(tpids,pageable).getContent();
+//                for(int i = 0;i < len;i++){
+//                    Map<String,String> msg = new HashMap();
+//                  }
+//            }
+//        }catch (Exception e){
+//            baseRtM.setRtMCode("F");
+//            baseRtM.setRtMsg("内部出错!");
+//        }finally {
+//            return baseRtM;
+//        }
+//    }
+//    public List<Long> getTpids(List<Answer> answers){
+//        int len = answers.size();
+//        List<Long> tpids = new ArrayList<>(len);
+//        for(int i = 0;i < len;i++){
+//            tpids.add(answers.get(i).getTpid());
+//        }
+//        return tpids;
+//    }
+
 }

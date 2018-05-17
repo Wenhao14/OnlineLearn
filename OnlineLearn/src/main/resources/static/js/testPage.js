@@ -1,31 +1,59 @@
-function loadXmlFileToJson()
-{
-    var xmlFile = $("#file").get(0).files[0];
-    var reader = new FileReader();//ÕâÀïÊÇºËÐÄ£¡£¡£¡¶ÁÈ¡²Ù×÷¾ÍÊÇÓÉËüÍê³ÉµÄ¡£
-    reader.readAsText(xmlFile);//¶ÁÈ¡ÎÄ¼þµÄÄÚÈÝ
-    reader.onload = function(){
-        var xmlStr = this.result;
-        var x2js = new X2JS();
-        var jsonObj = x2js.xml_str2json( xmlStr );
-        var jsonStr = JSON.stringify(jsonObj.testPage);
-        $.ajax(
-            {
-                type: "post",
-                url: "/resource/api/addTp",
-                dataType:"json",
-                data:{
-                    "title":"",
-                    "descibe":"",
-                    "passDate":"",
-                    "content":jsonStr
-                },
-                success : function(data) {
-                   alert(data.rtMsg);
-                },
-                error : function () {
-                    alert("²Ù×÷³ö´í!");
-                }
-            }
-        );
+var tpId;
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){
+            return pair[1];
+        }
     }
+    return(false);
 }
+function getTpContent(id) {
+    $.ajax(
+        {
+            type: "post",
+            url: "/tp/api/getTpCont",
+            dataType:"json",
+            data:{
+                "tpId":id
+            },
+            success : function(data) {
+                var tp = data.rtMData;
+                tp = JSON.parse(tp);
+                $(function(){
+                    $('#tp').jquizzy({
+                        questions: tp.questions
+                    });
+                });
+            },
+            error : function () {
+                alert("æ“ä½œå‡ºé”™!");
+            }
+        }
+    );
+}
+function saveScore(score){
+    $.ajax(
+        {
+            type: "post",
+            url: "/tp/api/addAnswer",
+            dataType:"json",
+            data:{
+                "tpId":tpId,
+                "score":score
+            },
+            success : function(data) {
+                 alert(data.rtMsg);
+            },
+            error : function () {
+                 alert("å‡ºé”™äº†!");
+            }
+        }
+    );
+}
+$(document).ready(function(){
+    tpId = getQueryVariable("tpId");
+    getTpContent(tpId);
+});

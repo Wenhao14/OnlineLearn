@@ -126,6 +126,7 @@
 	border-bottom: 1px solid #ADADAD;
 }
 .nn{
+	min-height: 200px;
 	margin-top: 15px;
 	border-bottom: 1px solid #ADADAD;
 	padding-bottom: 15px;
@@ -169,22 +170,31 @@
 }
 .li{
 	height:30px ;
-	font-size: 14px;
+	font-size: 13px;
 	line-height: 30px;
 	border-color:#EBEBEB ;
 	border-bottom-style:dotted;
-	width: 90%;
+	width: 92%;
 	margin: auto;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 .li a{
+	float: left;
 	text-decoration:none; 
     color: #636C72;
+	width: 58%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 .li span{
+	width: 32%;
 	float: right;
 	color: #99A2C2;
 }
-.filedown{
+.fileDown{
 	height:50px ;
 	font-size: 16px;
 	line-height: 50px;
@@ -193,7 +203,7 @@
 	width: 90%;
 	margin: auto;
 }
-.filedown a{
+.fileDown a{
 	text-decoration:none; 
     color: #292B2C;
 }
@@ -201,6 +211,7 @@
 	width: 100%;
     border-collapse:separate; 
     border-spacing:20px;
+	table-layout : fixed;
 }
 .outUrl{
 	width: 100%;

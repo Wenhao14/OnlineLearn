@@ -1,5 +1,5 @@
 ﻿function yzmUp() {
-    $("#yzmImg").attr("src","http://127.0.0.1:8888/index/api/getYzm?"+new Date());
+    $("#yzmImg").attr("src","/index/api/getYzm?"+new Date());
 }
 function login() {
     var userName = $("#userName").val();

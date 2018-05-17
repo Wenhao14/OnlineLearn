@@ -54,6 +54,9 @@
 	line-height: 50px;
 	border-color:#EBEBEB ;
 	border-bottom-style:dotted;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 .title a{
     color: #4C4C4C;
@@ -119,6 +122,9 @@
 .option a{
 	color: white;
 }
+#nc{
+	text-indent:2em;
+}
 .paging{
 	padding-top: 20px;
 	padding-bottom: 20px;
@@ -128,7 +134,8 @@
 	padding-top: 15px;
 	padding-bottom: 15px;
 	float: right;
-}.left{
+}
+.left {
 	width: 22%;
 	background-color: #F6F6F6;
 	float: left;

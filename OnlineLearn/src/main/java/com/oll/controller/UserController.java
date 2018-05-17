@@ -5,6 +5,7 @@ import com.oll.util.BaseRtM;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -52,9 +53,9 @@ public class UserController {
     public Object batchAddUser(@RequestParam String usersJson){
         BaseRtM baseRtM = new BaseRtM();
         try{
-            Integer successNum = userService.patchAddUser(usersJson);
+            userService.patchAddUser(usersJson);
             baseRtM.setRtMCode("T");
-            baseRtM.setRtMsg("批量添加成功"+successNum+"人!");
+            baseRtM.setRtMsg("批量添加成功!");
         }catch (Exception ex){
             baseRtM.setRtMCode("F");
             baseRtM.setRtMsg("批量添加失败!");
@@ -302,5 +303,20 @@ public class UserController {
     @RequestMapping(value = "/getMyMsg")
     public Object getMyMsg(){
        return userService.getMyMsg();
+    }
+
+    /**
+     * 上传头像
+     * @param hImg
+     * @return
+     */
+    @RequestMapping(value = "/upHeadImg")
+    public Object alterHeadImg(@RequestParam MultipartFile hImg){
+        if(!hImg.isEmpty()){
+            System.out.println("ok");
+        }else {
+            System.out.println("no");
+        }
+        return null;
     }
 }

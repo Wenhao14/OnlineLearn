@@ -42,7 +42,8 @@ function asNavAction(sel){
 		}
 		case 2:{
 			smenu = new Array("#t1","#t2");
-			html = '<tr><td><span id="t1" onclick ="subMenu(0)">未测评</span></td><td><span id="t2" onclick ="subMenu(1)">已测评</span></td></tr>';
+			getUnTps(0);
+			html = '<tr><td><span id="t1" onclick ="subMenu(0),getUnTps(0)">未测评</span></td><td><span id="t2" onclick ="subMenu(1),getEnTps(0)">已测评</span></td></tr>';
 			break;
 		}
 		case 3:{
@@ -72,7 +73,7 @@ function subMenu(sel){
 	}
 }
 function yzmUp() {
-    $("#yzmImg").attr("src","http://127.0.0.1:8888/index/api/getYzm?"+new Date());
+    $("#yzmImg").attr("src","/index/api/getYzm?"+new Date());
 }
 function getUMsg(flag) {
     $.ajax(
@@ -204,6 +205,198 @@ function updatePwd() {
 			}
 		}
 	}
+}
+/**
+ * 日期格式化工具
+ * @param fmt
+ * @returns {*}
+ * @constructor
+ */
+Date.prototype.Format = function (fmt) {
+    var o = {
+        "M+": this.getMonth() + 1, //月份
+        "d+": this.getDate(), //日
+        "h+": this.getHours(), //小时
+        "m+": this.getMinutes(), //分
+        "s+": this.getSeconds(), //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        "S": this.getMilliseconds() //毫秒
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+/**
+ *获取未作答试题
+ */
+function getUnTps(pn) {
+    $("#t1v_tab").empty();
+    $.ajax(
+        {
+            type: "post",
+            url: "/tp/api/getUnTps",
+            dataType:"json",
+            async: false,
+            data:{
+                "pageNum":pn,
+                "pageSize":6
+            },
+            success : function(data) {
+                if(data.rtMCode == "T"){
+                    var tps = data.rtMData;
+                    var len = tps.length;
+                    if(len > 0){
+                        var html = "<tr class=\"tthead\"><th>科目</th><th>发布日期</th><th>结束日期</th><th>作答</th></tr>";
+                        $("#t1v_tab").append(html);
+                        for(var i = 0;i < tps.length;i++){
+                            var pssdate = new Date(tps[i].tppassdate).Format("yyyy-MM-dd");
+                            html = "<tr onmouseover=\"this.style.backgroundColor='#ffff66';\" onmouseout=\"this.style.backgroundColor='#d4e3e5';\"> <td>"+tps[i].tpname+"</td><td>"+tps[i].tpupdate+"</td><td>"+pssdate+"</td><td><a href=\"testPaper.html?tpId="+tps[i].tpid+"\"><img class=\"tpdo\" src=\"/img/tpdo.png\"/></a></td></tr>";
+                            $("#t1v_tab").append(html);
+                        }
+                    }else {
+                        $("#t1v_tab").append("<tr><td>暂无数据!</td></tr>")
+                    }
+                }else {
+                    alert(data.rtMsg);
+                }
+            },
+            error : function () {
+               alert("内部错误!");
+            }
+        }
+    );
+}
+/**
+ * 获取已作答试题
+ * @param pn
+ */
+function getEnTps(pn) {
+    $("#t2v_tab").empty();
+    $.ajax(
+        {
+            type: "post",
+            url: "/tp/api/getEnTps",
+            dataType:"json",
+            async: false,
+            data:{
+                "pageNum":pn,
+                "pageSize":6
+            },
+            success : function(data) {
+                if(data.rtMCode == "T"){
+                    var tps = data.rtMData;
+                    var len = tps.length;
+                    if(len > 0){
+                        var html = "<tr class=\"tthead\"> <th>科目</th> <th>完成时间</th> <th>成绩</th> </tr>";
+                        $("#t2v_tab").append(html);
+                        for(var i = 0;i < tps.length;i++){
+                            html = "<tr onmouseover=\"this.style.backgroundColor='#ffff66';\" onmouseout=\"this.style.backgroundColor='#d4e3e5';\"> <td>Item 1A</td><td>Item 1B</td><td>Item 1C</td> </tr>";
+                            $("#t2v_tab").append(html);
+                        }
+                    }else {
+                        $("#t2v_tab").append("<tr><td>暂无数据!</td></tr>")
+                    }
+                }else {
+                    alert(data.rtMsg);
+                }
+            },
+            error : function () {
+                alert("内部错误!");
+            }
+        }
+    );
+}
+function alterUMAction(type,flag) {
+    if(type == 'm'){
+        if(flag == 1){
+            $("#am").val('');
+            $("#m").hide();
+            $("#ama1").hide();
+            $("#ama2").show();
+            $("#ama3").show();
+            $("#am").show();
+        }else {
+            $("#m").html($("#am").val());
+            $("#m").show();
+            $("#ama1").show();
+            $("#ama2").hide();
+            $("#ama3").hide();
+            $("#am").hide();
+        }
+    }else if(type == 'p'){
+        if(flag == 1){
+            $("#ap").val('');
+            $("#p").hide();
+            $("#apa1").hide();
+            $("#apa2").show();
+            $("#apa3").show();
+            $("#ap").show();
+        }else {
+            $("#p").html($("#ap").val());
+            $("#p").show();
+            $("#apa1").show();
+            $("#apa2").hide();
+            $("#apa3").hide();
+            $("#ap").hide();
+        }
+    }else {
+       alert("状态异常!");
+    }
+}
+function cencel(type) {
+    if(type == 1){
+        $("#am").val('');
+        $("#m").show();
+        $("#ama1").show();
+        $("#ama2").hide();
+        $("#ama3").hide();
+        $("#am").hide();
+    }else if(type == 2){
+        $("#ap").val('');
+        $("#p").show();
+        $("#apa1").show();
+        $("#apa2").hide();
+        $("#apa3").hide();
+        $("#ap").hide();
+    }else {
+        alert("状态异常!");
+    }
+}
+function alterUMsg(type) {
+    var msg;
+   if(type == 'm'){
+      msg = $("#am").val();
+      //手机号验证
+   }else if(type == 'p'){
+       msg = $("#ap").val();
+       //邮箱验证
+   }else {
+       alert("状态异常!");
+       return;
+   }
+    $.ajax(
+        {
+            type: "post",
+            url: "/user/api/alterUMsg",
+            dataType:"json",
+            async: false,
+            data:{
+                "msg":msg,
+                "type":type
+            },
+            success : function(data) {
+                if(data.rtMCode == "T"){
+                    alterUMAction(type,2);
+                }
+                alert(data.rtMsg);
+            },
+            error : function () {
+                alert("内部错误!");
+            }
+        }
+    );
+
 }
 $(document).ready(function(){
     getUMsg("h");

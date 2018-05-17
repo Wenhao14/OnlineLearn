@@ -115,42 +115,22 @@
 				<div id="myTest">
 					<div id="t1v">
 						<table id="t1v_tab" class="tv_tab">
-							<tr class="tthead">
-								<th>科目</th>
-								<th>过期时间</th>
-								<th>作答</th>
-							</tr>
-							<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-							    <td>Item 1Awish爱的发if逆霸霸爱家斯蒂芬静安寺新款潮女</td><td>2018/5/1 00:00:00</td><td><a href="testPaper.html"><img class="tpdo" src="../../img/tpdo.png"/></a></td>
-							</tr>
-							<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-							    <td>Item 2A</td><td>Item 2B</td><td>Item 2C</td>
-							</tr>
+
 						</table>
 					</div>
 					<div id="t2v">
 						<table id="t2v_tab" class="tv_tab">
-							<tr class="tthead">
-								<th>科目</th>
-								<th>完成时间</th>
-								<th>成绩</th>
-							</tr>
-							<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-							    <td>Item 1A</td><td>Item 1B</td><td>Item 1C</td>
-							</tr>
-							<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-							    <td>Item 2A</td><td>Item 2B</td><td>Item 2C</td>
-							</tr>
+
 						</table>
 					</div>
 				</div>
 				<div id="myAccount">
 					<div id="m1v">
 						<div class="msgV">
-							<span class="msgVt">邮箱 : </span><span id="m" class="msgVc"></span><a href="" class="msgFont" >修改</a>
+							<span class="msgVt">邮箱 : </span><span id="m" class="msgVc"></span><input class="alterMsg" id="am" type="text"/><a  id="ama1" href="javascript:alterUMAction('m',1)" class="msgFont" >修改</a><a class="aFont" id="ama2" href="javascript:alterUMsg('m')">确认修改</a><a class="aFont" id="ama3" href="javascript:cencel(1)">取消</a>
 						</div>
 						<div class="msgV">
-							<span class="msgVt">手机 : </span><span id="p" class="msgVc"></span><a href="" class="msgFont">修改</a>
+							<span class="msgVt">手机 : </span><span id="p" class="msgVc"></span><input class="alterMsg" id="ap" type="text"/><a id="apa1" href="javascript:alterUMAction('p',1)" class="msgFont">修改</a><a class="aFont" id="apa2" href="javascript:alterUMsg('p')">确认修改</a><a class="aFont" id="apa3" href="javascript:cencel(2)">取消</a>
 						</div>
 						<div class="msgV">
 							<span class="msgVt">部门 : </span><span id="d" class="msgVc"></span>
@@ -240,7 +220,7 @@
 				<div class="up-control-btns">
 					<span class="am-icon-rotate-left"  onclick="rotateimgleft()"></span>
 					<span class="am-icon-rotate-right" onclick="rotateimgright()"></span>
-					<span class="am-icon-check" id="up-btn-ok" url="admin/user/upload.action"></span>
+					<span class="am-icon-check" id="up-btn-ok" url="/user/api/upHeadImg"></span>
 				</div>
 			  </div>
 			  
