@@ -82,23 +82,19 @@ $(function() {
     	$modal.modal();
     	var url=$("#up-btn-ok").attr("url");
     	var canvas=$("#image").cropper('getCroppedCanvas');
-    	var data=canvas.toDataURL(); //转成base64
-        alert(url);
+    	var imgStr=canvas.toDataURL(); //转成base64
         $.ajax( {  
-                url:url,  
-                //dataType:'json',
+                url:url,
                 type: "POST",  
                 data: {
-                    "hImg":data.toString()
+                    "hImg":imgStr.toString()
                 },
-                success: function(data, textStatus){
+                success: function(data){
                 	$modal.modal('close');
-                	set_alert_info(data.result);
+                	set_alert_info(data.rtMsg);
                 	$modal_alert.modal();
-                	if(data.result=="ok"){
-                		$("#up-img-touch img").attr("src",data.file);
-                		var img_name=data.file.split('/')[2];
-                		$("#pic").text(img_name);
+                	if(data.rtMCode=="T"){
+                		$("#up-img-touch").attr("src",imgStr);
                 	}
                 },
                 error: function(){
@@ -106,7 +102,7 @@ $(function() {
                 	set_alert_info("上传文件失败了！");
                 	$modal_alert.modal();
                 }  
-         });  
+         });
     	
     });
     

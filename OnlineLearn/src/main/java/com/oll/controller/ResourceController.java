@@ -51,4 +51,5 @@ public class ResourceController {
     public Object addNotice(@RequestParam String title,@RequestParam String content){
         return resourceService.addNotice(title, content);
     }
+
 }

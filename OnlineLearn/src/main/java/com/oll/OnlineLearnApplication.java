@@ -2,6 +2,7 @@ package com.oll;
 
 
 import com.oll.filter.FlushSessionFilter;
+import com.oll.filter.LimitFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
@@ -21,13 +22,20 @@ public class OnlineLearnApplication {
 	}
 
 	/**
-	 * 登录过滤
+	 * 保持登录状态
 	 * @return
 	 */
 	@Bean
 	public FilterRegistrationBean flushSessionFilter(){
 		FilterRegistrationBean registration = new FilterRegistrationBean(new FlushSessionFilter());
 		registration.addUrlPatterns("/*");
+		return registration;
+	}
+	@Bean
+    public FilterRegistrationBean limitFilter(){
+		FilterRegistrationBean registration = new FilterRegistrationBean(new LimitFilter());
+		//需要过滤的url
+		registration.addUrlPatterns("/page/front/userSpace.html");
 		return registration;
 	}
 

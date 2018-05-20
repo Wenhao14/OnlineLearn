@@ -24,7 +24,6 @@ public class Testpaper implements Serializable {
   private String tpisdel;
   @Column(name = "tpcontent")
   private String tpcontent;
-
   public Long getTpid() {
     return tpid;
   }
@@ -88,4 +87,5 @@ public class Testpaper implements Serializable {
   public void setTpcontent(String tpcontent) {
     this.tpcontent = tpcontent;
   }
+
 }

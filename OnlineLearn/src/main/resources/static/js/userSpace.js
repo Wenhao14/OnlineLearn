@@ -249,7 +249,7 @@ function getUnTps(pn) {
                     if(len > 0){
                         var html = "<tr class=\"tthead\"><th>科目</th><th>发布日期</th><th>结束日期</th><th>作答</th></tr>";
                         $("#t1v_tab").append(html);
-                        for(var i = 0;i < tps.length;i++){
+                        for(var i = 0;i < len;i++){
                             var pssdate = new Date(tps[i].tppassdate).Format("yyyy-MM-dd");
                             html = "<tr onmouseover=\"this.style.backgroundColor='#ffff66';\" onmouseout=\"this.style.backgroundColor='#d4e3e5';\"> <td>"+tps[i].tpname+"</td><td>"+tps[i].tpupdate+"</td><td>"+pssdate+"</td><td><a href=\"testPaper.html?tpId="+tps[i].tpid+"\"><img class=\"tpdo\" src=\"/img/tpdo.png\"/></a></td></tr>";
                             $("#t1v_tab").append(html);
@@ -290,8 +290,8 @@ function getEnTps(pn) {
                     if(len > 0){
                         var html = "<tr class=\"tthead\"> <th>科目</th> <th>完成时间</th> <th>成绩</th> </tr>";
                         $("#t2v_tab").append(html);
-                        for(var i = 0;i < tps.length;i++){
-                            html = "<tr onmouseover=\"this.style.backgroundColor='#ffff66';\" onmouseout=\"this.style.backgroundColor='#d4e3e5';\"> <td>Item 1A</td><td>Item 1B</td><td>Item 1C</td> </tr>";
+                        for(var i = 0;i < len;i++){
+                            html = "<tr onmouseover=\"this.style.backgroundColor='#ffff66';\" onmouseout=\"this.style.backgroundColor='#d4e3e5';\"> <td>"+tps[i][1]+"</td><td>"+tps[i][3]+"</td><td>"+tps[i][4]+"</td> </tr>";
                             $("#t2v_tab").append(html);
                         }
                     }else {
@@ -398,7 +398,30 @@ function alterUMsg(type) {
     );
 
 }
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){
+            return pair[1];
+        }
+    }
+    return "F";
+}
+function urlPapamDeal(type) {
+    if(type == "altPwd"){
+        nav_action(3);
+        subMenu(1);
+        yzmUp();
+    }
+}
 $(document).ready(function(){
     getUMsg("h");
-	nav_action(0);
+    var type = getQueryVariable("type");
+    if(type != "F"){
+        urlPapamDeal(type);
+    }else {
+        nav_action(0);
+    }
 });

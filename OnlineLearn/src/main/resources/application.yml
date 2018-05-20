@@ -10,7 +10,7 @@ spring:
     platform: mysql
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      initialSize:  5
+      initialSize: 5
       minIdle: 5
       maxActive: 200
       maxWait: 60000
@@ -50,3 +50,4 @@ spring:
 app:
   config:
     sessionOutTime: 30
+    sqlDriver: com.mysql.jdbc.Driver

@@ -19,6 +19,4 @@ public interface TestPaperDao extends JpaRepository<Testpaper,Long> {
     <S extends Testpaper> S save(S s);
     @Query("select tp from Testpaper tp where tp.tpisdel = '0' and tp.tpid not in ?1 and tp.tppassdate >= ?2")
     Page<Testpaper> getUnTPs(List<Long> tpids, Date now,Pageable pageable);
-//    @Query("select tp from Testpaper  tp where tp.tpisdel = '0' and tp.tpid in ?1")
-//    Page<Testpaper> getEnTps(List<Long> tpids,Pageable pageable);
 }

@@ -7,7 +7,8 @@ import com.oll.dao.NoticeDao;
 import com.oll.dao.TestPaperDao;
 import com.oll.model.*;
 import com.oll.util.BaseRtM;
-import com.oll.util.PatternUtil;
+import com.oll.util.CommonUtil;
+import com.oll.util.DBUtil.SqlVehicel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,9 +32,11 @@ public class ResourceService {
     @Resource
     private ShareLogin shareLogin;
     @Resource
-    private PatternUtil patternUtil;
+    private CommonUtil patternUtil;
     @Resource
     private AnswerDao answerDao;
+    @Resource
+    private SqlVehicel sqlVehicel;
     /**
      * 发布试题
      * @param tpName
@@ -200,6 +203,13 @@ public class ResourceService {
             return baseRtM;
         }
     }
+
+    /**
+     * 保存答题结果
+     * @param tpId
+     * @param score
+     * @return
+     */
     public BaseRtM addAnswer(Long tpId,String score){
         BaseRtM baseRtM = new BaseRtM();
         try {
@@ -230,38 +240,21 @@ public class ResourceService {
      * @param pageSize
      * @return
      */
-//    public BaseRtM getEnTps(Integer pageNum,Integer pageSize){
-//        BaseRtM baseRtM = new BaseRtM();
-//        try {
-//            Long uid = shareLogin.getUser().getUid();
-//            List<Answer> answers = answerDao.getAnswerByPageNum(uid,);
-//            List<Long> tpids = getTpids(answers);
-//            int len = tpids.size();
-//            if(tpids == null || len < 1){
-//                baseRtM.setRtMCode("T");
-//                baseRtM.setRtMsg("暂无数据!");
-//            }else {
-//                Sort sort = new Sort(Sort.Direction.DESC,"tpupdate");
-//                Pageable pageable = new PageRequest(pageNum,pageSize,sort);
-//                List<Testpaper> testpapers = testPaperDao.getEnTps(tpids,pageable).getContent();
-//                for(int i = 0;i < len;i++){
-//                    Map<String,String> msg = new HashMap();
-//                  }
-//            }
-//        }catch (Exception e){
-//            baseRtM.setRtMCode("F");
-//            baseRtM.setRtMsg("内部出错!");
-//        }finally {
-//            return baseRtM;
-//        }
-//    }
-//    public List<Long> getTpids(List<Answer> answers){
-//        int len = answers.size();
-//        List<Long> tpids = new ArrayList<>(len);
-//        for(int i = 0;i < len;i++){
-//            tpids.add(answers.get(i).getTpid());
-//        }
-//        return tpids;
-//    }
-
+    public BaseRtM getEnTps(Integer pageNum,Integer pageSize){
+        BaseRtM baseRtM = new BaseRtM();
+        try {
+            String sql = "SELECT tp.tpId,tp.tpName,tp.tpDescribe,a.aDate,a.aGrade FROM testpaper tp,answer a WHERE tp.tpId IN (SELECT a.tpID FROM answer a WHERE a.uId = ?) AND tp.tpIsDel = 0 ORDER BY a.aDate DESC LIMIT " + pageNum*pageSize+","+pageSize;
+            Long uid = shareLogin.getUser().getUid();
+            String[] papam = {Long.toString(uid)};
+            List result = sqlVehicel.SqlSelect(sql,papam);
+            baseRtM.setRtMCode("T");
+            baseRtM.setRtMData(result);
+        }catch (Exception e){
+            e.printStackTrace();
+            baseRtM.setRtMCode("F");
+            baseRtM.setRtMsg("内部错误!");
+        }finally {
+            return baseRtM;
+        }
+    }
 }

@@ -99,4 +99,13 @@ public class ShareLogin {
      public String getUserLoginKey(Object uid){
           return "ISLOGIN"+uid;
      }
+     public Boolean alterRedisUMsg(User user){
+          try {
+               String token = getTokenBySession();
+               redisTemplate.opsForValue().set(token,user,sessionOutTime,TimeUnit.MINUTES);
+               return true;
+          }catch (Exception e){
+               return false;
+          }
+     }
 }

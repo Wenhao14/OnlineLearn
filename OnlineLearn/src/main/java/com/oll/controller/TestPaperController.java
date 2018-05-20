@@ -43,7 +43,7 @@ public class TestPaperController {
      */
     @RequestMapping(value = "/getEnTps")
     public Object getEnTps(@RequestParam Integer pageNum,@RequestParam Integer pageSize){
-        return null;
+        return resourceService.getEnTps(pageNum, pageSize);
     }
 
     /**

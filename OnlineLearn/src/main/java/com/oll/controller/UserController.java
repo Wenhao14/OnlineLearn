@@ -5,7 +5,6 @@ import com.oll.util.BaseRtM;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -311,12 +310,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/upHeadImg")
-    public Object alterHeadImg(@RequestParam MultipartFile hImg){
-        if(!hImg.isEmpty()){
-            System.out.println("ok");
-        }else {
-            System.out.println("no");
-        }
-        return null;
+    public Object alterHeadImg(@RequestParam String hImg){
+        return userService.GenerateImage(hImg);
     }
 }

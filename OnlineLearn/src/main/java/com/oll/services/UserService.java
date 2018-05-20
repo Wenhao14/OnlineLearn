@@ -30,7 +30,6 @@ public class UserService {
     private ShareLogin shareLogin;
     @Resource
     private UserMsgDao userMsgDao;
-
     private static final String randomPwdPool = "VWX03abcdefg47M89hmOPQR12STUnoABCqrDEFps56tuzGHIJwKLijklNYvsyZ";
     /**
      * 用户登录
@@ -66,9 +65,9 @@ public class UserService {
             username = jsonObject.getString("用户名");
             user.setUsername(username);
             user.setPassword(md5Encrypt.toEncryptString(username));
-            user.setGrade("b");
+            user.setGrade("c");
             user.setIsdel("0");
-            user.setHeadimg("/img/undefultUI.jpg");
+            user.setHeadimg("");
             users.add(user);
         }
         userDao.save(users);
@@ -100,7 +99,7 @@ public class UserService {
         user.setPassword(md5Encrypt.toEncryptString(userName));
         user.setGrade(relGrade);
         user.setIsdel("0");
-        user.setHeadimg("/img/undefultUI.jpg");
+        user.setHeadimg("");
         try {
             Object result = userDao.save(user);
             if(result instanceof User){
@@ -137,8 +136,7 @@ public class UserService {
      * @param imgUrl
      * @return
      */
-    public Boolean updataUserHeadImg(String imgUrl){
-        Long uid = shareLogin.getUser().getUid();
+    public Boolean updataUserHeadImg(Long uid,String imgUrl){
         if(uid != null){
             Integer result = userDao.updateHeadImg(uid,imgUrl);
             if(result == 1){
@@ -383,6 +381,44 @@ public class UserService {
             baseRtM.setRtMCode("T");
             baseRtM.setRtMData(msg);
         }catch (Exception e){
+            baseRtM.setRtMCode("F");
+            baseRtM.setRtMsg("内部错误!");
+        }finally {
+            return baseRtM;
+        }
+    }
+
+    /**
+     * 保存头像图片
+      * @param imgStr
+     * @return
+     */
+    public BaseRtM GenerateImage(String imgStr) {   //对字节数组字符串进行Base64解码并生成图片
+        BaseRtM baseRtM = new BaseRtM();
+        if (imgStr == null){
+            baseRtM.setRtMCode("F");
+            baseRtM.setRtMsg("头像图片为空!");
+            return baseRtM;
+        }
+        try {
+            User user = shareLogin.getUser();
+            user.setHeadimg(imgStr);
+            if(shareLogin.alterRedisUMsg(user)){
+                Boolean result = updataUserHeadImg(user.getUid(),imgStr);
+                if(result){
+                    baseRtM.setRtMCode("T");
+                    baseRtM.setRtMsg("更新头像成功!");
+                }else {
+                    baseRtM.setRtMCode("F");
+                    baseRtM.setRtMsg("修改头像失败!");
+                }
+            }else {
+                baseRtM.setRtMCode("F");
+                baseRtM.setRtMsg("修改头像失败!");
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
             baseRtM.setRtMCode("F");
             baseRtM.setRtMsg("内部错误!");
         }finally {

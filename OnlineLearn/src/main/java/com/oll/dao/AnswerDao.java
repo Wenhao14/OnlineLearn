@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 /**
@@ -17,6 +16,4 @@ public interface AnswerDao extends JpaRepository<Answer,Long> {
     <S extends Answer> S save(S s);
     @Query("select aw.tpid from Answer aw where aw.uid = ?1")
     List<Long> getTpids(Long uid);
-    @Query("select aw.tpid from Answer aw where aw.uid = ?1")
-    List<Answer> getAnswerByPageNum(Long uid, Pageable pageable);
 }
