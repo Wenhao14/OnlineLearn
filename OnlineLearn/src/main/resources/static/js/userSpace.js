@@ -1,6 +1,7 @@
 var navs=new Array("#nav1","#nav2","#nav3","#nav4");
 var main = new Array("#myClass","","#myTest","#myAccount");
 var smenu;
+var mFlag = 0;
 function clearnAlterPwd() {
     $("#oldPwd").val("");
     $("#newPwd").val("");
@@ -34,7 +35,8 @@ function asNavAction(sel){
 	switch(sel){
 		case 0:{
 			smenu = new Array("#c1","#c2");
-			html = '<tr><td><span id="c1" onclick ="subMenu(0)">待学课程</span></td><td><span id="c2" onclick ="subMenu(1)">已完成课程</span></td></tr>';
+			getCouser('/user/api/getSelC','#ctb1',0,5,1)
+			html = '<tr><td><span id="c1" onclick ="subMenu(0),getCouser(\'/user/api/getSelC\',\'#ctb1\',0,5,1)">我的选课</span></td><td><span id="c2" onclick ="subMenu(1),getCouser(\'/user/api/getEndC\',\'#ctb2\',0,6,2)">已完成课程</span></td></tr>';
 			break
 		}
 		case 1:{
@@ -84,7 +86,13 @@ function getUMsg(flag) {
             success : function(data) {
                 if(data.rtMCode == "T"){
                     var msg = data.rtMData;
+                    var grade =  msg.user.grade;
                     if(flag == "h"){
+                        if(grade.indexOf("管理") > -1 && mFlag == 0){
+                            var htmlTxt = "<div onclick='javascript:window.location.href=\"/page/back/manage.html\"' style='background-color: #FAA046' class='nav'> <span>平台管理</span></div>";
+                            $("#navList").append(htmlTxt);
+                            mFlag = 1;
+                        }
                        $("#up-img-touch").attr("src",msg.user.headimg);
                        $("#uName").html(msg.userMsg.uname);
                     }else {
@@ -94,7 +102,7 @@ function getUMsg(flag) {
                         $("#g").html(msg.userMsg.ugoal);
                         $("#r").html(msg.userMsg.urank);
                         $("#u").html(msg.user.username);
-                        $("#c").html(msg.user.grade);
+                        $("#c").html(grade);
                     }
                 }else {
                    alert(data.rtMsg);
@@ -367,10 +375,18 @@ function alterUMsg(type) {
     var msg;
    if(type == 'm'){
       msg = $("#am").val();
-      //手机号验证
+       var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$")
+       if(!reg.test(msg)){
+           alert("请输入正确的邮箱!");
+           return;
+       }
    }else if(type == 'p'){
        msg = $("#ap").val();
-       //邮箱验证
+       var phone = new RegExp("^[1][3,4,5,7,8][0-9]{9}$");
+       if(!phone.test(msg)){
+           alert("请输入真实的手机号!");
+           return;
+       }
    }else {
        alert("状态异常!");
        return;
@@ -398,6 +414,11 @@ function alterUMsg(type) {
     );
 
 }
+/**
+ * 提取url中的参数
+ * @param variable
+ * @returns {*}
+ */
 function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
     var vars = query.split("&");
@@ -409,12 +430,118 @@ function getQueryVariable(variable) {
     }
     return "F";
 }
+function getCouser(url,id,pNum,pSize,type) {
+    $.ajax(
+        {
+            type: "post",
+            url: url,
+            dataType:"json",
+            data:{
+                "pNum":pNum,
+                "pSize":pSize
+            },
+            success : function(data) {
+                var html = "";
+                if(data.rtMCode == "T"){
+                    $(id).empty();
+                    var courses = data.rtMData;
+                    var len = courses.length;
+                    if(len > 0){
+                        var t = 1;
+                        for(var i = 0;i < len;i++){
+                            if(t == 1){
+                                t += 1;
+                                html += "<tr><td onclick=\"javascript:window.location.href='/page/front/classRoom.html?cid="+courses[i][0]+"'\"> <div class='course'>" +
+                                    "<img src='"+courses[i][3]+"'/>"+
+                                    "<a>"+courses[i][1]+"</a><br/>"+
+                                    "<span>"+courses[i][2]+"</span>"+
+                                    "</div></td>";
+
+                            }else if(t == 3){
+                                html += "<td onclick=\"javascript:window.location.href='/page/front/classRoom.html?cid="+courses[i][0]+"'\"> <div class='course'>" +
+                                    "<img src='"+courses[i][3]+"'/>"+
+                                    "<a>"+courses[i][1]+"</a><br/>"+
+                                    "<span>"+courses[i][2]+"</span>"+
+                                    "</div></td></tr>";
+                                t = 1;
+                            }else {
+                                t += 1;
+                                html += "<td onclick=\"javascript:window.location.href='/page/front/classRoom.html?cid="+courses[i][0]+"'\"> <div class='course'>" +
+                                    "<img src='"+courses[i][3]+"'/>"+
+                                    "<a>"+courses[i][1]+"</a><br/>"+
+                                    "<span>"+courses[i][2]+"</span>"+
+                                    "</div></td>";
+                            }
+                        }
+                        if(t != 1){
+                            if(type == 1){
+                                html += "<td> <div class='course'>"+
+                                    "<a class='addkc' href='/page/front/local_resource_base.html' title='添加课程'><span></span></a>"+
+                                    "</div></td>";
+                                t += 1;
+                            }
+                            for(t; t < 4;t++){
+                                html += "<td></td>";
+                            }
+                            html += "</tr>";
+                        }else {
+                            if(type == 1){
+                                html += "<tr><td> <div class='course'>"+
+                                    "<a class='addkc' href='/page/front/local_resource_base.html' title='添加课程'><span></span></a>"+
+                                    "</div></td><td></td><td></td></tr>";
+                            }
+                        }
+                        $(id).append(html);
+                    }else {
+                        if(type == 1){
+                            html = "<tr><td> <div class='course'>"+
+                                "<a class='addkc' href='/page/front/local_resource_base.html' title='添加课程'><span></span></a>"+
+                                "</div></td><td></td><td></td></tr>";
+                        }else {
+                            html = "<tr><td>暂无数据!</td></tr>";
+                        }
+                        $(id).append(html);
+                    }
+                }else {
+                    html = "<tr><td>"+ data.rtMsg+"</td></tr>";
+                    $(id).append(html);
+                }
+            },
+            error : function () {
+                var html = "<tr><td>内部出错!</td></tr>";
+                $(id).append(html);
+            }
+        }
+    );
+}
 function urlPapamDeal(type) {
     if(type == "altPwd"){
         nav_action(3);
         subMenu(1);
         yzmUp();
     }
+}
+/**
+ * 退出登录
+ */
+function loginOut() {
+    $.ajax(
+        {
+            type: "post",
+            url: "/user/api/loginOut",
+            dataType:"json",
+            success : function(data) {
+                if(data.rtMCode == "T"){
+                    window.location.href = "/index.html";
+                }else {
+                    alert("退出登录出错!");
+                }
+            },
+            error : function () {
+                alert("退出登录出错!");
+            }
+        }
+    );
 }
 $(document).ready(function(){
     getUMsg("h");

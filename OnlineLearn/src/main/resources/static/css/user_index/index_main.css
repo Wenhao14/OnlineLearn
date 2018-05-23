@@ -112,6 +112,7 @@
 	float: right;
 	margin-top: 1.5%;
 	margin-right: 2%;
+	cursor: pointer;
 }
 .enter{
 	font-size: 12px;

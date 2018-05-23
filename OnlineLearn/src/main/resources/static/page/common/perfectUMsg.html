@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>完善信息——西科大教师思政学习平台</title>
+    <link rel="stylesheet" href="../../css/user_index/perfectMsg.css" />
+    <script type="text/javascript" src="../../js/ref/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../js/perfectMsg.js"></script>
+</head>
+<body>
+<div id = "logo">
+    <img src="../../img/login_logo.png" />
+</div>
+<div id = "main">
+    <div id="title">
+        <h3>完善个人信息</h3>
+    </div>
+    <div id="form">
+        <table class="tb">
+            <tr class="font2">
+               <td>
+                   <span>姓名:</span><br/>
+                   <input placeholder="请输入真实姓名" id="n" onchange="paramCheck('n')" class="text" type="text"/>
+                   <span id="en" class="error"></span>
+               </td>
+            </tr>
+            <tr class="font2">
+                <td>
+                    <span>手机:</span><br/>
+                    <input id="p" placeholder="请输入真实手机号" onchange="paramCheck('p')" class="text" type="text"/>
+                    <span id="ep" class="error"></span>
+                </td>
+            </tr>
+            <tr class="font2">
+                <td>
+                    <span>邮箱:</span><br/>
+                    <input id="e" placeholder="用于找回密码等" onchange="paramCheck('e')" class="text" type="text"/>
+                    <span id="ee" class="error"></span>
+                </td>
+            </tr>
+            <tr class="font2">
+                <td>
+                    <span>部门:</span><br/>
+                    <input placeholder="请尽可能详细" id="d" onchange="paramCheck('d')" class="text" type="text"/>
+                    <span  id="ed" class="error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span id="ebt" class="error"></span><br>
+                    <button id="bt" onclick="perfectMsg()">完善信息</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="foot">
+    <span>Copyright © 西安科技大学. All Rights Reserved.</span>
+</div>
+</body>
+</html>

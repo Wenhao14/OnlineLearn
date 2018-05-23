@@ -2,6 +2,7 @@ package com.oll.controller;
 
 import com.oll.services.ResourceService;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class TestPaperController {
      * @param pageSize
      * @return
      */
-    @RequestMapping(value = "/getUnTps")
+    @RequestMapping(value = "/getUnTps",method = RequestMethod.POST)
     public Object getUnTps(@RequestParam Integer pageNum, @RequestParam Integer pageSize){
         return resourceService.getUnTps(pageNum, pageSize);
     }
@@ -31,7 +32,7 @@ public class TestPaperController {
      * @param tpId
      * @return
      */
-    @RequestMapping(value = "/getTpCont")
+    @RequestMapping(value = "/getTpCont",method = RequestMethod.POST)
     public Object getTpCont(@RequestParam Long tpId){
         return resourceService.getTpContent(tpId);
     }
@@ -41,7 +42,7 @@ public class TestPaperController {
      * @param pageSize
      * @return
      */
-    @RequestMapping(value = "/getEnTps")
+    @RequestMapping(value = "/getEnTps",method = RequestMethod.POST)
     public Object getEnTps(@RequestParam Integer pageNum,@RequestParam Integer pageSize){
         return resourceService.getEnTps(pageNum, pageSize);
     }
@@ -52,7 +53,7 @@ public class TestPaperController {
      * @param score
      * @return
      */
-    @RequestMapping(value = "/addAnswer")
+    @RequestMapping(value = "/addAnswer",method = RequestMethod.POST)
     public Object addAnswer(@RequestParam Long tpId,@RequestParam String score){
         return resourceService.addAnswer(tpId,score);
     }

@@ -21,15 +21,6 @@ public interface UserMsgDao extends JpaRepository<UserMsg,Long> {
     //@Cacheable(key = "#p0")
     @Query("select um from UserMsg um order by um.ugoal DESC ")
     List<UserMsg> findAllUserMsg();
-//    /**
-//     * 更新排名
-//     * @param uid
-//     * @param rank
-//     * @return
-//     */
-//    //@CachePut(key = "#p0")
-//    @Query("update UserMsg um set um.urank = ?2 where um.uid = ?1 ")
-//    Integer upUBank(Long uid,String rank);
 
     /**
      * 完善信息
@@ -68,4 +59,14 @@ public interface UserMsgDao extends JpaRepository<UserMsg,Long> {
     @Query("update UserMsg um set um.uphone = ?2 where um.uid = ?1")
     Integer updateUPhone(Long uid,String phone);
 
+    /**
+     * 更新积分
+     * @param uid
+     * @param goal
+     * @return
+     */
+    @Modifying
+    @Transactional
+    @Query("update UserMsg um set um.ugoal = ?2 where um.uid = ?1")
+    Integer alterUGoal(Long uid,Long goal);
 }

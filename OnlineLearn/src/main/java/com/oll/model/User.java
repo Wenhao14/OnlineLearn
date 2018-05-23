@@ -22,7 +22,8 @@ public class User implements Serializable {
   private String isdel;
   @Column(name = "headimg")
   private String headimg;
-
+  @Column(name = "ispermsg")
+  private String isPerMsg;
   public Long getUid() {
     return uid;
   }
@@ -69,5 +70,13 @@ public class User implements Serializable {
 
   public void setHeadimg(String headimg) {
     this.headimg = headimg;
+  }
+
+  public String getIsPerMsg() {
+    return isPerMsg;
+  }
+
+  public void setIsPerMsg(String isPerMsg) {
+    this.isPerMsg = isPerMsg;
   }
 }

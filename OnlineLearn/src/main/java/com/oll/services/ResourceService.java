@@ -1,10 +1,7 @@
 package com.oll.services;
 
 import com.oll.cache.ShareLogin;
-import com.oll.dao.AnswerDao;
-import com.oll.dao.NewsDao;
-import com.oll.dao.NoticeDao;
-import com.oll.dao.TestPaperDao;
+import com.oll.dao.*;
 import com.oll.model.*;
 import com.oll.util.BaseRtM;
 import com.oll.util.CommonUtil;
@@ -37,6 +34,14 @@ public class ResourceService {
     private AnswerDao answerDao;
     @Resource
     private SqlVehicel sqlVehicel;
+    @Resource
+    private CourseDao courseDao;
+    @Resource
+    private ClasshourDao classhourDao;
+    @Resource
+    private ModuleDao moduleDao;
+    @Resource
+    private SelcourseDao selcourseDao;
     /**
      * 发布试题
      * @param tpName
@@ -196,7 +201,6 @@ public class ResourceService {
                 baseRtM.setRtMsg("没有该试卷!");
             }
         }catch (Exception e){
-            e.printStackTrace();
             baseRtM.setRtMCode("F");
             baseRtM.setRtMsg("内部错误!");
         }finally {
@@ -245,14 +249,65 @@ public class ResourceService {
         try {
             String sql = "SELECT tp.tpId,tp.tpName,tp.tpDescribe,a.aDate,a.aGrade FROM testpaper tp,answer a WHERE tp.tpId IN (SELECT a.tpID FROM answer a WHERE a.uId = ?) AND tp.tpIsDel = 0 ORDER BY a.aDate DESC LIMIT " + pageNum*pageSize+","+pageSize;
             Long uid = shareLogin.getUser().getUid();
-            String[] papam = {Long.toString(uid)};
-            List result = sqlVehicel.SqlSelect(sql,papam);
+            String[] param = {Long.toString(uid)};
+            List result = sqlVehicel.SqlSelect(sql,param);
             baseRtM.setRtMCode("T");
             baseRtM.setRtMData(result);
+        }catch (Exception e){
+            baseRtM.setRtMCode("F");
+            baseRtM.setRtMsg("内部错误!");
+        }finally {
+            return baseRtM;
+        }
+    }
+    /**
+     * 获取课程信息
+     * @param cid
+     * @return
+     */
+    public BaseRtM getVideoMsg(Long cid){
+        BaseRtM baseRtM = new BaseRtM();
+        try {
+            Course course = courseDao.findOne(cid);
+            List<Classhour> classhours = classhourDao.getClasshourByCid(cid);
+            Map<String,Object> msg = new HashMap();
+            msg.put("c",course);
+            msg.put("ch",classhours);
+            User user = shareLogin.getUser();
+            if(user != null){
+                Selcourse selcourse = selcourseDao.getSelcourseByUidAndCid(user.getUid(),cid);
+                if(selcourse != null){
+                    msg.put("sc",selcourse);
+                }else {
+                    msg.put("sc","F");
+                }
+            }else {
+                msg.put("sc","F");
+            }
+            baseRtM.setRtMCode("T");
+            baseRtM.setRtMData(msg);
         }catch (Exception e){
             e.printStackTrace();
             baseRtM.setRtMCode("F");
             baseRtM.setRtMsg("内部错误!");
+        }finally {
+            return baseRtM;
+        }
+    }
+
+    /**
+     * 获取分类
+     * @return
+     */
+    public BaseRtM getModule(){
+        BaseRtM baseRtM = new BaseRtM();
+        try {
+            List<Module> modules = moduleDao.findAll();
+            baseRtM.setRtMCode("T");
+            baseRtM.setRtMData(modules);
+        }catch (Exception e){
+            baseRtM.setRtMCode("F");
+            baseRtM.setRtMData("内部错误!");
         }finally {
             return baseRtM;
         }

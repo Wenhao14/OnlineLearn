@@ -32,6 +32,7 @@ body{
 	float: right;
 	margin-right: 13.5%;
 	background-color: #008ACF;
+	display: none;
 }
 #commit{
 	height: 100%;

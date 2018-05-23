@@ -51,4 +51,14 @@ public interface UserDao extends JpaRepository<User,Long>  {
      @Query("update User u set u.headimg = ?2 where u.uid = ?1")
      Integer updateHeadImg(Long uid,String imgUrl);
 
+     /**
+      * 更新用户信息状态
+      * @param uid
+      * @return
+      */
+     @Modifying
+     @Transactional
+     @Query("update User u set u.isPerMsg = 1 where u.uid = ?1")
+     Integer alterIsPerMsg(Long uid);
+
 }

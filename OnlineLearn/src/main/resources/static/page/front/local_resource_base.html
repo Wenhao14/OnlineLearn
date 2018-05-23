@@ -8,9 +8,12 @@
 		<link rel="stylesheet" href="../../css/user_index/courseBox.css" />
 		<link rel="stylesheet" href="../../css/ref/jquery.pagination.css" />
 		<link rel="stylesheet" href="../../css/user_index/foot.css" />
+		<link rel="stylesheet" href="/css/ref/onlineNav.css"/>
 		<script type="text/javascript" src="../../js/ref/jquery-3.2.1.min.js"></script>
 	    <script type="text/javascript" src="../../js/nav.js"></script>
-	    <script type="text/javascript" src="../../js/lRBase.js" ></script>
+	    <script type="text/javascript" src="../../js/courseCommon.js"></script>
+		<script type="text/javascript" src="../../js/lRBase.js" ></script>
+		<script type="text/javascript" src="../../js/isLoginAction.js"></script>
 	    <script type="text/javascript" src="../../js/ref/jquery.pagination.min.js" ></script>
 	</head>
 	<body onload="init(6)">
@@ -28,6 +31,18 @@
 		    		</div>
 		    	</a>
 		    </div>
+			<div id="online">
+				<div class="dropdown">
+					<button class="dropbtn">
+						<img id="ohI" src="">
+						<span id="ouN"></span>
+					</button>
+					<div class="dropdown-content">
+						<a href="/page/front/userSpace.html">学习空间</a>
+						<a href="javascript:loginOut()">退出</a>
+					</div>
+				</div>
+			</div>
 			<div id="nav">
 				<table align="center" border="1" bordercolor="#CCCCCC" frame="below"  class = "nav">
 					<tr height="25px">
@@ -56,7 +71,7 @@
 		<div id="nn_main">
         	<div id="lrb_nav" class="left">
         		<div id="msgnav"><span>本校资源库</span></div>
-        		<div id="m-1" class="option"><a href="javascript:module(-1)">全部</a></div>
+        		<div id="m-1" onclick="module(-1),getCouser('/index/api/getAC','#cTb',0,6)" class="option"><a>全部</a></div>
         	</div>
         	<div id="right">
         		<div id="content">
@@ -64,75 +79,21 @@
         				<span class="font1" id="option"></span>
         				<div class="find">
 			   				<input type="text" placeholder="课程名称" id="key"/>
-			   				<img src="../../img/find.png"/>
+			   				<img onclick="findCbyK('F')" src="../../img/find.png"/>
 			   			</div>
         			</div>
         			<div class="msg_body">
-        				 <table class="courseTable">
-        					<tr>
-        						<td>
-        							<div class="course">
-										<img onclick="" src="../../img/findPwd_bg.gif" />
-										<a href="">课程名</a>
-										<br/>
-										<span>主讲人</span>
-									</div>
-        						</td>
-        						<td>
-        							<div class="course">
-										<img onclick="" src="../../img/findPwd_bg.gif" />
-										<a href="">课程名</a>
-										<br/>
-										<span>主讲人</span>
-									</div>
-        						</td>
-        						<td>
-        							<div class="course">
-										<img onclick="" src="../../img/findPwd_bg.gif" />
-										<a href="">课程名</a>
-										<br/>
-										<span>主讲人</span>
-									</div>
-        						</td>
-        					</tr>
-        					<tr>
-        						<td>
-        							<div class="course">
-										<img onclick="" src="../../img/findPwd_bg.gif" />
-										<a href="">课程名</a>
-										<br/>
-										<span>主讲人</span>
-									</div>
-        						</td>
-        						<td>
-        							<div class="course">
-										<img onclick="" src="../../img/findPwd_bg.gif" />
-										<a href="">课程名</a>
-										<br/>
-										<span>主讲人</span>
-									</div>
-        						</td>
-        						<td>
-        							<div class="course">
-										<img onclick="" src="../../img/findPwd_bg.gif" />
-										<a href="">课程名</a>
-										<br/>
-										<span>主讲人</span>
-									</div>
-        						</td>
-        					</tr>
+						<table id="cTb" class="courseTable">
         				</table>
-        				<div class="paging">
-        					<div id="pageView">
-        						
-        					</div>
-        				</div>
         			</div>
+					<div class="paging">
+						<div id="pageView">
+						</div>
+					</div>
         		</div>
         	</div>
         </div>
 		<div id="foot">
-			
 		</div>
 		<script>
 			$("#foot").load("foot.html");

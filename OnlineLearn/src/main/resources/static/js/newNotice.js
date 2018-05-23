@@ -19,6 +19,10 @@ function getContent(nt){
 	$("#titles").hide();
 	$("#text").show();
 }
+function goBack() {
+    $("#text").hide();
+    $("#titles").show();
+}
 /**
  * 读取新闻
  */
@@ -90,45 +94,7 @@ function paging(){
 		}
 	});
 }
-/**
- * 登录与否动作
- * @param flag
- */
-function isLoginAction(flag) {
-    if(flag == "T"){
-       $("#login").hide();
-    }else {
-       $("#login").show();
-    }
-}
-/**
- * 是否登录
- */
-function isLogin() {
-    $.ajax(
-        {
-            type: "post",
-            url: "/user/api/isLogin",
-            dataType:"json",
-            success : function(data) {
-                if(data.rtMCode == "T"){
-                    if(data.rtMData.um == "F") {
-                        window.location.href = "";//跳转完善信息
-                    }else {
-                        isLoginAction("T",data.rtMData);
-                    }
-                }else {
-                    isLoginAction("F");
-                }
-            },
-            error : function () {
-                isLoginAction("F");
-            }
-        }
-    );
-}
 $(document).ready(function(){
 	paging();
-    isLogin();
 	nn_nav(1);
 })

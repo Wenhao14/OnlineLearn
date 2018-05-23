@@ -8,6 +8,7 @@ import java.io.IOException;
 
 /**
  * Created by NewDarker on 2018/5/20.
+ * 权限限制过滤器
  */
 public class LimitFilter implements Filter {
     private static ShareLogin shareLogin;

@@ -7,10 +7,13 @@
 		<link rel="stylesheet" href="../../css/user_index/courseBox.css" />
 		<link rel="stylesheet" href="../../css/user_index/foot.css" />
 		<link rel="stylesheet" href="../../css/user_index/navCommon.css" />
+		<link rel="stylesheet" href="/css/ref/onlineNav.css"/>
 		<script type="text/javascript" src="../../js/ref/jquery-3.2.1.min.js"></script>
-	    <script type="text/javascript" src="../../js/nav.js"></script>
+	    <script type="text/javascript" src="../../js/courseCommon.js"></script>
+		<script type="text/javascript" src="../../js/nav.js"></script>
+		<script type="text/javascript" src="../../js/isLoginAction.js"></script>
 	</head>
-	<body onload="init(5)">
+	<body onload="init(5),getCouser('/index/api/getHotC','#hotC',0,6)">
 		<div class="top">
 		    <div class="logo">
 		    	<img id="lo1" src="../../img/theme.png" />
@@ -25,6 +28,18 @@
 		    		</div>
 		    	</a>
 		    </div>
+			<div id="online">
+				<div class="dropdown">
+					<button class="dropbtn">
+							<img id="ohI" src=""/>
+							<span id="ouN"></span>
+					</button>
+					<div class="dropdown-content">
+						<a href="/page/front/userSpace.html">学习空间</a>
+						<a href="javascript:loginOut()">退出</a>
+					</div>
+				</div>
+			</div>
 			<div id="nav">
 				<table align="center" border="1" bordercolor="#CCCCCC" frame="below"  class = "nav">
 					<tr height="25px">
@@ -61,59 +76,8 @@
         				<span class="font1">热门课程</span>
         			</div>
         			<div class="msg_body">
-        				<table class="courseTable">
-        					<tr>
-        						<td>
-        							<div class="course">
-										<img onclick="" src="../../img/findPwd_bg.gif" />
-										<a href="">课程名</a>
-										<br/>
-										<span>主讲人</span>
-									</div>
-        						</td>
-        						<td>
-        							<div class="course">
-										<img onclick="" src="../../img/findPwd_bg.gif" />
-										<a href="">课程名</a>
-										<br/>
-										<span>主讲人</span>
-									</div>
-        						</td>
-        						<td>
-        							<div class="course">
-										<img onclick="" src="../../img/findPwd_bg.gif" />
-										<a href="">课程名</a>
-										<br/>
-										<span>主讲人</span>
-									</div>
-        						</td>
-        					</tr>
-        					<tr>
-        						<td>
-        							<div class="course">
-										<img onclick="" src="../../img/findPwd_bg.gif" />
-										<a href="">课程名</a>
-										<br/>
-										<span>主讲人</span>
-									</div>
-        						</td>
-        						<td>
-        							<div class="course">
-										<img onclick="" src="../../img/findPwd_bg.gif" />
-										<a href="">课程名</a>
-										<br/>
-										<span>主讲人</span>
-									</div>
-        						</td>
-        						<td>
-        							<div class="course">
-										<img onclick="" src="../../img/findPwd_bg.gif" />
-										<a href="">课程名</a>
-										<br/>
-										<span>主讲人</span>
-									</div>
-        						</td>
-        					</tr>
+        				<table id="hotC" class="courseTable">
+
         				</table>
         			</div>
         		</div>

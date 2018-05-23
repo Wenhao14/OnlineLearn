@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="css/user_index/foot.css" />
 		<script type="text/javascript" src="js/ref/jquery-3.2.1.min.js"></script>
 	    <script type="text/javascript" src="js/nav.js"></script>
+		<script type="text/javascript" src="js/courseCommon.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
 	</head>
 	<body onload="init(1)" >
@@ -46,7 +47,7 @@
 				<div class="uls">
 					<div class="title">
 			   	   	    <b>|</b><span>用户登录</span> 
-			   	   	    <button id="userLogin" onclick="javascrtpt:window.location.href='page/common/login.html'">登录</button>
+			   	   	    <button id="userLogin" onclick="javascrtpt:window.location.href='/page/common/login.html'">登录</button>
 					</div>
 					<div class="hasLogin" id="isZx">
 		   		    	<div class="hl_top">
@@ -56,7 +57,7 @@
 		   		    		<div class="userMsg">
 		   		    			<span>欢  迎         </span><span id="userName"></span>
 		   		    		    <br />
-		   		    			<span>进  入         </span><button onclick="javascrtpt:window.location.href='page/front/userSpace.html'" class="learnArea">学习空间</button>
+		   		    			<span>进  入         </span><button onclick="javascrtpt:window.location.href='/page/front/userSpace.html'" class="learnArea">学习空间</button>
 		   		    		</div>
 		   		    	</div>
 		   		    	<div>
@@ -65,12 +66,12 @@
 		   		    	</div>
 		   		    </div>
 			   		<div class="find">
-			   			<input type="text" placeholder="课程名称" id="key"/><img src="img/find.png"/>
+			   			<input type="text" placeholder="课程名称" id="key"/><img onclick="findCBykey()" src="img/find.png"/>
 			   		</div>
 				</div>
 				<div class="nn">
 					<div class="title">
-			   	  		<b>|</b><span>热点新闻</span><span class="enter" onclick="javascript:window.location.href='page/front/news_notice.html'">更多<img src="img/enter.gif"/></span>
+			   	  		<b>|</b><span>热点新闻</span><span class="enter" onclick="javascript:window.location.href='/page/front/news_notice.html'">更多<img src="img/enter.gif"/></span>
 			   		</div>
 			   		<div id="newsList">
 			   		</div>
@@ -126,33 +127,8 @@
 					<b>|</b><span>推荐课程</span><span class="enter" onclick="javascript:window.location.href='page/front/re_course.html'" >进入<img src="img/enter.gif"/></span>
 				</div>
 				<div id="pushCourse">
-					<table class="courseTable">
-						<tr>
-							<td>
-								<div class="course">
-									<img onclick="" src="img/findPwd_bg.gif" />
-									<a href="">课程名</a>
-									<br/>
-									<span>主讲人</span>
-								</div>
-							</td>
-							<td>
-								<div class="course">
-									<img src="img/findPwd_bg.gif" />
-									<a href="">课程名</a>
-									<br/>
-									<span>主讲人</span>
-								</div>
-							</td>
-							<td>
-								<div class="course">
-									<img src="img/findPwd_bg.gif" />
-									<a href="">课程名</a>
-									<br/>
-									<span>主讲人</span>
-								</div>
-							</td>
-						</tr>
+					<table id="pushTab" class="courseTable">
+
 					</table>
 				</div>
 			</div>
@@ -161,33 +137,8 @@
 					<b>|</b><span>热门课程</span><span class="enter" onclick="javascript:window.location.href='page/front/hot_course.html'">进入<img src="img/enter.gif"/></span>
 				</div>
 				<div id="hotCourse">
-					<table class="courseTable">
-						<tr>
-							<td>
-								<div class="course">
-									<img src="img/findPwd_bg.gif" />
-									<a href="">课程名</a>
-									<br/>
-									<span>主讲人</span>
-								</div>
-							</td>
-							<td>
-								<div class="course">
-									<img src="img/findPwd_bg.gif" />
-									<a href="">课程名</a>
-									<br/>
-									<span>主讲人</span>
-								</div>
-							</td>
-							<td>
-								<div class="course">
-									<img src="img/findPwd_bg.gif" />
-									<a href="">课程名</a>
-									<br/>
-									<span>主讲人</span>
-								</div>
-							</td>
-						</tr>
+					<table id="hotTab" class="courseTable">
+
 					</table>
 				</div>
 			</div>

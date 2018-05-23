@@ -7,9 +7,11 @@
 		<link rel="stylesheet" href="../../css/user_index/foot.css" />
 		<link rel="stylesheet" href="../../css/user_index/navCommon.css" />
 		<link rel="stylesheet" href="../../css/ref/jquery.pagination.css" />
+		<link rel="stylesheet" href="/css/ref/onlineNav.css"/>
 	    <script type="text/javascript" src="../../js/ref/jquery-3.2.1.min.js"></script>
 	    <script type="text/javascript" src="../../js/nav.js"></script>
 	    <script type="text/javascript" src="../../js/newNotice.js" ></script>
+		<script type="text/javascript" src="../../js/isLoginAction.js"></script>
 	    <script type="text/javascript" src="../../js/ref/jquery.pagination.min.js" ></script>
 	</head>
 	<body onload="init(2)">
@@ -17,7 +19,7 @@
 		    <div class="logo">
 		    	<img id="lo1" src="../../img/theme.png" />
 		    </div>
-		    <div id="login" style="display: none">
+		    <div id="login">
 		    	<a id="commit" href="/page/common/login.html">
 		    		<div id="com_img">
 		    		     <img id="lo2" src="../../img/lo2.png" />
@@ -27,6 +29,18 @@
 		    		</div>
 		    	</a>
 		    </div>
+			<div id="online">
+				<div class="dropdown">
+					<button class="dropbtn">
+						<img id="ohI" src=""/>
+						<span id="ouN"></span>
+					</button>
+					<div class="dropdown-content">
+						<a href="/page/front/userSpace.html">学习空间</a>
+						<a href="javascript:loginOut()">退出</a>
+					</div>
+				</div>
+			</div>
 			<div id="nav">
 				<table align="center" border="1" bordercolor="#CCCCCC" frame="below"  class = "nav">
 					<tr height="25px">
@@ -68,16 +82,15 @@
 
 						</div>
         			</div>
-        			<div class="nn_paging">
+        			<div class="paging">
 						<div id="pageView">
 
 						</div>
 					</div>
         		</div>
-        		
         		<div id="text" class="nn" style="display:none;min-height: 565px;">
         			<div class="msg_head">
-        				<span id="nt" class="font1"></span> <a href="">返   回</a>
+        				<span id="nt" class="font1"></span> <a href="javascript:goBack()">返   回</a>
         			</div>
         			<div>
         				<p id="nc" class="font2">

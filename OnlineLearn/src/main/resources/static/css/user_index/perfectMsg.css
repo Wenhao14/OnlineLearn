@@ -1,0 +1,71 @@
+body{
+    margin: auto;
+    background-image: url(../../img/findPwd_bg.gif);
+}
+*{
+    margin: auto;
+}
+#logo{
+    padding-top: 15px;
+    width: 75%;
+    padding-bottom: 60px;
+}
+#main{
+    width: 75%;
+    min-height: 500px;
+    background-color: white;
+}
+#title{
+    padding-top:30px ;
+    width: 90%;
+    color: #F39307;
+    padding-bottom: 20px;
+}
+#form{
+    border: 1px solid #CCCCCC;
+    border-radius: 10px;
+    width: 90%;
+    min-height: 100px;
+}
+.tb{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.tb tr{
+    height: 60px;
+}
+#bt{
+    float: right;
+    background-color: #5CB85C;
+    color: white;
+    border: 0px;
+    border-radius: 6px;
+    min-width: 240px;
+    min-height: 35px;
+    font-size: 20px;
+}
+.font1{
+    font-size: 12px;
+}
+.font2{
+    font-size: 16px;
+}
+.text{
+    min-height:25px ;
+    width: 240px;
+    border: 1px solid #DDDDDD;
+    border-radius: 6px;
+}
+.error{
+    font-size: 12px;
+    color: red;
+    line-height: 25px;
+}
+#foot{
+    padding-top: 20px ;
+    text-align: center;
+    color: #999999;
+    font-size: 12px;
+    padding-bottom: 10px;
+}
+

@@ -1,7 +1,9 @@
 package com.oll.services;
 
+import com.oll.dao.CourseDao;
 import com.oll.dao.NewsDao;
 import com.oll.dao.NoticeDao;
+import com.oll.model.Course;
 import com.oll.model.News;
 import com.oll.model.Notice;
 import com.oll.util.BaseRtM;
@@ -12,10 +14,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by NewDarker on 2018/5/11.
- * ä¸»é¡µæœåŠ¡
+ * Ö÷Ò³·şÎñ
  */
 @Service
 public class IndexPageService {
@@ -23,8 +26,10 @@ public class IndexPageService {
     private NewsDao newsDao;
     @Resource
     private NoticeDao noticeDao;
+    @Resource
+    private CourseDao courseDao;
     /**
-     * æŒ‰é¡µè¯»å–æ–°é—»
+     * °´Ò³¶ÁÈ¡ĞÂÎÅ
      * @param pageNum
      * @return
      */
@@ -35,18 +40,18 @@ public class IndexPageService {
             Pageable pageable = new PageRequest(pageNum,pageSize,sort);
             Page<News> news = newsDao.findAll(pageable);
             baseRtM.setRtMData(news.getContent());
-            baseRtM.setRtMsg("æˆåŠŸ");
+            baseRtM.setRtMsg("³É¹¦");
             baseRtM.setRtMCode("T");
         }catch (Exception e){
             baseRtM.setRtMCode("F");
-            baseRtM.setRtMsg("å†…éƒ¨é”™è¯¯ï¼");
+            baseRtM.setRtMsg("ÄÚ²¿´íÎó£¡");
         }finally {
             return baseRtM;
         }
     }
 
     /**
-     * æŒ‰é¡µè¯»å–å…¬å‘Š
+     * °´Ò³¶ÁÈ¡¹«¸æ
      * @param pageNum
      * @return
      */
@@ -57,11 +62,119 @@ public class IndexPageService {
             Pageable pageable = new PageRequest(pageNum,pageSize,sort);
             Page<Notice> notices = noticeDao.findAll(pageable);
             baseRtM.setRtMData(notices.getContent());
-            baseRtM.setRtMsg("æˆåŠŸ");
+            baseRtM.setRtMsg("³É¹¦");
             baseRtM.setRtMCode("T");
         }catch (Exception e){
             baseRtM.setRtMCode("F");
-            baseRtM.setRtMsg("å†…éƒ¨é”™è¯¯ï¼");
+            baseRtM.setRtMsg("ÄÚ²¿´íÎó£¡");
+        }finally {
+            return baseRtM;
+        }
+    }
+    /**
+     * ÌáÈ¡ÈÈÃÅ¿Î³Ì
+     * @return
+     */
+    public BaseRtM getHotCourse(Integer pNum,Integer pSize){
+        BaseRtM baseRtM = new BaseRtM();
+        try {
+            Sort sort = new Sort(Sort.Direction.DESC,"cseltime");
+            Pageable pageable = new PageRequest(pNum,pSize,sort);
+            List<Course> courses = courseDao.getHotCoures(pageable).getContent();
+            baseRtM.setRtMCode("T");
+            baseRtM.setRtMData(courses);
+        }catch (Exception e){
+            baseRtM.setRtMCode("F");
+            baseRtM.setRtMData("ÄÚ²¿³ö´í!");
+        }finally {
+            return baseRtM;
+        }
+    }
+
+    /**
+     * ÌáÈ¡ÍÆ¼ö¿Î³Ì
+     * @return
+     */
+    public BaseRtM getPushCourse(Integer pNum,Integer pSize){
+        BaseRtM baseRtM = new BaseRtM();
+        try {
+            Sort sort = new Sort(Sort.Direction.DESC,"cupdate");
+            Pageable pageable = new PageRequest(pNum,pSize,sort);
+            List<Course> courses = courseDao.getPushCourse(pageable).getContent();
+            baseRtM.setRtMCode("T");
+            baseRtM.setRtMData(courses);
+        }catch (Exception e){
+            baseRtM.setRtMCode("F");
+            baseRtM.setRtMData("ÄÚ²¿³ö´í!");
+        }finally {
+            return baseRtM;
+        }
+    }
+
+    /**
+     * ÌáÈ¡ËùÓĞ¿Î³Ì
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public BaseRtM getAllCourse(Integer pageNum,Integer pageSize){
+        BaseRtM baseRtM = new BaseRtM();
+        try {
+            Sort sort = new Sort(Sort.Direction.DESC,"cupdate");
+            Pageable pageable = new PageRequest(pageNum,pageSize,sort);
+            List<Course> courses = courseDao.getHotCoures(pageable).getContent();
+            baseRtM.setRtMCode("T");
+            baseRtM.setRtMData(courses);
+        }catch (Exception e){
+            baseRtM.setRtMCode("F");
+            baseRtM.setRtMData("ÄÚ²¿³ö´í!");
+        }finally {
+            return baseRtM;
+        }
+    }
+
+    /**
+     * ·ÖÀàÌáÈ¡¿Î³Ì
+     * @param mId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public BaseRtM getCourseByModule(Long mId,Integer pageNum,Integer pageSize){
+        BaseRtM baseRtM = new BaseRtM();
+        try {
+            Sort sort = new Sort(Sort.Direction.DESC,"cupdate");
+            Pageable pageable = new PageRequest(pageNum,pageSize,sort);
+            List<Course> courses = courseDao.getCourseByMid(mId,pageable).getContent();
+            baseRtM.setRtMCode("T");
+            baseRtM.setRtMData(courses);
+        }catch (Exception e){
+            baseRtM.setRtMCode("F");
+            baseRtM.setRtMData("ÄÚ²¿³ö´í!");
+        }finally {
+            return baseRtM;
+        }
+    }
+
+    /**
+     * °´¹Ø¼ü×ÖÌáÈ¡¿Î³Ì
+     * @param key
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public BaseRtM getCourseByKey(String key,Integer pageNum,Integer pageSize){
+        BaseRtM baseRtM = new BaseRtM();
+        try {
+            key = "%"+key+"%";
+            Sort sort = new Sort(Sort.Direction.DESC,"cupdate");
+            Pageable pageable = new PageRequest(pageNum,pageSize,sort);
+            List<Course> courses = courseDao.getCourseByCnameLike(key,pageable).getContent();
+            baseRtM.setRtMCode("T");
+            baseRtM.setRtMData(courses);
+        }catch (Exception e){
+            baseRtM.setRtMCode("F");
+            baseRtM.setRtMData("ÄÚ²¿³ö´í!");
         }finally {
             return baseRtM;
         }

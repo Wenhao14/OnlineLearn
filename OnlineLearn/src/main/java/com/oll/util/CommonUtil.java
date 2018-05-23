@@ -12,8 +12,8 @@ import java.util.Date;
 public class CommonUtil {
     private static ThreadLocal<SimpleDateFormat> dateFormatPool = new ThreadLocal<>();
     private static ThreadLocal<SimpleDateFormat> dateTimeFormatPool = new ThreadLocal<>();
-    private static final String hIPath = "src/main/resources/static/upload/headImg/";
-    private static final String hIRelativePath = "/upload/headImg/";
+    private static final String hIPath = "static/upload/slimg/";
+    private static final String hIRelativePath = "/upload/slimg/";
     /**
      * 格式化日期
      * @param date

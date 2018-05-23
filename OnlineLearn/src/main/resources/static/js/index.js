@@ -90,7 +90,17 @@ function getNews() {
         }
     );
 }
+function findCBykey() {
+    var key = $("#key").val();
+    if(key == undefined || key.length < 1){
+        return;
+    }else {
+        window.location.href= "/page/front/local_resource_base.html?key="+key;
+    }
+}
 $(document).ready(function () {
     isLogin();
     getNews();
+    getCouser('/index/api/getHotC','#hotTab',0,3);
+    getCouser('/index/api/getPushC','#pushTab',0,3);
 })

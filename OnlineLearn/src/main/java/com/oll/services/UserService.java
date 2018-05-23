@@ -4,21 +4,26 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.oll.cache.ShareLogin;
+import com.oll.dao.SelcourseDao;
 import com.oll.dao.UserDao;
 import com.oll.dao.UserMsgDao;
+import com.oll.model.Selcourse;
 import com.oll.model.User;
 import com.oll.model.UserMsg;
 import com.oll.util.BaseRtM;
+import com.oll.util.CommonUtil;
+import com.oll.util.DBUtil.SqlVehicel;
 import com.oll.util.MD5Encrypt;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.*;
 
 /**
  * Created by NewDarker on 2018/1/3.
- * ç”¨æˆ·åŸºæœ¬æœåŠ¡
+ * ÓÃ»§»ù±¾·şÎñ
  */
 @Service
 public class UserService {
@@ -30,27 +35,35 @@ public class UserService {
     private ShareLogin shareLogin;
     @Resource
     private UserMsgDao userMsgDao;
+    @Resource
+    private SqlVehicel sqlVehicel;
+    @Resource
+    private CommonUtil commonUtil;
+    @Resource
+    private SelcourseDao selcourseDao;
     private static final String randomPwdPool = "VWX03abcdefg47M89hmOPQR12STUnoABCqrDEFps56tuzGHIJwKLijklNYvsyZ";
     /**
-     * ç”¨æˆ·ç™»å½•
+     * ÓÃ»§µÇÂ¼
      */
     public Boolean userLogin(String userName,String passWord){
         User user = userDao.getUserByUsername(userName);
         if(user instanceof User){
             if(user.getPassword().equals(md5Encrypt.toEncryptString(passWord))){
-                user.setPassword(null);
+                if("N".equals(user.getHeadimg())){
+                    user.setHeadimg("/img/undefultUI.jpg");
+                }
                 shareLogin.setSession(user);
                 return true;
             }else{
-                throw new RuntimeException("å¯†ç é”™è¯¯");
+                throw new RuntimeException("ÃÜÂë´íÎó");
             }
         }else{
-            throw new RuntimeException("ç”¨æˆ·åä¸å­˜åœ¨");
+            throw new RuntimeException("ÓÃ»§Ãû²»´æÔÚ");
         }
     }
 
     /**
-     * æ‰¹é‡ç”¨æˆ·æ³¨å†Œ
+     * ÅúÁ¿ÓÃ»§×¢²á
      * @param json
      */
     public void patchAddUser(String json){
@@ -62,18 +75,19 @@ public class UserService {
         for(int i = 0;i < len;i++){
             User user = new User();
             jsonObject = (JSONObject) userList.get(i);
-            username = jsonObject.getString("ç”¨æˆ·å");
+            username = jsonObject.getString("ÓÃ»§Ãû");
             user.setUsername(username);
             user.setPassword(md5Encrypt.toEncryptString(username));
             user.setGrade("c");
             user.setIsdel("0");
-            user.setHeadimg("");
+            user.setHeadimg("N");
+            user.setIsPerMsg("0");
             users.add(user);
         }
         userDao.save(users);
     }
     /**
-     * å•ä¸ªå¢åŠ ç”¨æˆ·
+     * µ¥¸öÔö¼ÓÓÃ»§
      */
     public Boolean addUser(String userName,String grade){
         String relGrade;
@@ -99,7 +113,8 @@ public class UserService {
         user.setPassword(md5Encrypt.toEncryptString(userName));
         user.setGrade(relGrade);
         user.setIsdel("0");
-        user.setHeadimg("");
+        user.setHeadimg("N");
+        user.setIsPerMsg("0");
         try {
             Object result = userDao.save(user);
             if(result instanceof User){
@@ -108,16 +123,18 @@ public class UserService {
                 return false;
             }
         }catch (Exception e){
-            throw new RuntimeException("è¯¥ç”¨æˆ·å·²å­˜åœ¨!");
+            throw new RuntimeException("¸ÃÓÃ»§ÒÑ´æÔÚ!");
         }
     }
     /**
-     * å®Œå–„/æ›´æ–°ç”¨æˆ·ä¿¡æ¯
+     * ÍêÉÆ/¸üĞÂÓÃ»§ĞÅÏ¢
      * @return
      */
+    @Transactional
     public Boolean perfectUMsg(String realname,String email,String phone,String department ){
         UserMsg userMsg = new UserMsg();
-        userMsg.setUid(shareLogin.getUser().getUid());
+        User user = shareLogin.getUser();
+        userMsg.setUid(user.getUid());
         userMsg.setUname(realname);
         userMsg.setUmail(email);
         userMsg.setUphone(phone);
@@ -125,14 +142,20 @@ public class UserService {
         userMsg.setUgoal(new Long(0));
         Object result = userMsgDao.save(userMsg);
         if(result instanceof UserMsg){
-            return true;
+            if(userDao.alterIsPerMsg(user.getUid()) == 1){
+                user.setIsPerMsg("1");
+                shareLogin.alterRedisUMsg(user);
+                return true;
+            }else {
+                return false;
+            }
         }else {
             return false;
         }
     }
 
     /**
-     * æ›´æ–°å¤´åƒ
+     * ¸üĞÂÍ·Ïñ
      * @param imgUrl
      * @return
      */
@@ -145,11 +168,11 @@ public class UserService {
                 return false;
             }
         }else {
-            throw new RuntimeException("å†…éƒ¨é”™è¯¯,ç™»å½•è¿‡æœŸ!");
+            throw new RuntimeException("ÄÚ²¿´íÎó,µÇÂ¼¹ıÆÚ!");
         }
     }
     /**
-     * æ›´æ–°ä¿¡æ¯
+     * ¸üĞÂĞÅÏ¢
      */
     public BaseRtM updataUMsg(String msg,String type){
         Integer result = 0;
@@ -163,28 +186,28 @@ public class UserService {
                     result = userMsgDao.updateUPhone(uid,msg);
                 }else {
                     baseRtM.setRtMCode("F");
-                    baseRtM.setRtMsg("å‚æ•°å¼‚å¸¸!");
+                    baseRtM.setRtMsg("²ÎÊıÒì³£!");
                 }
                 if(result == 1){
                     baseRtM.setRtMCode("T");
-                    baseRtM.setRtMsg("ä¿®æ”¹æˆåŠŸ!");
+                    baseRtM.setRtMsg("ĞŞ¸Ä³É¹¦!");
                 }else {
                     baseRtM.setRtMCode("F");
-                    baseRtM.setRtMsg("ä¿®æ”¹å¤±è´¥!");
+                    baseRtM.setRtMsg("ĞŞ¸ÄÊ§°Ü!");
                 }
             }else {
                 baseRtM.setRtMCode("F");
-                baseRtM.setRtMsg("ç™»å½•è¿‡æ—¶ï¼Œæˆ–å†…éƒ¨é”™è¯¯!");
+                baseRtM.setRtMsg("µÇÂ¼¹ıÊ±£¬»òÄÚ²¿´íÎó!");
             }
         }catch (Exception e){
             baseRtM.setRtMCode("F");
-            baseRtM.setRtMsg("å†…éƒ¨é”™è¯¯!");
+            baseRtM.setRtMsg("ÄÚ²¿´íÎó!");
         }finally {
             return baseRtM;
         }
     }
     /**
-     * ä¿®æ”¹å¯†ç 
+     * ĞŞ¸ÄÃÜÂë
      * @param password
      * @return
      */
@@ -200,15 +223,15 @@ public class UserService {
                 return false;
             }
         }else {
-           throw new RuntimeException("è´¦æˆ·çŠ¶æ€å¼‚å¸¸!");
+           throw new RuntimeException("ÕË»§×´Ì¬Òì³£!");
         }
     }
     /**
-     * æ›´æ–°ç”¨æˆ·æ’å
+     * ¸üĞÂÓÃ»§ÅÅÃû
      */
     @Scheduled(cron = "0 0 2 * * ?")
     public void userRank(){
-        System.out.println("æ’åè¿è¡Œ");
+        System.out.println("ÅÅÃûÔËĞĞ");
         List<UserMsg> usermsgs = userMsgDao.findAllUserMsg();
         int len = usermsgs.size();
         String rank;
@@ -220,13 +243,13 @@ public class UserService {
         userMsgDao.save(usermsgs);
     }
     /**
-     * é‡ç½®å¯†ç 
+     * ÖØÖÃÃÜÂë
      */
     public Boolean rePwd(String userName){
          String rePwd = createRandomPwd();
          Integer result = userDao.updatePwd(userName,rePwd);
          /*
-            å‘é€é‚®ä»¶
+            ·¢ËÍÓÊ¼ş
           */
          if(result == 1){
              return true;
@@ -236,7 +259,7 @@ public class UserService {
     }
 
     /**
-     * ä¿®æ”¹ç”¨æˆ·æƒé™
+     * ĞŞ¸ÄÓÃ»§È¨ÏŞ
      * @param userName
      * @param Grade
      * @return
@@ -251,7 +274,7 @@ public class UserService {
     }
 
     /**
-     * æ‰¾å›å¯†ç 
+     * ÕÒ»ØÃÜÂë
      * @param userName
      * @param email
      * @return
@@ -264,18 +287,18 @@ public class UserService {
                if(email.equals(((UserMsg) userMsg).getUmail())){
                     return rePwd(userName);
                }else {
-                   throw new RuntimeException("é‚®ç®±é”™è¯¯ï¼");
+                   throw new RuntimeException("ÓÊÏä´íÎó£¡");
                }
            }else {
-               throw new RuntimeException("è¯¥ç”¨æˆ·æœªå®Œå–„ä¿¡æ¯ï¼");
+               throw new RuntimeException("¸ÃÓÃ»§Î´ÍêÉÆĞÅÏ¢£¡");
            }
         }else {
-            throw new RuntimeException("è¯¥ç”¨æˆ·ä¸å­˜åœ¨ï¼");
+            throw new RuntimeException("¸ÃÓÃ»§²»´æÔÚ£¡");
         }
     }
 
     /**
-     * ç”Ÿæˆéšæœº6ä½å¯†ç 
+     * Éú³ÉËæ»ú6Î»ÃÜÂë
      * @return
      */
     private String createRandomPwd(){
@@ -290,7 +313,7 @@ public class UserService {
     }
 
     /**
-     * æ˜¯å¦ç™»å½•
+     * ÊÇ·ñµÇÂ¼
      * @return
      */
     public Boolean isLogin(){
@@ -303,7 +326,7 @@ public class UserService {
     }
 
     /**
-     * éªŒè¯å¯†ç 
+     * ÑéÖ¤ÃÜÂë
      * @return
      */
     public Boolean checkPwd(String pwd){
@@ -317,12 +340,12 @@ public class UserService {
                 return false;
             }
         }else {
-            throw new RuntimeException("å†…éƒ¨é”™è¯¯,è¯·ç¨åå†è¯•!");
+            throw new RuntimeException("ÄÚ²¿´íÎó,ÇëÉÔºóÔÙÊÔ!");
         }
     }
 
     /**
-     * è·å–é¦–é¡µç™»å½•åå±•ç¤ºç”¨æˆ·ä¿¡æ¯
+     * »ñÈ¡Ê×Ò³µÇÂ¼ºóÕ¹Ê¾ÓÃ»§ĞÅÏ¢
      * @return
      */
     public Map getLoginUMsg(){
@@ -339,14 +362,14 @@ public class UserService {
     }
 
     /**
-     * é€€å‡ºç™»å½•
+     * ÍË³öµÇÂ¼
      */
     public void loginOut(){
         shareLogin.loginOut();
     }
 
     /**
-     * è·å–ç”¨æˆ·ä¿¡æ¯
+     * »ñÈ¡ÓÃ»§ĞÅÏ¢
      * @return
      */
     public BaseRtM getMyMsg(){
@@ -357,23 +380,23 @@ public class UserService {
             Map<String,Object> msg = new HashMap<>();
             switch (user.getGrade()){
                 case "s":{
-                    user.setGrade("è¶…çº§ç®¡ç†å‘˜");
+                    user.setGrade("³¬¼¶¹ÜÀíÔ±");
                     break;
                 }
                 case "a":{
-                    user.setGrade("è¶…çº§ç®¡ç†å‘˜");
+                    user.setGrade("³¬¼¶¹ÜÀíÔ±");
                     break;
                 }
                 case "b":{
-                    user.setGrade("ç®¡ç†å‘˜");
+                    user.setGrade("¹ÜÀíÔ±");
                     break;
                 }
                 case "c":{
-                    user.setGrade("ç®¡ç†å‘˜");
+                    user.setGrade("Ñ§Ô±");
                     break;
                 }
                 default:{
-                    user.setGrade("å­¦å‘˜");
+                    user.setGrade("Ñ§Ô±");
                 }
             }
             msg.put("user",user);
@@ -382,22 +405,22 @@ public class UserService {
             baseRtM.setRtMData(msg);
         }catch (Exception e){
             baseRtM.setRtMCode("F");
-            baseRtM.setRtMsg("å†…éƒ¨é”™è¯¯!");
+            baseRtM.setRtMsg("ÄÚ²¿´íÎó!");
         }finally {
             return baseRtM;
         }
     }
 
     /**
-     * ä¿å­˜å¤´åƒå›¾ç‰‡
+     * ±£´æÍ·ÏñÍ¼Æ¬
       * @param imgStr
      * @return
      */
-    public BaseRtM GenerateImage(String imgStr) {   //å¯¹å­—èŠ‚æ•°ç»„å­—ç¬¦ä¸²è¿›è¡ŒBase64è§£ç å¹¶ç”Ÿæˆå›¾ç‰‡
+    public BaseRtM GenerateImage(String imgStr) {   //¶Ô×Ö½ÚÊı×é×Ö·û´®½øĞĞBase64½âÂë²¢Éú³ÉÍ¼Æ¬
         BaseRtM baseRtM = new BaseRtM();
         if (imgStr == null){
             baseRtM.setRtMCode("F");
-            baseRtM.setRtMsg("å¤´åƒå›¾ç‰‡ä¸ºç©º!");
+            baseRtM.setRtMsg("Í·ÏñÍ¼Æ¬Îª¿Õ!");
             return baseRtM;
         }
         try {
@@ -407,20 +430,101 @@ public class UserService {
                 Boolean result = updataUserHeadImg(user.getUid(),imgStr);
                 if(result){
                     baseRtM.setRtMCode("T");
-                    baseRtM.setRtMsg("æ›´æ–°å¤´åƒæˆåŠŸ!");
+                    baseRtM.setRtMsg("¸üĞÂÍ·Ïñ³É¹¦!");
                 }else {
                     baseRtM.setRtMCode("F");
-                    baseRtM.setRtMsg("ä¿®æ”¹å¤´åƒå¤±è´¥!");
+                    baseRtM.setRtMsg("ĞŞ¸ÄÍ·ÏñÊ§°Ü!");
                 }
             }else {
                 baseRtM.setRtMCode("F");
-                baseRtM.setRtMsg("ä¿®æ”¹å¤´åƒå¤±è´¥!");
+                baseRtM.setRtMsg("ĞŞ¸ÄÍ·ÏñÊ§°Ü!");
             }
         }
         catch (Exception e) {
             e.printStackTrace();
             baseRtM.setRtMCode("F");
-            baseRtM.setRtMsg("å†…éƒ¨é”™è¯¯!");
+            baseRtM.setRtMsg("ÄÚ²¿´íÎó!");
+        }finally {
+            return baseRtM;
+        }
+    }
+    /**
+     * »ñÈ¡ÎÒµÄ¿Î³Ì
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public BaseRtM getSelCourse(Integer pageNum,Integer pageSize){
+        BaseRtM baseRtM = new BaseRtM();
+        try {
+            String sql = "SELECT c.cId,c.cName,c.cKeySpeaker,c.cImg,sc.studyplan FROM course c,selcourse sc WHERE c.cid  = sc.cid AND sc.uid = ? AND c.cIsDel = 0 AND sc.studyplan != 1 ORDER BY sc.scid DESC LIMIT " + pageNum*pageSize+","+pageSize;
+            Long uid = shareLogin.getUser().getUid();
+            String[] param = {Long.toString(uid)};
+            List result = sqlVehicel.SqlSelect(sql,param);
+            baseRtM.setRtMCode("T");
+            baseRtM.setRtMData(result);
+        }catch (Exception e){
+            baseRtM.setRtMCode("F");
+            baseRtM.setRtMsg("ÄÚ²¿´íÎó!");
+        }finally {
+            return baseRtM;
+        }
+    }
+    /**
+     * »ñÈ¡ÒÑÍê³É¿Î³Ì
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public BaseRtM getEndCourse(Integer pageNum,Integer pageSize){
+        BaseRtM baseRtM = new BaseRtM();
+        try {
+            String sql = "SELECT c.cId,c.cName,c.cKeySpeaker,c.cImg FROM course c,selcourse sc WHERE c.cid  = sc.cid AND sc.uid = ? AND c.cIsDel = 0 AND sc.studyplan = 1 ORDER BY sc.scid DESC LIMIT " + pageNum*pageSize+","+pageSize;
+            Long uid = shareLogin.getUser().getUid();
+            String[] param = {Long.toString(uid)};
+            List result = sqlVehicel.SqlSelect(sql,param);
+            baseRtM.setRtMCode("T");
+            baseRtM.setRtMData(result);
+        }catch (Exception e){
+            baseRtM.setRtMCode("F");
+            baseRtM.setRtMsg("ÄÚ²¿´íÎó!");
+        }finally {
+            return baseRtM;
+        }
+    }
+
+    /**
+     * ¸üĞÂÓÃ»§»ı·Ö
+     * @param goal
+     */
+    public void addUGoal(Long goal){
+        try {
+            Long uid = shareLogin.getUser().getUid();
+            userMsgDao.alterUGoal(uid,goal);
+        }catch (Exception e){
+            return;
+        }
+    }
+    /**
+     * Ìí¼ÓÑ¡¿Î
+     */
+    public BaseRtM addCouser(Long cid){
+        BaseRtM baseRtM = new BaseRtM();
+        try {
+            Long uid = shareLogin.getUser().getUid();
+            Selcourse selcourse = new Selcourse();
+            selcourse.setChnum("1");
+            selcourse.setUid(uid);
+            selcourse.setCid(cid);
+            selcourse.setStudyhour("0");
+            selcourse.setStudyplan("0");
+            selcourse.setLatestime(commonUtil.formatDateTime(new Date()));
+            selcourseDao.save(selcourse);
+            baseRtM.setRtMCode("T");
+            baseRtM.setRtMsg("Ìí¼Ó³É¹¦£¬¿ªÊ¼Ñ§Ï°°É!");
+        }catch (Exception e){
+            baseRtM.setRtMCode("F");
+            baseRtM.setRtMsg("¶î¶î...Ìí¼ÓÊ§°Ü!");
         }finally {
             return baseRtM;
         }

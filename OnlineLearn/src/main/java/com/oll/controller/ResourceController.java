@@ -2,6 +2,7 @@ package com.oll.controller;
 
 import com.oll.services.ResourceService;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +26,7 @@ public class ResourceController {
      * @param content
      * @return
      */
-    @RequestMapping(value = "/addTp")
+    @RequestMapping(value = "/addTp",method = RequestMethod.POST)
     public Object addTestPage(@RequestParam String title,@RequestParam String descibe,@RequestParam Date passDate,@RequestParam String content){
        return resourceService.addTestPaper(title,descibe,passDate,content);
     }
@@ -36,7 +37,7 @@ public class ResourceController {
      * @param url
      * @return
      */
-    @RequestMapping(value = "/addNews")
+    @RequestMapping(value = "/addNews",method = RequestMethod.POST)
     public Object addNews(@RequestParam String title,@RequestParam String url){
         return resourceService.addNews(title,url);
     }
@@ -47,9 +48,27 @@ public class ResourceController {
      * @param content
      * @return
      */
-    @RequestMapping(value = "/addNotice")
+    @RequestMapping(value = "/addNotice",method = RequestMethod.POST)
     public Object addNotice(@RequestParam String title,@RequestParam String content){
         return resourceService.addNotice(title, content);
     }
 
+    /**
+     * 获取课程信息
+     * @param cid
+     * @return
+     */
+    @RequestMapping(value = "/getVMsg")
+    public Object getVideoMsg(@RequestParam Long cid){
+        return resourceService.getVideoMsg(cid);
+    }
+
+    /**
+     * 获取所有分类
+     * @return
+     */
+    @RequestMapping(value = "/getAM",method = RequestMethod.POST)
+    public Object getAllModule(){
+        return resourceService.getModule();
+    }
 }
