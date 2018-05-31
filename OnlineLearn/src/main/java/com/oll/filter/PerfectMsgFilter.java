@@ -9,7 +9,7 @@ import java.io.IOException;
 
 /**
  * Created by NewDarker on 2018/5/21.
- * 杩囨护鏈畬鍠勪俊鎭殑鐢ㄦ埛
+ * 过滤未完善信息的用户
  */
 public class PerfectMsgFilter implements Filter {
     private static ShareLogin shareLogin;

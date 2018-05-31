@@ -17,6 +17,7 @@ function clearnWarn() {
 function nav_action(sel){
 	if(sel == 1){
 		//跳到论坛
+        window.location.href="http://127.0.0.1:8080";
 	}else{
 		for(var i = 0;i < 4;i++){
 			if(sel == i){
@@ -40,7 +41,7 @@ function asNavAction(sel){
 			break
 		}
 		case 1:{
-			break;
+            break;
 		}
 		case 2:{
 			smenu = new Array("#t1","#t2");

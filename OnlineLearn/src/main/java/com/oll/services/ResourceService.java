@@ -53,6 +53,10 @@ public class ResourceService {
     public BaseRtM addTestPaper(String tpName, String describe, Date passdate,String content){
         BaseRtM baseRtM = new BaseRtM();
         try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(passdate);
+            calendar.add(45,Calendar.DAY_OF_YEAR);
+            passdate = calendar.getTime();
             Long uid = shareLogin.getUser().getUid();
             if(uid != null){
                 Testpaper testPaper = new Testpaper();
@@ -77,6 +81,7 @@ public class ResourceService {
                 baseRtM.setRtMsg("账户状态异常!");
             }
         }catch (Exception e){
+            e.printStackTrace();
             baseRtM.setRtMCode("F");
             baseRtM.setRtMsg("内部错误!");
         }finally {

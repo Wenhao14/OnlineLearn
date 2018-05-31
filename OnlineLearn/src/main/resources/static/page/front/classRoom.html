@@ -12,8 +12,7 @@
 			<div class="msg">
 				<span>西科大教师思政学习平台</span>
 			</div>
-			<div class="loginout">
-				<img title="退出" width="100%" height="100%" src="../../img/loginout.png"/>
+			<div id="lo" class="loginout">
 			</div>
 		</div>
 		<div class="course">
@@ -22,6 +21,8 @@
 					<img id="cImg" src=""/>
 				</div>
 				<div id="ch" class="cr_catalog">
+				</div>
+				<div id="ac" class='button' onclick='clickAction()'><span>添加课程</span>
 				</div>
 			</div>
 			<div class="right">
@@ -37,21 +38,25 @@
 							<p id="cDescipt">
 							</p>
 						</div>
-						<div id="tipMsg">
-
-						</div>
+						<div id="tipMsg" style="display: none" class='button' onclick='clickAction()'> <span id="msg"></span> </div>
 					</div>
-					<div id="vVid" style="display: none" class="cr_video">
-						<video id="V" width="100%" height="100%" controls="controls" preload="auto" poster="">
+					<div onmouseout="outStop()" id="vVid" style="display: none" class="cr_video">
+						<video  id="V" width="100%" height="100%" controls="controls" preload="auto" poster="">
 							对不起，你的浏览器不支持，请升级或更换浏览器
 						</video>
 					</div>
 				</div>
 			</div>	
 		</div>
-	</div>
 	<div class="foot">
 		<span>Copyright © 西安科技大学. All Rights Reserved.</span>
 	</div>
+	<script>
+        var v = document.getElementsByTagName("video")[0];
+        v.addEventListener("ended",function(){
+//            end();
+			alert(v.currentTime);
+        })
+	</script>
 	</body>
 </html>

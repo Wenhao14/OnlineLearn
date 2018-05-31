@@ -21,9 +21,11 @@ public class SqlVehicel {
 	    	 //获得sql查询语句
 	    	 pre=conn.prepareStatement(sql);
 	    	 //给sql语句中变量赋值
-	    	 for(int i=0;i<paras.length;i++){
-	    		  pre.setString(i+1, paras[i]);
-	    	 }
+			 if(paras != null){
+				 for(int i=0;i<paras.length;i++){
+					 pre.setString(i+1, paras[i]);
+				 }
+			 }
 	    	 //执行查询
 	    	 res=pre.executeQuery();
 	    	 //得到结果集的结构

@@ -53,7 +53,7 @@
 						<div id="u1v2v" class="box">
 							<span>用户名 :</span>
 							<input type="text" id="addUName" />
-							<select>
+							<select id="uGrade">
 								<option value="3">学员</option>
 								<option value="2">管理员</option>
 								<option value="1">资源管理员</option>
@@ -69,87 +69,116 @@
 					</div>
 					<div id="u3v">
 						<table id="t1v_t" class="tv_tab">
-							<tr class="tthead">
-								<th>序号</th>
-								<th>用户名</th>
-								<th>积分</th>
-								<th>排名</th>
-							</tr>
-							<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-							    <td>1</td><td>1408010214</td><td>2345</td><td>1</td>
-							</tr>
-							<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-							   <td>2</td><td>1408010211</td><td>1234</td><td>2</td>
-							</tr>
+
 						</table>
 					</div>
 					<div id="u4v">
 						<div id="u4v1v" class="box">
 							<span>用户名:</span>
-							<input type="text" />
-							<button class="button">删除</button>
+							<input id="delU" type="text" />
+							<button onclick="uDeal(1)" class="button">删除</button>
 						</div>
 						<div id="u4v2v">
 							<table id="t1v_tab" class="tv_tab">
-								<tr class="tthead">
-									<th>序号</th>
-									<th>用户名</th>
-									<th>操作</th>
-								</tr>
-								<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-								    <td>1</td><td>1408010214</td><td><a href=""><img title="恢复" class="delImg" src="../../img/recove.jpg"/></a><a href=""><img class="delImg" title="彻底删除" src="../../img/predel.jpg"/></a></td>
-								</tr>
-								<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-								   <td>2</td><td>123456</td><td><a href=""><img title="恢复" class="delImg" src="../../img/recove.jpg"/></a><a href=""><img class="delImg" title="彻底删除" src="../../img/predel.jpg"/></a></td>
-								</tr>
+
 							</table>
 						</div>
 					</div>
 				</div>
 				<div id="sm" class="mainBlock">
 					<div id="s1v">
-						<div id="s1v1v">
-							s1v1v
+						<div id="s1v1v" class="box">
+							<span>课程XML文件:</span>
+							<input type="file"/>
+							<button class="button">发布</button>
 						</div>
 						<div id="s1v2v">
-							s1v2v
+							<div id="s1v2vsel" class="sel">
+								<input placeholder="请输入关键字" type="text"/>
+								<button class="button">查找</button>
+							</div>
+							<div id="s1v2vtab">
+								<table id="s1v2v_tab" class="tv_tab">
+									<tr class="tthead">
+										<th>序号</th>
+										<th>标题</th>
+										<th>操作</th>
+									</tr>
+								</table>
+							</div>
 						</div>
 						<div id="s1v3v">
-							s1v3v
+
 						</div>
 						<div id="s1v4v">
-							s1v4v
+
 						</div>
 					</div>
 					<div id="s2v">
-						<div id="s2v1v">
-							s2v1v
+						<div id="s2v1v" class="box">
+							  <span>标题:</span>
+                              <input id="tpt" type="text"/>
+							  <span>试卷简介:</span>
+							  <textarea id="tpc"></textarea>
+							  <span>试卷XML文件:</span>
+							  <input id="tp" type="file"/>
+							  <button class="button" onclick="addTp()">发布</button>
 						</div>
 						<div id="s2v2v">
-							s2v2v
+							<div id="s2v2vsel" class="sel">
+								<input placeholder="请输入关键字" type="text"/>
+								<button class="button">查找</button>
+							</div>
+							<div id="s2v2vtab">
+								<table id="s2v2v_tab" class="tv_tab">
+									<tr class="tthead">
+										<th>序号</th>
+										<th>标题</th>
+										<th>操作</th>
+									</tr>
+								</table>
+							</div>
 						</div>
 						<div id="s2v3v">
-							s2v3v
+
 						</div>
 					</div>
 					<div id="s3v">
-						<div id="s3v1v">
-							s3v1v
+						<div id="s3v1v" class="box">
+                               <span>分类名:</span>
+							   <input type="text"/>
+							   <span>描述:</span>
+							   <textarea></textarea>
+							   <button class="button">添加</button>
 						</div>
 						<div id="s3v2v">
-							s3v2v
+							<div id="s3v2vtab">
+								<table id="s3v2v_tab" class="tv_tab">
+									<tr class="tthead">
+										<th>序号</th>
+										<th>分类名</th>
+										<th>操作</th>
+									</tr>
+									<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+									     <td>1</td><td>两学一做</td><td><button class="button">修改</button></td>
+									</tr>
+									<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+										<td>2</td><td>中国梦</td><td><button class="button">修改</button></td>
+									</tr>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
 				<div id="im" class="mainBlock">
 					<div id="i1v">
 						<div id="i1v1v" class="box">
-							<span>标题:</span><input type="text" />
-							<span>链接:</span><input type="text" />
-							<button class="button">发布</button>
+							<span>标题:</span><input id="nst" type="text" />
+							<span>链接:</span><input id="nstxt" type="text" />
+							<button onclick="addNN(1)" class="button">发布</button>
 						</div>
 						<div id="i1v2v">
-							<div id="i1v2vsel">
+							<div id="i1v2vsel" class="sel">
 								<input placeholder="请输入关键字" type="text"/>
 								<button class="button">查找</button>
 							</div>
@@ -160,24 +189,18 @@
 										<th>标题</th>
 										<th>操作</th>
 									</tr>
-									<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-										<td>1</td><td>1408010214</td><td><a href=""><img title="恢复" class="delImg" src="../../img/recove.jpg"/></a><a href=""><img class="delImg" title="彻底删除" src="../../img/predel.jpg"/></a></td>
-									</tr>
-									<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-										<td>2</td><td>123456</td><td><a href=""><img title="恢复" class="delImg" src="../../img/recove.jpg"/></a><a href=""><img class="delImg" title="彻底删除" src="../../img/predel.jpg"/></a></td>
-									</tr>
 								</table>
 							</div>
 						</div>
 					</div>
 					<div id="i2v">
 						<div id="i2v1v" class="box">
-							<span>标题:</span><input type="text" />
-							<span>内容:</span><textarea></textarea>
-							<button class="button">发布</button>
+							<span>标题:</span><input id="ntt" type="text" />
+							<span>内容:</span><textarea id="nttxt"></textarea>
+							<button onclick="addNN(2)" class="button">发布</button>
 						</div>
 						<div id="i2v2v">
-							<div id="i2v2vsel">
+							<div id="i2v2vsel" class="sel">
 								<input placeholder="请输入关键字" type="text"/>
 								<button class="button">查找</button>
 							</div>
@@ -188,19 +211,13 @@
 										<th>标题</th>
 										<th>操作</th>
 									</tr>
-									<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-										<td>1</td><td>1408010214</td><td><a href=""><img title="恢复" class="delImg" src="../../img/recove.jpg"/></a><a href=""><img class="delImg" title="彻底删除" src="../../img/predel.jpg"/></a></td>
-									</tr>
-									<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-										<td>2</td><td>123456</td><td><a href=""><img title="恢复" class="delImg" src="../../img/recove.jpg"/></a><a href=""><img class="delImg" title="彻底删除" src="../../img/predel.jpg"/></a></td>
-									</tr>
 								</table>
 							</div>
 						</div>
 					</div>
 					<div id="i3v">
 						<div id="i3v1v">
-							<div id="i3v1vsel">
+							<div id="i3v1vsel" class="sel">
 								<input placeholder="请输入关键字" type="text"/>
 								<button class="button">查找</button>
 							</div>
@@ -208,20 +225,14 @@
 								<table id="i3v1_tab" class="tv_tab">
 									<tr class="tthead">
 										<th>序号</th>
-										<th>标题</th>
+										<th>课程名</th>
 										<th>操作</th>
-									</tr>
-									<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-										<td>1</td><td>1408010214</td><td><a href=""><img title="恢复" class="delImg" src="../../img/recove.jpg"/></a><a href=""><img class="delImg" title="彻底删除" src="../../img/predel.jpg"/></a></td>
-									</tr>
-									<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-										<td>2</td><td>123456</td><td><a href=""><img title="恢复" class="delImg" src="../../img/recove.jpg"/></a><a href=""><img class="delImg" title="彻底删除" src="../../img/predel.jpg"/></a></td>
 									</tr>
 								</table>
 							</div>
 						</div>
 						<div id="i3v2v">
-							<div id="i3v2vsel">
+							<div id="i3v2vsel" class="sel">
 								<input placeholder="请输入关键字" type="text"/>
 								<button class="button">查找</button>
 							</div>
@@ -229,14 +240,8 @@
 								<table id="i3v2_tab" class="tv_tab">
 									<tr class="tthead">
 										<th>序号</th>
-										<th>标题</th>
+										<th>课程名</th>
 										<th>操作</th>
-									</tr>
-									<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-										<td>1</td><td>1408010214</td><td><a href=""><img title="恢复" class="delImg" src="../../img/recove.jpg"/></a><a href=""><img class="delImg" title="彻底删除" src="../../img/predel.jpg"/></a></td>
-									</tr>
-									<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-										<td>2</td><td>123456</td><td><a href=""><img title="恢复" class="delImg" src="../../img/recove.jpg"/></a><a href=""><img class="delImg" title="彻底删除" src="../../img/predel.jpg"/></a></td>
 									</tr>
 								</table>
 							</div>

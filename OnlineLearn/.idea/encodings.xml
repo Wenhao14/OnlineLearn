@@ -3,7 +3,9 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/oll/controller/UserController.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/oll/filter/PerfectMsgFilter.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/oll/services/IndexPageService.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/oll/services/ManageService.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/oll/services/UserService.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/oll/util/DBUtil/ConnSql.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/oll/util/DBUtil/SqlVehicel.java" charset="GBK" />

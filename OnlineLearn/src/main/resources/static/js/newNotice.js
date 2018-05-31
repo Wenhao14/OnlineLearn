@@ -44,7 +44,7 @@ function getNews(pn) {
                     var newsList = data.rtMData;
                     for(var i = 0;i < newsList.length;i++){
                         news = newsList[i];
-                        newsHtml = "<div class=\"title\"><a target=\"view_window\" href=\""+ news.nurl+"\"><b>·     </b>"+news.ntitle+"</a><span>"+news.nupdate+"</span></div>";
+                        newsHtml = "<div class=\"title\"><a target=\"view_window\" onclick='upGoal(1)' href=\""+ news.nurl+"\"><b>·     </b>"+news.ntitle+"</a><span>"+news.nupdate+"</span></div>";
                         $("#items").append(newsHtml);
                     }
                 }
@@ -74,10 +74,22 @@ function getNotices(pn) {
                     for(var i = 0;i < noticeList.length;i++){
                         nt = noticeList[i];
 						var ntJson =encodeURI(JSON.stringify(nt));
-						noticeHtml = "<div class=\"title\"><a href=\"javascript:getContent("+ntJson+")\"><b>·     </b>" + nt.nttitle + "</a><span>" + nt.ntupdate + "</span></div>";
+						noticeHtml = "<div class=\"title\"><a href=\"javascript:getContent("+ntJson+"),upGoal(1)\"><b>·     </b>" + nt.nttitle + "</a><span>" + nt.ntupdate + "</span></div>";
 						$("#items").append(noticeHtml);
                     }
                 }
+            }
+        }
+    );
+}
+function upGoal(goal){
+    $.ajax(
+        {
+            type: "post",
+            url: "/user/api/addGoal",
+            dataType:"json",
+            data:{
+                "goal":goal
             }
         }
     );

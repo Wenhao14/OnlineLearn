@@ -67,6 +67,6 @@ public interface UserMsgDao extends JpaRepository<UserMsg,Long> {
      */
     @Modifying
     @Transactional
-    @Query("update UserMsg um set um.ugoal = ?2 where um.uid = ?1")
+    @Query("update UserMsg um set um.ugoal = um.ugoal+?2 where um.uid = ?1")
     Integer alterUGoal(Long uid,Long goal);
 }

@@ -46,7 +46,7 @@ function paramCheck(type) {
         }
         case "d":{
             d = $("#d").val();
-            var han = new RegExp("!^[\u4e00-\u9fa5]+$");
+            var han = new RegExp("^[\u4e00-\u9fa5]+$");
             if(d.length > 3 && han.test(d)){
                 check[3] = 1;
                 $("#ed").html("");
@@ -81,6 +81,9 @@ function perfectMsg() {
                 },
                 success : function(data) {
                     $("#ebt").html(data.rtMsg);
+                    if(data.rtCode == "T"){
+                        window.location.href="/index.html";
+                    }
                 },
                 error : function () {
                     $("#ebt").html("完善信息出错!");

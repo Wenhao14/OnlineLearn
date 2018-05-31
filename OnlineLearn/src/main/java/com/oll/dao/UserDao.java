@@ -1,6 +1,8 @@
 package com.oll.dao;
 
 import com.oll.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,7 +19,7 @@ public interface UserDao extends JpaRepository<User,Long>  {
       * @param userName
       * @return
       */
-     User getUserByUsername(String userName);
+     User getUserByUsernameAndIsdel(String userName,String isDel);
      /**
       * 修改密码
       * @param userName
@@ -61,4 +63,28 @@ public interface UserDao extends JpaRepository<User,Long>  {
      @Query("update User u set u.isPerMsg = 1 where u.uid = ?1")
      Integer alterIsPerMsg(Long uid);
 
+     /**
+      * 逻辑删除、恢复删除用户
+      * @param uName
+      * @return
+      */
+     @Modifying
+     @Transactional
+     @Query("update User u set u.isdel = ?2 where u.username = ?1")
+     Integer userDelOrRe(String uName,String flag);
+
+     /**
+      * 获取已删除用户
+      * @param isDel
+      * @return
+      */
+     Page<User> findByIsdel(String isDel, Pageable pageable);
+
+     /**
+      * 物理删除用户
+      * @param userName
+      * @return
+      */
+     @Transactional
+     Integer deleteByUsername(String userName);
 }

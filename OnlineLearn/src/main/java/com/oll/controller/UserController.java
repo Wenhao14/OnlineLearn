@@ -353,4 +353,28 @@ public class UserController {
     public Object upSelCouser(@RequestParam Long scid,@RequestParam String num,@RequestParam String sh,@RequestParam String sp){
         return null;
     }
+
+    /**
+     * 更新积分
+     * @param goal
+     * @return
+     */
+    @RequestMapping(value = "/addGoal",method = RequestMethod.POST)
+    public Object addGoal(@RequestParam Long goal){
+        userService.addUGoal(goal);
+        return null;
+    }
+
+    /**
+     *
+     * @param scId
+     * @param vNum
+     * @param ct
+     * @param jd
+     * @return
+     */
+    @RequestMapping(value = "/upLT",method = RequestMethod.POST)
+    public Object upLearnTime(@RequestParam Long scId,@RequestParam String vNum,@RequestParam String ct,@RequestParam String jd){
+        return userService.upVLearnTime(scId, vNum, ct, jd);
+    }
 }

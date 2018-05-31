@@ -45,10 +45,23 @@ function saveScore(score){
                 "score":score
             },
             success : function(data) {
+                 upGoal(5);
                  alert(data.rtMsg);
             },
             error : function () {
                  alert("出错了!");
+            }
+        }
+    );
+}
+function upGoal(goal){
+    $.ajax(
+        {
+            type: "post",
+            url: "/user/api/addGoal",
+            dataType:"json",
+            data:{
+               "goal":goal
             }
         }
     );

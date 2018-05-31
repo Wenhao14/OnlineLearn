@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.oll.cache.ShareLogin;
+import com.oll.dao.CourseDao;
 import com.oll.dao.SelcourseDao;
 import com.oll.dao.UserDao;
 import com.oll.dao.UserMsgDao;
@@ -41,12 +42,14 @@ public class UserService {
     private CommonUtil commonUtil;
     @Resource
     private SelcourseDao selcourseDao;
+    @Resource
+    private CourseDao courseDao;
     private static final String randomPwdPool = "VWX03abcdefg47M89hmOPQR12STUnoABCqrDEFps56tuzGHIJwKLijklNYvsyZ";
     /**
      * 用户登录
      */
     public Boolean userLogin(String userName,String passWord){
-        User user = userDao.getUserByUsername(userName);
+        User user = userDao.getUserByUsernameAndIsdel(userName,"0");
         if(user instanceof User){
             if(user.getPassword().equals(md5Encrypt.toEncryptString(passWord))){
                 if("N".equals(user.getHeadimg())){
@@ -140,6 +143,7 @@ public class UserService {
         userMsg.setUphone(phone);
         userMsg.setUsection(department);
         userMsg.setUgoal(new Long(0));
+        userMsg.setUrank("未进行");
         Object result = userMsgDao.save(userMsg);
         if(result instanceof UserMsg){
             if(userDao.alterIsPerMsg(user.getUid()) == 1){
@@ -280,7 +284,7 @@ public class UserService {
      * @return
      */
     public Boolean findPwd(String userName,String email){
-        Object user = userDao.getUserByUsername(userName);
+        Object user = userDao.getUserByUsernameAndIsdel(userName,"0");
         if(user instanceof User){
            Object userMsg = userMsgDao.findUserMsgByUid(((User) user).getUid());
            if(userMsg instanceof UserMsg){
@@ -499,8 +503,12 @@ public class UserService {
      */
     public void addUGoal(Long goal){
         try {
-            Long uid = shareLogin.getUser().getUid();
-            userMsgDao.alterUGoal(uid,goal);
+             User user = shareLogin.getUser();
+             if(user != null){
+                 userMsgDao.alterUGoal(user.getUid(),goal);
+                 user.setGrade(user.getGrade()+goal);
+                 shareLogin.alterRedisUMsg(user);
+             }
         }catch (Exception e){
             return;
         }
@@ -513,18 +521,41 @@ public class UserService {
         try {
             Long uid = shareLogin.getUser().getUid();
             Selcourse selcourse = new Selcourse();
-            selcourse.setChnum("1");
+            selcourse.setChnum("0");
             selcourse.setUid(uid);
             selcourse.setCid(cid);
             selcourse.setStudyhour("0");
             selcourse.setStudyplan("0");
             selcourse.setLatestime(commonUtil.formatDateTime(new Date()));
             selcourseDao.save(selcourse);
+            courseDao.upCSeltime(cid);
             baseRtM.setRtMCode("T");
             baseRtM.setRtMsg("添加成功，开始学习吧!");
+            addUGoal(5l);
         }catch (Exception e){
             baseRtM.setRtMCode("F");
             baseRtM.setRtMsg("额额...添加失败!");
+        }finally {
+            return baseRtM;
+        }
+    }
+
+    /**
+     * 更新学习进度
+     * @return
+     */
+    public BaseRtM upVLearnTime(Long scId,String cNum,String sh,String sp){
+        BaseRtM baseRtM = new BaseRtM();
+        try {
+             Selcourse selcourse = selcourseDao.findOne(scId);
+             selcourse.setChnum(cNum);
+             selcourse.setStudyhour(sh);
+             selcourse.setStudyplan(sp);
+             selcourse.setLatestime(commonUtil.formatDateTime(new Date()));
+             selcourseDao.save(selcourse);
+             baseRtM.setRtMCode("T");
+        }catch (Exception e){
+            baseRtM.setRtMCode("F");
         }finally {
             return baseRtM;
         }

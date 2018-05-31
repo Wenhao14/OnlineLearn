@@ -10,7 +10,7 @@ function navUrl(sel){
 			break;
 		}
 		case 3:{
-			window.location.href="/index.html"
+			window.location.href="http://127.0.0.1:8080";
 			break;
 		}
 		case 4:{

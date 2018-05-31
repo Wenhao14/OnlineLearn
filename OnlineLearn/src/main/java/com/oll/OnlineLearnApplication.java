@@ -44,6 +44,7 @@ public class OnlineLearnApplication {
 		registration.addUrlPatterns("/page/front/userSpace.html");
 		registration.addUrlPatterns("/page/common/perfectUMsg.html");
 		registration.addUrlPatterns("/page/back/manage.html");
+		registration.addUrlPatterns("/manage/api/*");
 		return registration;
 	}
 

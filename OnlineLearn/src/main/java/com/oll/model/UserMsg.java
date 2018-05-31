@@ -10,7 +10,6 @@ import java.io.Serializable;
 @JsonIgnoreProperties({ "handler","hibernateLazyInitializer" })
 public class UserMsg implements Serializable{
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long uid;
   @Column(name = "uname")
   private String uname;
