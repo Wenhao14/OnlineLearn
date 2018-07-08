@@ -307,7 +307,6 @@ function rePwd(){
  */
 function addTp()
 {
-    alert("正在解析，请稍后");
     var tpt = $("#tp").val();
     var tpc = $("#toc").val();
     var xmlFile = $("#tp").get(0).files[0];
@@ -318,16 +317,14 @@ function addTp()
         var x2js = new X2JS();
         var jsonObj = x2js.xml_str2json(xmlStr);
         var jsonStr = JSON.stringify(jsonObj.testPage);
-        alert("正在上传，请稍后");
         $.ajax(
             {
-                type: "post",
+                type:"post",
                 url: "/resource/api/addTp",
                 dataType:"json",
                 data:{
                     "title":tpt,
                     "descibe":tpc,
-                    "passDate":new Date(),
                     "content":jsonStr
                 },
                 success : function(data) {

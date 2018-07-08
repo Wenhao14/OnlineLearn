@@ -252,9 +252,9 @@ public class ResourceService {
     public BaseRtM getEnTps(Integer pageNum,Integer pageSize){
         BaseRtM baseRtM = new BaseRtM();
         try {
-            String sql = "SELECT tp.tpId,tp.tpName,tp.tpDescribe,a.aDate,a.aGrade FROM testpaper tp,answer a WHERE tp.tpId IN (SELECT a.tpID FROM answer a WHERE a.uId = ?) AND tp.tpIsDel = 0 ORDER BY a.aDate DESC LIMIT " + pageNum*pageSize+","+pageSize;
-            Long uid = shareLogin.getUser().getUid();
-            String[] param = {Long.toString(uid)};
+            String sql = "SELECT tp.tpId,tp.tpName,tp.tpDescribe,a.aDate,a.aGrade FROM testpaper tp,answer a WHERE tp.tpId IN (SELECT a.tpID FROM answer a WHERE a.uId = ?) And a.uId = ? AND tp.tpIsDel = 0 ORDER BY a.aDate DESC LIMIT " + pageNum*pageSize+","+pageSize;
+            String uid = shareLogin.getUser().getUid()+"";
+            String[] param = {uid,uid};
             List result = sqlVehicel.SqlSelect(sql,param);
             baseRtM.setRtMCode("T");
             baseRtM.setRtMData(result);

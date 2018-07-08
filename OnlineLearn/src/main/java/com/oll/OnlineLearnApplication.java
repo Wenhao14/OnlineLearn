@@ -16,7 +16,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-public class OnlineLearnApplication {
+public class OnlineLearnApplication  {
 
 	public static void main(String[] args) {
 		SpringApplication.run(OnlineLearnApplication.class, args);
